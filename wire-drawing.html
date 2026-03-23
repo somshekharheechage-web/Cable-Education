@@ -1,124 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wire Drawing — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wire Drawing | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li><li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html" class="active">Machines</a></li><li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html">Tutorials</a></li><li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="wire-drawing.html">Machines</a><span>/</span>Wire Drawing</div>
-  <p class="cs-hero__tag">// MANUFACTURING — STEP 1 OF 7</p>
-  <h1 class="cs-hero__title">WIRE<br>DRAWING</h1>
-  <p class="cs-hero__sub">Reducing wire rod diameter through a series of precision dies — the first and most fundamental step in cable conductor manufacturing.</p>
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="wire-drawing.html">Machines</a> / Wire</div>
+  <div class="tag">// MANUFACTURING — STEP 1 OF 7</div>
+  <h1>WIRE DRAWING</h1>
+  <p class="hero-sub">Reducing wire rod from 8 mm to precise fine diameters through progressive precision dies — the first step in conductor manufacturing.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT IS WIRE DRAWING?</div>
+<div class="prose"><p>Wire drawing pulls copper or aluminium rod (typically 8–12 mm diameter) through progressively smaller dies to reduce diameter and increase length. Each pass through a die is called a <strong>draft</strong>. The percentage cross-sectional area reduction per draft is the <strong>Reduction in Area (RA)</strong>.</p>
+<p>The process work-hardens the metal. After drawing, the wire is usually <strong>annealed</strong> (heat treated) to restore ductility and flexibility needed for flexible cables.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// MACHINE TYPES</div><div class="sec-title">TYPES OF WIRE DRAWING MACHINES</div>
+<div class="cards">
+  <div class="card"><div class="card-icon">🔩</div><div class="card-title">Rod Breakdown Machine (RBD)</div><div class="card-desc">First machine in the line. Handles initial large reduction from 8 mm rod down to ~1.5–2.5 mm. Uses 9–13 draft passes in one continuous run with high pulling forces.</div></div>
+  <div class="card"><div class="card-icon">⚙️</div><div class="card-title">Intermediate Drawing Machine</div><div class="card-desc">Takes wire from ~1.5 mm down to ~0.5 mm. Multiple draft blocks with individual speed control to maintain correct tension between dies.</div></div>
+  <div class="card"><div class="card-icon">🔬</div><div class="card-title">Fine Wire Drawing Machine</div><div class="card-desc">Produces wire from 0.5 mm down to 0.05 mm or smaller. Requires precise die alignment, superior lubrication, and high-speed capstans. Used for signal and magnet wire.</div></div>
+  <div class="card"><div class="card-icon">🔀</div><div class="card-title">Multi-Wire Drawing Machine</div><div class="card-desc">Draws 20+ wires simultaneously in parallel. Dramatically increases output for high-volume production of fine stranded conductor wire.</div></div>
+</div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// FORMULAS</div><div class="sec-title">WIRE DRAWING FORMULAS</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Parameter</th><th>Formula</th><th>Description</th></tr>
+  <tr><td>Reduction in Area (RA)</td><td>RA = (Dl² − Ds²) / Dl² × 100%</td><td>% cross-section reduced per draft</td></tr>
+  <tr><td>Draw Ratio</td><td>DR = Dl / Ds</td><td>Starting to finishing diameter ratio</td></tr>
+  <tr><td>Elongation</td><td>E = (Dl / Ds)²</td><td>Length increase factor after drawing</td></tr>
+  <tr><td>True Strain</td><td>ε = 2 × ln(Dl / Ds)</td><td>True plastic strain introduced</td></tr>
+</table></div>
+<div class="callout"><div class="callout-title">Variable Definitions</div><div class="callout-body"><strong>Dl</strong> = Starting (larger) diameter &nbsp;|&nbsp; <strong>Ds</strong> = Finishing (smaller) diameter &nbsp;|&nbsp; <strong>N</strong> = Number of dies</div></div>
+</div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// PROCESS</div><div class="sec-title">KEY PROCESS PARAMETERS</div>
+  <div class="step"><div class="step-num">1</div><div><div class="step-title">Lubrication</div><div class="step-text">Proper lubrication reduces die wear, friction heat, and surface defects. Wet drawing uses oil-in-water emulsions. Dry drawing uses soap or powder lubricants.</div></div></div>
+  <div class="step"><div class="step-num">2</div><div><div class="step-title">Die Angle</div><div class="step-text">Semi-angle of the die approach zone (typically 6°–12°) controls deformation geometry. Too shallow increases friction; too steep causes redundant deformation and breakage.</div></div></div>
+  <div class="step"><div class="step-num">3</div><div><div class="step-title">Annealing</div><div class="step-text">Drawing work-hardens copper. Intermediate or final annealing at 300–500°C recrystallises the grain structure, restoring elongation and flexibility for cable applications.</div></div></div>
+  <div class="step"><div class="step-num">4</div><div><div class="step-title">Die Material</div><div class="step-text">Tungsten carbide for copper and aluminium. Polycrystalline diamond (PCD) for fine wire — 10–50× longer die life but higher cost. Die wear is the primary maintenance cost.</div></div></div>
+  <div class="step"><div class="step-num">5</div><div><div class="step-title">Speed & Tension</div><div class="step-text">Drawing speed: 5 m/s (rod breakdown) to 50+ m/s (fine wire). Back-tension between capstans is controlled by closed-loop feedback — too little causes slip, too much causes breakage.</div></div></div>
 </div>
 
-<main class="cs-main">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">WHAT IS WIRE DRAWING?</h2>
-    <div class="cs-prose">
-      <p>Wire drawing is a metalworking process where a wire rod — typically 8–12 mm diameter copper or aluminium — is pulled through a series of progressively smaller dies to reduce its diameter and increase its length. Each pass through a die is called a <strong>draft</strong>, and each die reduces the cross-sectional area by a controlled percentage known as the <strong>reduction in area (RA)</strong>.</p>
-      <p>The process work-hardens the metal, improving tensile strength. After drawing, the wire is often <strong>annealed</strong> (heat treated) to restore ductility and flexibility, which is essential for cables that must be bent and flexed during installation and use.</p>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// MACHINE TYPES</p>
-    <h2 class="cs-section__title">TYPES OF WIRE DRAWING MACHINES</h2>
-    <div class="cs-cards">
-      <div class="cs-card">
-        <div class="cs-card__icon">🔩</div>
-        <div class="cs-card__title">Rod Breakdown Machine (RBD)</div>
-        <div class="cs-card__desc">Handles the initial large reduction from 8 mm rod down to ~1.5–2.5 mm wire. Uses high pulling forces and heavy-duty dies. Typically 9–13 draft passes in one continuous run. The first machine in any wire manufacturing line.</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">⚙️</div>
-        <div class="cs-card__title">Intermediate Drawing Machine</div>
-        <div class="cs-card__desc">Takes wire from ~1.5 mm down to ~0.5 mm. Multiple draft blocks with individual speed control to maintain correct tension and back-tension between dies. Used for medium-sized conductor wire.</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">🔬</div>
-        <div class="cs-card__title">Fine Wire Drawing Machine</div>
-        <div class="cs-card__desc">Produces fine wire from 0.5 mm down to 0.05 mm or smaller. Requires extremely precise die alignment, superior lubrication, and high-speed capstans. Used for signal wire, magnet wire, and fine stranded conductors.</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">🔀</div>
-        <div class="cs-card__title">Multi-Wire Drawing Machine</div>
-        <div class="cs-card__desc">Draws multiple wires simultaneously in parallel — up to 20+ wires at once. Dramatically increases output for high-volume production. Each wire passes through its own die series with shared take-up spools.</div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// KEY FORMULAS</p>
-    <h2 class="cs-section__title">WIRE DRAWING FORMULAS</h2>
-    <div class="cs-prose"><p>These are the essential calculations used daily in wire drawing operations. All variables are defined below the table.</p></div>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead><tr><th>Parameter</th><th>Formula</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td>Reduction in Area (RA)</td><td>RA = (Dl² − Ds²) / Dl² × 100%</td><td>Percentage cross-section reduced per draft</td></tr>
-          <tr><td>Area Reduction per Die</td><td>AR = (D₁² − D₂²) / D₁²</td><td>Fractional area reduction at a single die</td></tr>
-          <tr><td>Draw Ratio</td><td>DR = Dl / Ds</td><td>Ratio of starting to finishing diameter</td></tr>
-          <tr><td>Elongation</td><td>E = (Dl / Ds)²</td><td>Length increase factor after drawing</td></tr>
-          <tr><td>Die Bearing Length</td><td>Bl = 0.3 × Df to 0.5 × Df</td><td>Optimal bearing zone length in die</td></tr>
-          <tr><td>True Strain (per pass)</td><td>ε = 2 × ln(Dl / Ds)</td><td>True plastic strain introduced per draft</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="cs-callout" style="margin-top:20px">
-      <div class="cs-callout__title">Variable Definitions</div>
-      <div class="cs-callout__body"><strong>Dl</strong> = Starting (larger) wire diameter &nbsp;|&nbsp; <strong>Ds</strong> = Finishing (smaller) wire diameter &nbsp;|&nbsp; <strong>Df</strong> = Finished die diameter &nbsp;|&nbsp; <strong>Bl</strong> = Bearing length &nbsp;|&nbsp; <strong>A</strong> = Die approach angle &nbsp;|&nbsp; <strong>N</strong> = Number of dies</div>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// PROCESS NOTES</p>
-    <h2 class="cs-section__title">KEY PROCESS PARAMETERS</h2>
-    <div class="cs-steps">
-      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">Lubrication</div><div class="cs-step__text">Proper lubrication is critical to reduce die wear, friction heat, and surface defects. Wet drawing uses oil-in-water emulsions or neat oils. Dry drawing uses soap or powder lubricants. The lubricant film must survive the extreme pressure at the die entry angle.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">Die Angle</div><div class="cs-step__text">The semi-angle of the die approach zone (typically 6°–12°) controls the deformation zone geometry. Too shallow increases friction surface; too steep causes redundant deformation and wire breakage. Optimal angle depends on reduction ratio and material.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Annealing</div><div class="cs-step__text">Drawing work-hardens copper, reducing ductility. Intermediate or final annealing at 300–500°C (copper) recrystallises the grain structure, restoring elongation and flexibility. Continuous annealing lines anneal wire inline immediately after drawing.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">4</div><div class="cs-step__body"><div class="cs-step__title">Die Material</div><div class="cs-step__text">Tungsten carbide dies are standard for copper and aluminium. Polycrystalline diamond (PCD) dies are used for fine wire and hard materials — they last 10–50× longer but cost significantly more. Die wear is the primary maintenance cost in wire drawing.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">5</div><div class="cs-step__body"><div class="cs-step__title">Speed &amp; Tension</div><div class="cs-step__text">Drawing speed ranges from 5 m/s (rod breakdown) to over 50 m/s (fine wire). Back-tension between capstans is carefully controlled — too little causes wire slip, too much risks breakage. Modern machines use closed-loop tension feedback.</div></div></div>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// EXPLORE MORE</p>
-    <h2 class="cs-section__title">RELATED PAGES</h2>
-    <div class="cs-cards">
-      <a href="buncher.html" class="cs-card"><div class="cs-card__icon">🔀</div><div class="cs-card__title">Buncher — Step 2</div><div class="cs-card__desc">Twist drawn wires into stranded conductors.</div><div class="cs-card__arrow">Next step →</div></a>
-      <a href="die-tip-calculator.html" class="cs-card"><div class="cs-card__icon">⚙️</div><div class="cs-card__title">Die Tip Calculator</div><div class="cs-card__desc">Calculate die dimensions from wire specifications.</div><div class="cs-card__arrow">Calculate →</div></a>
-      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors Tutorial</div><div class="cs-card__desc">Conductor types, stranding, and resistance properties.</div><div class="cs-card__arrow">Learn →</div></a>
-    </div>
-  </section>
-</main>
-
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Machines</h4><a href="wire-drawing.html">Wire Drawing</a><a href="buncher.html">Buncher</a><a href="extruder.html">Extruder</a><a href="braiding.html">Braiding</a><a href="laying-up.html">Laying Up</a><a href="armoring.html">Armoring</a><a href="jacketing.html">Jacketing</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="die-tip-calculator.html">Calculators</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// NAVIGATE</div><div class="sec-title">ALL MANUFACTURING STEPS</div>
+<div class="cards">
+  <a href="wire-drawing.html" class="card"><div class="card-icon">🔩</div><div class="card-title">1. Wire Drawing</div><div class="card-arrow">Go →</div></a>
+  <a href="buncher.html" class="card"><div class="card-icon">🔀</div><div class="card-title">2. Buncher</div><div class="card-arrow">Go →</div></a>
+  <a href="extruder.html" class="card"><div class="card-icon">🏭</div><div class="card-title">3. Extruder</div><div class="card-arrow">Go →</div></a>
+  <a href="braiding.html" class="card"><div class="card-icon">🌐</div><div class="card-title">4. Braiding</div><div class="card-arrow">Go →</div></a>
+  <a href="laying-up.html" class="card"><div class="card-icon">🔄</div><div class="card-title">5. Laying Up</div><div class="card-arrow">Go →</div></a>
+  <a href="armoring.html" class="card"><div class="card-icon">🛡️</div><div class="card-title">6. Armoring</div><div class="card-arrow">Go →</div></a>
+  <a href="jacketing.html" class="card"><div class="card-icon">🎯</div><div class="card-title">7. Jacketing</div><div class="card-arrow">Go →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.is
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>

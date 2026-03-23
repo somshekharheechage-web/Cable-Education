@@ -1,88 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRAIDING MACHINE — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Braiding | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li><li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html" class="active">Machines</a></li><li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html">Tutorials</a></li><li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="wire-drawing.html">Machines</a><span>/</span>BRAIDING MACHINE</div>
-  <p class="cs-hero__tag">// MANUFACTURING — STEP 4 OF 7</p>
-  <h1 class="cs-hero__title">BRAIDING MACHINE</h1>
-  <p class="cs-hero__sub">Weaving metallic or non-metallic strands over an insulated cable core to form a shielding layer — protecting against EMI and providing mechanical reinforcement.</p>
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="wire-drawing.html">Machines</a> / Braiding</div>
+  <div class="tag">// MANUFACTURING — STEP 4 OF 7</div>
+  <h1>BRAIDING MACHINE</h1>
+  <p class="hero-sub">Weaving metallic or non-metallic strands over an insulated core to form EMI shielding and mechanical reinforcement.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT IS CABLE BRAIDING?</div>
+<div class="prose"><p>A braiding machine interlaces strands of wire or yarn in a diagonal weave over a cable core. This creates a tubular mesh for <strong>EMI shielding</strong> (copper wire) or <strong>mechanical reinforcement</strong> (Kevlar, fibreglass, stainless steel).</p>
+<p>Key metric: <strong>braid coverage</strong> — the percentage of the underlying surface covered. 85–95% is typical for shielded cables. Higher coverage = better EMI attenuation, more material, stiffer cable.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// OPERATION</div><div class="sec-title">MACHINE OPERATION</div>
+  <div class="step"><div class="step-num">1</div><div><div class="step-title">Carriers</div><div class="step-text">Small bobbins (carriers) loaded with wire or yarn are on a circular track in two groups — clockwise and counter-clockwise. They travel around each other, weaving over and under as the cable passes through the centre. Typical: 8–144 carriers.</div></div></div>
+  <div class="step"><div class="step-num">2</div><div><div class="step-title">Braiding Point</div><div class="step-text">Where opposing carrier strands cross and lock onto the cable surface. The braiding angle controls lay and coverage %. Steep angles = high coverage; shallow angles = lower coverage at higher speed.</div></div></div>
+  <div class="step"><div class="step-num">3</div><div><div class="step-title">Take-up Speed</div><div class="step-text">A haul-off pulls the cable at constant speed. The ratio of haul-off speed to carrier rotation speed sets the braid pitch. Increasing line speed reduces coverage; reducing it increases coverage and material usage.</div></div></div>
 </div>
-<main class="cs-main">
+<hr class="div">
+<div class="section"><div class="sec-tag">// FORMULA</div><div class="sec-title">BRAID COVERAGE FORMULA</div>
+<div class="callout"><div class="callout-title">C = 1 − (1 − n·d / (π·D·sinθ))²</div><div class="callout-body"><strong>n</strong> = carriers per group &nbsp;|&nbsp; <strong>d</strong> = strand wire diameter (mm) &nbsp;|&nbsp; <strong>D</strong> = cable OD under braid (mm) &nbsp;|&nbsp; <strong>θ</strong> = braid angle (degrees). Use the <a href="braiding-calculator.html">Braiding Calculator</a> to compute automatically.</div></div>
+</div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// MATERIALS</div><div class="sec-title">BRAIDING MATERIALS</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Material</th><th>Application</th><th>Coverage Range</th><th>Notes</th></tr>
+  <tr><td>Tinned copper</td><td>EMI shielding</td><td>85–97%</td><td>Most common. Good conductivity, solderable.</td></tr>
+  <tr><td>Bare copper</td><td>EMI shielding</td><td>85–97%</td><td>Lower cost. May oxidise in humid environments.</td></tr>
+  <tr><td>Stainless steel</td><td>Mechanical protection</td><td>70–90%</td><td>High strength, corrosion resistant, poor conductor.</td></tr>
+  <tr><td>Kevlar / Aramid yarn</td><td>Tensile strength</td><td>60–85%</td><td>Lightweight, non-conductive, high tensile strength.</td></tr>
+  <tr><td>Fibreglass yarn</td><td>Heat resistance</td><td>60–80%</td><td>Used in high-temperature and fire-resistant cables.</td></tr>
+</table></div></div>
 
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">WHAT IS CABLE BRAIDING?</h2>
-    <div class="cs-prose">
-      <p>A braiding machine interlaces strands of wire or yarn over a cable core in a diagonal weave pattern — creating a tubular mesh layer. In cable manufacturing, braiding serves two main functions: <strong>electromagnetic shielding</strong> (using tinned copper or bare copper wire) and <strong>mechanical reinforcement</strong> (using fibreglass, Kevlar, or stainless steel).</p>
-      <p>The key performance metric is <strong>braid coverage</strong> — the percentage of the underlying surface covered by the braid strands. Coverage of 85–95% is typical for shielded cables. Higher coverage means better EMI attenuation but also more material, slower speed, and a stiffer cable.</p>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// MACHINE OPERATION</p>
-    <h2 class="cs-section__title">HOW A BRAIDER WORKS</h2>
-    <div class="cs-steps">
-      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">Carriers</div><div class="cs-step__text">Small bobbins (carriers) loaded with wire or yarn are mounted on a circular track in two groups — clockwise and counter-clockwise. They travel around each other, weaving over and under as the cable passes through the centre. A typical braider has 8–144 carriers.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">Braiding Point</div><div class="cs-step__text">The point where opposing carrier strands cross and lock onto the cable surface. The distance from the carrier track to this point — the braiding angle — determines braid lay and coverage percentage. Steep angles give high coverage; shallow angles give lower coverage at higher speed.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Take-up Speed</div><div class="cs-step__text">A caterpillar haul-off pulls the cable at constant speed. The ratio of haul-off speed to carrier rotation speed sets the braid pitch. Increasing line speed reduces coverage; reducing it increases coverage and material usage.</div></div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// COVERAGE FORMULA</p>
-    <h2 class="cs-section__title">BRAID COVERAGE FORMULA</h2>
-    <div class="cs-callout">
-      <div class="cs-callout__title">C = 1 − (1 − n·d / (π·D·sin θ))²</div>
-      <div class="cs-callout__body"><strong>n</strong> = carriers per group &nbsp;|&nbsp; <strong>d</strong> = strand wire diameter (mm) &nbsp;|&nbsp; <strong>D</strong> = cable OD under braid (mm) &nbsp;|&nbsp; <strong>θ</strong> = braid angle (degrees)<br><br>Use the <a href="braiding-calculator.html">Braiding Calculator</a> to compute coverage, pitch, and carrier speed automatically.</div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// MATERIALS</p>
-    <h2 class="cs-section__title">BRAIDING MATERIALS</h2>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead><tr><th>Material</th><th>Application</th><th>Coverage Range</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>Tinned copper</td><td>EMI shielding</td><td>85–97%</td><td>Most common. Good conductivity, solderable.</td></tr>
-          <tr><td>Bare copper</td><td>EMI shielding</td><td>85–97%</td><td>Lower cost. May oxidise in humid environments.</td></tr>
-          <tr><td>Stainless steel</td><td>Mechanical protection</td><td>70–90%</td><td>High strength, corrosion resistant, poor conductor.</td></tr>
-          <tr><td>Kevlar / Aramid yarn</td><td>Tensile strength</td><td>60–85%</td><td>Lightweight, non-conductive, high tensile strength.</td></tr>
-          <tr><td>Fibreglass yarn</td><td>Heat resistance</td><td>60–80%</td><td>Used in high-temperature and fire-resistant cables.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// EXPLORE MORE</p>
-    <h2 class="cs-section__title">RELATED PAGES</h2>
-    <div class="cs-cards">
-      <a href="extruder.html" class="cs-card"><div class="cs-card__icon">←</div><div class="cs-card__title">Extruder — Step 3</div><div class="cs-card__desc">Previous step in the manufacturing process.</div><div class="cs-card__arrow">Previous →</div></a>
-      <a href="laying-up.html" class="cs-card"><div class="cs-card__icon">→</div><div class="cs-card__title">Laying Up — Step 5</div><div class="cs-card__desc">Next step in the manufacturing process.</div><div class="cs-card__arrow">Next step →</div></a>
-      <a href="braiding-calculator.html" class="cs-card"><div class="cs-card__icon">🔢</div><div class="cs-card__title">Related Calculator</div><div class="cs-card__desc">Engineering calculator for this process.</div><div class="cs-card__arrow">Calculate →</div></a>
-    </div>
-  </section>
-</main>
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Machines</h4><a href="wire-drawing.html">Wire Drawing</a><a href="buncher.html">Buncher</a><a href="extruder.html">Extruder</a><a href="braiding.html">Braiding</a><a href="laying-up.html">Laying Up</a><a href="armoring.html">Armoring</a><a href="jacketing.html">Jacketing</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="die-tip-calculator.html">Calculators</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// NAVIGATE</div><div class="sec-title">ALL MANUFACTURING STEPS</div>
+<div class="cards">
+  <a href="wire-drawing.html" class="card"><div class="card-icon">🔩</div><div class="card-title">1. Wire Drawing</div><div class="card-arrow">Go →</div></a>
+  <a href="buncher.html" class="card"><div class="card-icon">🔀</div><div class="card-title">2. Buncher</div><div class="card-arrow">Go →</div></a>
+  <a href="extruder.html" class="card"><div class="card-icon">🏭</div><div class="card-title">3. Extruder</div><div class="card-arrow">Go →</div></a>
+  <a href="braiding.html" class="card"><div class="card-icon">🌐</div><div class="card-title">4. Braiding</div><div class="card-arrow">Go →</div></a>
+  <a href="laying-up.html" class="card"><div class="card-icon">🔄</div><div class="card-title">5. Laying Up</div><div class="card-arrow">Go →</div></a>
+  <a href="armoring.html" class="card"><div class="card-icon">🛡️</div><div class="card-title">6. Armoring</div><div class="card-arrow">Go →</div></a>
+  <a href="jacketing.html" class="card"><div class="card-icon">🎯</div><div class="card-title">7. Jacketing</div><div class="card-arrow">Go →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.i
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>

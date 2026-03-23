@@ -1,180 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Electrical Cables — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electrical Cables | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo">
-    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>
-    Cable Script
-  </a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ethernet-cables.html" class="active">Cable Types</a></li>
-    <li><a href="wire-drawing.html">Machines</a></li>
-    <li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html">Tutorials</a></li>
-    <li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb">
-    <a href="index.html">Home</a><span>/</span>
-    <a href="ethernet-cables.html">Cable Types</a><span>/</span>
-    Electrical Cables
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
   </div>
-  <p class="cs-hero__tag">// POWER DISTRIBUTION</p>
-  <h1 class="cs-hero__title">ELECTRICAL<br>CABLES</h1>
-  <p class="cs-hero__sub">Power distribution, control, and instrumentation cables — voltage ratings, conductor sizing, insulation classes, and installation standards.</p>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="ethernet-cables.html">Cable Types</a> / Electrical Cables</div>
+  <div class="tag">// POWER DISTRIBUTION</div>
+  <h1>ELECTRICAL CABLES</h1>
+  <p class="hero-sub">Power distribution, control, and instrumentation cables — voltage ratings, conductor sizing, insulation classes, and installation standards.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT ARE ELECTRICAL CABLES?</div>
+<div class="prose"><p>Electrical cables carry current for power distribution, motor control, lighting, and industrial automation. Unlike communication cables, they are engineered for <strong>current-carrying capacity, voltage withstand, and thermal performance</strong>.</p>
+<p>Selection depends on voltage rating, current load, ambient temperature, installation environment, and applicable standards such as IEC 60502, BS 7671, or NEC.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// CABLE TYPES</div><div class="sec-title">TYPES OF ELECTRICAL CABLE</div>
+<div class="cards">
+  <div class="card"><div class="card-icon">⚡</div><div class="card-title">Low Voltage Power Cable (≤1 kV)</div><div class="card-desc">General power distribution in buildings, factories, and infrastructure. XLPE or PVC insulated with PVC or LSZH jacket. Examples: NYY, NYM, SWA armoured cable.</div></div>
+  <div class="card"><div class="card-icon">🔆</div><div class="card-title">Medium Voltage Cable (1–36 kV)</div><div class="card-desc">Underground distribution networks, industrial feeders, substations. XLPE insulation with semi-conductive screens and metal screen per IEC 60502-2.</div></div>
+  <div class="card"><div class="card-icon">🏭</div><div class="card-title">Control & Instrumentation</div><div class="card-desc">Multi-core cables for 4–20 mA loops and relay circuits. Individual or overall screened to reject interference in industrial environments.</div></div>
+  <div class="card"><div class="card-icon">🌡️</div><div class="card-title">Heat-Resistant Cable</div><div class="card-desc">Silicone or PTFE insulated for use near furnaces, boilers, engines where temperatures exceed standard PVC (70°C) or XLPE (90°C) limits.</div></div>
+  <div class="card"><div class="card-icon">💧</div><div class="card-title">Direct Burial Cable</div><div class="card-desc">Polyethylene outer sheath and steel armour. Resists soil pressure, moisture, and mechanical damage without conduit protection.</div></div>
+  <div class="card"><div class="card-icon">🔥</div><div class="card-title">Fire-Resistant Cable (FRC)</div><div class="card-desc">Mica tape over conductors maintains circuit integrity during fire. Required for emergency lighting and safety systems per IEC 60331.</div></div>
+</div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// CONDUCTOR SIZING</div><div class="sec-title">CONDUCTOR SIZING GUIDE</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Cross-section</th><th>In Conduit</th><th>In Air</th><th>Typical Application</th></tr>
+  <tr><td>1.5 mm²</td><td>13 A</td><td>17 A</td><td>Lighting circuits</td></tr>
+  <tr><td>2.5 mm²</td><td>18 A</td><td>23 A</td><td>Socket outlets</td></tr>
+  <tr><td>4 mm²</td><td>24 A</td><td>30 A</td><td>Shower units, cookers</td></tr>
+  <tr><td>6 mm²</td><td>31 A</td><td>38 A</td><td>Sub-main, large appliances</td></tr>
+  <tr><td>10 mm²</td><td>43 A</td><td>52 A</td><td>Distribution boards</td></tr>
+  <tr><td>16 mm²</td><td>57 A</td><td>70 A</td><td>Main incomer, motor feeders</td></tr>
+  <tr><td>25 mm²</td><td>75 A</td><td>92 A</td><td>Large motor feeders</td></tr>
+  <tr><td>50 mm²</td><td>105 A</td><td>133 A</td><td>LV switchboard feeders</td></tr>
+  <tr><td>95 mm²</td><td>153 A</td><td>196 A</td><td>Main supply cables</td></tr>
+  <tr><td>185 mm²</td><td>217 A</td><td>278 A</td><td>HV/LV transformer connections</td></tr>
+</table></div>
+<div class="callout yellow"><div class="callout-title">⚠ Derating Required</div><div class="callout-body">Apply correction factors for ambient temperature above 30°C, cables in bundles, and thermal insulation. Always use factors from the applicable standard before finalising conductor size.</div></div>
 </div>
-
-<main class="cs-main">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">WHAT ARE ELECTRICAL CABLES?</h2>
-    <div class="cs-prose">
-      <p>Electrical cables are designed to carry electrical current for power distribution, motor control, lighting circuits, and industrial automation. Unlike communication cables — which prioritise signal integrity — electrical cables are engineered for <strong>current-carrying capacity, voltage withstand, and thermal performance</strong>.</p>
-      <p>Selection depends on voltage rating, current load, ambient temperature, installation environment (indoor, outdoor, underground, submerged), and applicable standards such as IEC 60502, BS 7671, or NEC.</p>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// CABLE FAMILIES</p>
-    <h2 class="cs-section__title">TYPES OF ELECTRICAL CABLE</h2>
-    <div class="cs-cards">
-      <div class="cs-card">
-        <div class="cs-card__icon">⚡</div>
-        <div class="cs-card__title">Low Voltage Power Cable (≤1 kV)</div>
-        <div class="cs-card__desc">Used for general power distribution in buildings, factories, and infrastructure. Typically XLPE or PVC insulated with PVC or LSZH jacket. Examples: NYY, NYM, SWA armoured cable.</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">🔆</div>
-        <div class="cs-card__title">Medium Voltage Cable (1 kV–36 kV)</div>
-        <div class="cs-card__desc">For underground distribution networks, industrial feeders, and substations. XLPE insulation with semi-conductive screens, metal screen, and armour. Designed per IEC 60502-2.</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">🏭</div>
-        <div class="cs-card__title">Control & Instrumentation Cable</div>
-        <div class="cs-card__desc">Multi-core cables for carrying control signals, 4–20 mA loops, and relay circuits. Individual or overall screened to reject interference in industrial environments.</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">🌡️</div>
-        <div class="cs-card__title">Heat-Resistant Cable</div>
-        <div class="cs-card__desc">Silicone or PTFE insulated for use near furnaces, boilers, and engines where ambient temperatures exceed the limits of standard PVC (70°C) or XLPE (90°C).</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">💧</div>
-        <div class="cs-card__title">Direct Burial / Submarine Cable</div>
-        <div class="cs-card__desc">Polyethylene outer sheath and steel wire or tape armour. Designed to resist soil pressure, moisture ingress, and mechanical damage without conduit protection.</div>
-      </div>
-      <div class="cs-card">
-        <div class="cs-card__icon">🔥</div>
-        <div class="cs-card__title">Fire-Resistant Cable (FRC)</div>
-        <div class="cs-card__desc">Maintains circuit integrity during a fire. Uses mica tape over conductors. Required for emergency lighting, fire alarms, and safety system circuits per IEC 60331.</div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// CONDUCTOR SIZING</p>
-    <h2 class="cs-section__title">CONDUCTOR SIZING GUIDE</h2>
-    <div class="cs-prose">
-      <p>Conductor cross-section determines current-carrying capacity (ampacity). Under-sizing causes overheating; over-sizing wastes material. Always consult IEC 60364 or local wiring regulations for certified sizing tables.</p>
-    </div>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead>
-          <tr><th>Cross-section (mm²)</th><th>Approx. Ampacity (in conduit)</th><th>Approx. Ampacity (in air)</th><th>Typical Application</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1.5 mm²</td><td>13 A</td><td>17 A</td><td>Lighting circuits</td></tr>
-          <tr><td>2.5 mm²</td><td>18 A</td><td>23 A</td><td>Socket outlets, small appliances</td></tr>
-          <tr><td>4 mm²</td><td>24 A</td><td>30 A</td><td>Shower units, cookers</td></tr>
-          <tr><td>6 mm²</td><td>31 A</td><td>38 A</td><td>Sub-main, large appliances</td></tr>
-          <tr><td>10 mm²</td><td>43 A</td><td>52 A</td><td>Distribution boards</td></tr>
-          <tr><td>16 mm²</td><td>57 A</td><td>70 A</td><td>Main incomer, motor feeders</td></tr>
-          <tr><td>25 mm²</td><td>75 A</td><td>92 A</td><td>Large motor feeders</td></tr>
-          <tr><td>50 mm²</td><td>105 A</td><td>133 A</td><td>LV switchboard feeders</td></tr>
-          <tr><td>95 mm²</td><td>153 A</td><td>196 A</td><td>Main supply cables</td></tr>
-          <tr><td>185 mm²</td><td>217 A</td><td>278 A</td><td>HV/LV transformer connections</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="cs-callout cs-callout--warn" style="margin-top:20px">
-      <div class="cs-callout__title">⚠ Derating Factors</div>
-      <div class="cs-callout__body">Ampacity values must be derated for ambient temperature above 30°C, grouping of cables in bundles, and installation in thermal insulation. Always apply correction factors from the relevant standard before finalising conductor size.</div>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// INSULATION</p>
-    <h2 class="cs-section__title">INSULATION MATERIALS</h2>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead>
-          <tr><th>Material</th><th>Max Temp</th><th>Key Properties</th><th>Typical Use</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>PVC</td><td>70°C</td><td>Low cost, flame retardant, flexible</td><td>General building wiring</td></tr>
-          <tr><td>XLPE</td><td>90°C (105°C short circuit)</td><td>Better thermal, low dielectric loss</td><td>Power distribution, MV cables</td></tr>
-          <tr><td>EPR</td><td>90°C</td><td>Flexible, good for wet locations</td><td>Mining, shipboard, flexible power</td></tr>
-          <tr><td>Silicone</td><td>180°C</td><td>Extreme heat, flexible at low temps</td><td>Ovens, engines, aerospace</td></tr>
-          <tr><td>PTFE</td><td>260°C</td><td>Chemical resistance, ultra-high temp</td><td>Petrochemical, industrial sensors</td></tr>
-          <tr><td>LSZH</td><td>70–90°C</td><td>Low smoke, zero halogen in fire</td><td>Tunnels, public buildings, rail</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <hr class="cs-divider">
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// EXPLORE MORE</p>
-    <h2 class="cs-section__title">RELATED PAGES</h2>
-    <div class="cs-cards">
-      <a href="automotive-cables.html" class="cs-card">
-        <div class="cs-card__icon">🚗</div>
-        <div class="cs-card__title">Automotive Cables</div>
-        <div class="cs-card__desc">Wire harnesses, high-voltage EV cables, and CAN bus.</div>
-        <div class="cs-card__arrow">Explore →</div>
-      </a>
-      <a href="insulation.html" class="cs-card">
-        <div class="cs-card__icon">🛡️</div>
-        <div class="cs-card__title">Insulation Tutorial</div>
-        <div class="cs-card__desc">Deep dive into insulation materials, properties, and selection.</div>
-        <div class="cs-card__arrow">Explore →</div>
-      </a>
-      <a href="conductor-resistance.html" class="cs-card">
-        <div class="cs-card__icon">🔢</div>
-        <div class="cs-card__title">Resistance Calculator</div>
-        <div class="cs-card__desc">Calculate DC resistance from conductor size and temperature.</div>
-        <div class="cs-card__arrow">Calculate →</div>
-      </a>
-    </div>
-  </section>
-
-</main>
-
-<footer class="cs-footer">
-  <div class="cs-footer__brand">
-    <div class="cs-footer__logo">Cable Script</div>
-    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
+<hr class="div">
+<div class="section"><div class="sec-tag">// INSULATION</div><div class="sec-title">INSULATION MATERIALS</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Material</th><th>Max Temp</th><th>Key Properties</th><th>Typical Use</th></tr>
+  <tr><td>PVC</td><td>70°C</td><td>Low cost, flame retardant, flexible</td><td>General building wiring</td></tr>
+  <tr><td>XLPE</td><td>90°C</td><td>Better thermal, low dielectric loss</td><td>Power distribution, MV cables</td></tr>
+  <tr><td>EPR</td><td>90°C</td><td>Flexible, good for wet locations</td><td>Mining, shipboard, flexible power</td></tr>
+  <tr><td>Silicone</td><td>180°C</td><td>Extreme heat, flexible at low temps</td><td>Ovens, engines, aerospace</td></tr>
+  <tr><td>PTFE</td><td>260°C</td><td>Chemical resistance, ultra-high temp</td><td>Petrochemical, industrial sensors</td></tr>
+  <tr><td>LSZH</td><td>70–90°C</td><td>Low smoke, zero halogen in fire</td><td>Tunnels, public buildings, rail</td></tr>
+</table></div></div>
+</div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
   </div>
-  <div class="cs-footer__col">
+  <div>
     <h4>Cable Types</h4>
     <a href="ethernet-cables.html">Ethernet Cables</a>
     <a href="coaxial-cables.html">Coaxial Cables</a>
@@ -182,26 +199,25 @@
     <a href="electrical-cables.html">Electrical Cables</a>
     <a href="automotive-cables.html">Automotive Cables</a>
   </div>
-  <div class="cs-footer__col">
+  <div>
     <h4>Machines</h4>
     <a href="wire-drawing.html">Wire Drawing</a>
     <a href="buncher.html">Buncher</a>
     <a href="extruder.html">Extruder</a>
     <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
     <a href="armoring.html">Armoring</a>
     <a href="jacketing.html">Jacketing</a>
   </div>
-  <div class="cs-footer__col">
+  <div>
     <h4>Resources</h4>
-    <a href="conductors.html">Tutorials</a>
     <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
     <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
   </div>
 </footer>
-<div class="cs-footer__bottom">
+<div class="footer-bottom">
   <span>© 2025 Cable Script. All rights reserved.</span>
-  <span>Built for cable engineering professionals.</span>
+  <span>somshekhar.heechage@gmail.com</span>
 </div>
-<script>
-  const obs = new IntersectionObserver(
-    entries => entries.forEach(e => e.isIntersecting && e.targ
+</body></html>

@@ -1,102 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JACKET / SHEATH — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jacket / Sheath | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html">Machines</a></li>
-    <li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html" class="active">Tutorials</a></li>
-    <li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="conductors.html">Tutorials</a><span>/</span>Jacket / Sheath</div>
-  <p class="cs-hero__tag">// CABLE COMPONENTS — 4 OF 6</p>
-  <h1 class="cs-hero__title">JACKET / SHEATH</h1>
-  <p class="cs-hero__sub">PVC, PE, LSZH, TPU, neoprene, silicone — outer jacket materials, their properties, and installation environment selection guide.</p>
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="conductors.html">Tutorials</a> / Jacket / Sheath</div>
+  <div class="tag">// TUTORIAL — CABLE COMPONENTS</div>
+  <h1>JACKET / SHEATH</h1>
+  <p class="hero-sub">PVC, PE, LSZH, TPU, Neoprene, Silicone — outer sheath materials for every installation environment.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT IS THE CABLE JACKET?</div>
+<div class="prose"><p>The outer jacket (or sheath) is the cable's final protective layer. It provides mechanical protection against abrasion, impact, and crushing; environmental protection against moisture, chemicals, UV radiation, and temperature extremes; and electrical safety by preventing accidental contact with the cable's internal components.</p>
+<p>The jacket material is selected based on the installation environment, operating temperature, required flame rating, and chemical exposure the cable will encounter throughout its service life.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// MATERIALS</div><div class="sec-title">JACKET MATERIALS</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Material</th><th>Temp Range</th><th>Key Properties</th><th>Best For</th></tr>
+  <tr><td>PVC</td><td>−15°C to +70°C</td><td>Low cost, flexible, flame retardant, oil resistant</td><td>General indoor/outdoor, building wiring</td></tr>
+  <tr><td>Polyethylene (PE)</td><td>−40°C to +80°C</td><td>Excellent moisture & chemical resistance, hard</td><td>Direct burial, underground, submarine cables</td></tr>
+  <tr><td>LSZH / LSOH</td><td>−20°C to +70°C</td><td>Low smoke, no halogen acid in fire</td><td>Tunnels, public buildings, rail, offshore platforms</td></tr>
+  <tr><td>Polyurethane (PUR / TPU)</td><td>−40°C to +80°C</td><td>Excellent abrasion & oil resistance, flexible</td><td>Robotics, drag chains, food processing, machine tools</td></tr>
+  <tr><td>Neoprene (CR)</td><td>−35°C to +90°C</td><td>Oil, ozone, weather resistant</td><td>Mining, welding cables, marine, outdoor power</td></tr>
+  <tr><td>Silicone Rubber</td><td>−60°C to +180°C</td><td>Wide temp range, very flexible, soft</td><td>Furnaces, boilers, aerospace, medical equipment</td></tr>
+  <tr><td>PTFE</td><td>−200°C to +260°C</td><td>Chemical inert, ultra-high temp, slippery</td><td>Chemical plants, semiconductor, laboratory</td></tr>
+</table></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// SELECTION</div><div class="sec-title">ENVIRONMENT SELECTION GUIDE</div>
+<div class="callout"><div class="callout-title">Indoor Fixed Installation</div><div class="callout-body">PVC is standard for most indoor fixed wiring. LSZH required in occupied buildings, transport, and any enclosed space where smoke in a fire would be dangerous. Check local fire regulations — PVC is banned in many countries for these applications.</div></div>
+<div class="callout blue"><div class="callout-title">Direct Burial / Underground</div><div class="callout-body">Use PE or HDPE jacket over armoured cable. PE resists moisture migration and soil chemicals over decades of buried service. Never bury PVC-jacketed cables without additional duct protection — PVC degrades from soil chemicals and root penetration.</div></div>
+<div class="callout green"><div class="callout-title">Industrial / Moving Applications</div><div class="callout-body">PUR (Polyurethane) for drag chains, robot arms, and any application where the cable is continuously flexed and subject to oil splash or abrasion. PVC will crack and fail in continuous flex applications. PUR can withstand millions of flex cycles.</div></div>
 </div>
-<main class="cs-main">
 
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">THE ROLE OF THE OUTER JACKET</h2>
-    <div class="cs-prose">
-      <p>The outer jacket (or sheath) is the cable's last line of defence against the installation environment. It protects all internal components from mechanical damage, moisture ingress, UV radiation, chemical attack, and temperature extremes. It also carries the cable's identification marking and colour coding.</p>
-      <p>The jacket does not carry current or signal — its role is purely protective. But a jacket failure allows moisture into the core, which can cause insulation degradation, short circuits, and corrosion of conductors over time. Jacket selection is therefore as critical as any other design decision.</p>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// MATERIALS</p>
-    <h2 class="cs-section__title">JACKET MATERIALS</h2>
-    <div class="cs-cards">
-      <div class="cs-card"><div class="cs-card__icon">🔵</div><div class="cs-card__title">PVC (Polyvinyl Chloride)</div><div class="cs-card__desc">Max 70°C. Low cost, flexible, inherently flame retardant. Available in dozens of colours. Good moisture and abrasion resistance. Releases HCl smoke in fire — avoid in enclosed spaces. The default choice for general-purpose cables in moderate environments.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">⬜</div><div class="cs-card__title">Polyethylene (PE / MDPE / HDPE)</div><div class="cs-card__desc">Max 80°C. Excellent moisture and chemical resistance. Semi-rigid — provides good mechanical protection. UV-stabilised grades for outdoor use. Standard for direct burial, underground ducts, and aerial cables. Black PE is the most UV-resistant colour.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🟢</div><div class="cs-card__title">LSZH (Low Smoke Zero Halogen)</div><div class="cs-card__desc">Max 70°C. Minimal toxic smoke and no halogen acid gas when burning. Mandatory in tunnels, public buildings, rail, data centres, and offshore platforms. Less flexible than PVC and slightly more expensive. Must meet IEC 61034 (smoke) and IEC 60754 (halogen) tests.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🟡</div><div class="cs-card__title">TPU (Thermoplastic Polyurethane)</div><div class="cs-card__desc">Max 80°C. Outstanding abrasion resistance — 10× better than PVC. Excellent oil and chemical resistance. Used in robotics, drag chains, food processing, and any cable subject to constant mechanical wear. More expensive than PVC but dramatically outlasts it in abrasive environments.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🔴</div><div class="cs-card__title">Neoprene (CR — Chloroprene Rubber)</div><div class="cs-card__desc">Max 90°C. Excellent weather, ozone, and oil resistance. Good mechanical toughness. Used in mining cables, welding leads, portable power tools, and marine applications where rubber flexibility and oil resistance are both required.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🟠</div><div class="cs-card__title">Silicone Rubber</div><div class="cs-card__desc">Max 180°C continuously. Remains flexible at −60°C. Used for furnace and kiln wiring, aerospace, medical equipment, and high-temperature industrial applications. Fragile surface — not suitable where abrasion is a concern without an overbraid.</div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// SELECTION GUIDE</p>
-    <h2 class="cs-section__title">CHOOSING THE RIGHT JACKET</h2>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead><tr><th>Installation Environment</th><th>Recommended Jacket</th></tr></thead>
-        <tbody>
-          <tr><td>Indoor office / commercial building</td><td>PVC or LSZH</td></tr>
-          <tr><td>Public building, tunnel, metro, rail</td><td>LSZH (mandatory)</td></tr>
-          <tr><td>Direct burial / underground</td><td>MDPE or HDPE (black)</td></tr>
-          <tr><td>Outdoor aerial (UV exposure)</td><td>UV-stabilised PE or black PVC</td></tr>
-          <tr><td>Industrial factory floor</td><td>PUR or Neoprene (oil/abrasion)</td></tr>
-          <tr><td>Robot arm / drag chain</td><td>TPU or PUR (flex + abrasion)</td></tr>
-          <tr><td>High temperature (>90°C)</td><td>Silicone or PTFE jacketed</td></tr>
-          <tr><td>Marine / offshore</td><td>LSZH or Neoprene</td></tr>
-          <tr><td>Mining / quarry</td><td>Neoprene or EPR jacketed</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// RELATED</p>
-    <h2 class="cs-section__title">RELATED PAGES</h2>
-    <div class="cs-cards">
-      <a href="jacketing.html" class="cs-card"><div class="cs-card__icon">🏭</div><div class="cs-card__title">Jacketing Machine</div><div class="cs-card__desc">Step 7 of manufacturing — applying the outer sheath.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="sheath-weight.html" class="cs-card"><div class="cs-card__icon">⚖️</div><div class="cs-card__title">Sheath Weight Calculator</div><div class="cs-card__desc">Calculate jacket weight per km from dimensions and density.</div><div class="cs-card__arrow">Calculate →</div></a>
-      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation Tutorial</div><div class="cs-card__desc">The difference between insulation and jacket materials.</div><div class="cs-card__arrow">Read →</div></a>
-    </div>
-  </section>
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// ALL COMPONENTS</p>
-    <h2 class="cs-section__title">CABLE COMPONENTS SERIES</h2>
-    <div class="cs-cards">
-      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors</div><div class="cs-card__desc">Copper, aluminium, CCA, CCS, silver-plated.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation</div><div class="cs-card__desc">PVC, XLPE, PE, EPR, PTFE, foam PE.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="shielding.html" class="cs-card"><div class="cs-card__icon">📡</div><div class="cs-card__title">Shielding</div><div class="cs-card__desc">Foil, braid, spiral, combination shields.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="jacket-sheath.html" class="cs-card"><div class="cs-card__icon">🧱</div><div class="cs-card__title">Jacket / Sheath</div><div class="cs-card__desc">PVC, PE, LSZH, TPU, neoprene, silicone.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="fillers.html" class="cs-card"><div class="cs-card__icon">🔬</div><div class="cs-card__title">Fillers</div><div class="cs-card__desc">PP yarn, PE rods, water-blocking compounds.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="strength-members.html" class="cs-card"><div class="cs-card__icon">💪</div><div class="cs-card__title">Strength Members</div><div class="cs-card__desc">Kevlar, fibreglass, steel wire tension elements.</div><div class="cs-card__arrow">Read →</div></a>
-    </div>
-  </section>
-</main>
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Tutorials</h4><a href="conductors.html">Conductors</a><a href="insulation.html">Insulation</a><a href="shielding.html">Shielding</a><a href="jacket-sheath.html">Jacket / Sheath</a><a href="fillers.html">Fillers</a><a href="strength-members.html">Strength Members</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="die-tip-calculator.html">Calculators</a><a href="wire-drawing.html">Machines</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// OTHER TUTORIALS</div><div class="sec-title">ALL COMPONENTS</div>
+<div class="cards">
+  <a href="conductors.html" class="card"><div class="card-icon">🔴</div><div class="card-title">Conductors</div><div class="card-arrow">Learn →</div></a>
+  <a href="insulation.html" class="card"><div class="card-icon">🟡</div><div class="card-title">Insulation</div><div class="card-arrow">Learn →</div></a>
+  <a href="shielding.html" class="card"><div class="card-icon">🔵</div><div class="card-title">Shielding</div><div class="card-arrow">Learn →</div></a>
+  <a href="jacket-sheath.html" class="card"><div class="card-icon">🟢</div><div class="card-title">Jacket / Sheath</div><div class="card-arrow">Learn →</div></a>
+  <a href="fillers.html" class="card"><div class="card-icon">⚪</div><div class="card-title">Fillers & Compounds</div><div class="card-arrow">Learn →</div></a>
+  <a href="strength-members.html" class="card"><div class="card-icon">💪</div><div class="card-title">Strength Members</div><div class="card-arrow">Learn →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.i
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>

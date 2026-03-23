@@ -1,118 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CONDUCTORS — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conductors | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html">Machines</a></li>
-    <li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html" class="active">Tutorials</a></li>
-    <li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="conductors.html">Tutorials</a><span>/</span>Conductors</div>
-  <p class="cs-hero__tag">// CABLE COMPONENTS — 1 OF 6</p>
-  <h1 class="cs-hero__title">CONDUCTORS</h1>
-  <p class="cs-hero__sub">Copper, aluminium, CCA, CCS, and silver-plated conductors — materials, IEC 60228 classes, and selection guidance.</p>
-</div>
-<main class="cs-main">
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="conductors.html">Tutorials</a> / Conductors</div>
+  <div class="tag">// TUTORIAL — CABLE COMPONENTS</div>
+  <h1>CONDUCTORS</h1>
+  <p class="hero-sub">Copper, aluminium, CCA, silver-plated — conductor types, IEC 60228 classes, and selection criteria.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT IS A CONDUCTOR?</div>
+<div class="prose"><p>The conductor is the electrically conductive element at the heart of every cable. It carries the electrical current or signal from source to destination. Conductor material, cross-sectional area, construction, and surface finish determine the cable's current-carrying capacity, resistance, and flexibility.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// MATERIALS</div><div class="sec-title">CONDUCTOR MATERIALS</div>
+<div class="cards">
+  <div class="card"><div class="card-icon">🟠</div><div class="card-title">Copper (Cu)</div><div class="card-desc">The most common conductor material. Excellent electrical conductivity (second only to silver), flexible, easily soldered, and corrosion resistant. Used in over 90% of power and data cables. Resistivity: 0.01724 Ω·mm²/m at 20°C.</div></div>
+  <div class="card"><div class="card-icon">⚪</div><div class="card-title">Aluminium (Al)</div><div class="card-desc">About 61% of copper's conductivity but only 30% of its weight. Used in overhead power lines and large building feeders where weight reduction is critical. Requires larger cross-section than copper for equivalent ampacity. Resistivity: 0.0282 Ω·mm²/m.</div></div>
+  <div class="card"><div class="card-icon">🔵</div><div class="card-title">Copper-Clad Aluminium (CCA)</div><div class="card-desc">Aluminium core with outer copper layer. Combines aluminium's light weight with copper's good conductivity and solderability. Common in CATV, antenna leads, and some Ethernet cables. Lower cost than pure copper.</div></div>
+  <div class="card"><div class="card-icon">✨</div><div class="card-title">Tinned Copper</div><div class="card-desc">Copper conductor electroplated with tin. Improves solderability, resists oxidation in humid or marine environments, and eases termination. Common in automotive and marine cables where bare copper would corrode.</div></div>
+</div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// IEC 60228</div><div class="sec-title">IEC 60228 CONDUCTOR CLASSES</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Class</th><th>Construction</th><th>Application</th></tr>
+  <tr><td>Class 1</td><td>Solid conductor (single wire)</td><td>Fixed wiring in conduit or trunking</td></tr>
+  <tr><td>Class 2</td><td>Stranded conductor</td><td>Fixed wiring — more flexible than Class 1</td></tr>
+  <tr><td>Class 5</td><td>Flexible stranded (fine wires)</td><td>Flexible cables and cords — portable equipment</td></tr>
+  <tr><td>Class 6</td><td>Extra-flexible stranded (very fine wires)</td><td>Highly flexible cables — welding, robotics</td></tr>
+</table></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// COMPARISON</div><div class="sec-title">COPPER vs ALUMINIUM</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Property</th><th>Copper</th><th>Aluminium</th></tr>
+  <tr><td>Electrical conductivity</td><td>100% (reference)</td><td>61% of copper</td></tr>
+  <tr><td>Density</td><td>8.9 g/cm³</td><td>2.7 g/cm³</td></tr>
+  <tr><td>Tensile strength</td><td>200–250 MPa</td><td>85–165 MPa</td></tr>
+  <tr><td>Relative cost</td><td>Higher</td><td>Lower</td></tr>
+  <tr><td>Solderability</td><td>Excellent</td><td>Poor (oxide layer)</td></tr>
+  <tr><td>Creep resistance</td><td>Good</td><td>Poor (requires torque check)</td></tr>
+</table></div></div>
 
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">WHAT ARE CONDUCTORS?</h2>
-    <div class="cs-prose">
-      <p>Conductors are the core elements of a cable through which electrical current flows. They are typically made of copper or aluminium due to their high conductivity, and may be a single solid wire or a stranded assembly of multiple smaller wires that enhance flexibility and durability.</p>
-      <p>Conductor selection directly impacts a cable's resistance, weight, cost, and flexibility. The choice of material, cross-section, and stranding class must match the electrical load, installation conditions, and applicable standard — typically <strong>IEC 60228</strong>.</p>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// CONDUCTOR MATERIALS</p>
-    <h2 class="cs-section__title">CONDUCTOR TYPES</h2>
-    <div class="cs-cards">
-      <div class="cs-card"><div class="cs-card__icon">🟠</div><div class="cs-card__title">Copper (Annealed)</div><div class="cs-card__desc">The industry standard. Resistivity 0.01724 Ω·mm²/m at 20°C. Excellent conductivity, flexibility, and solderability. Used in virtually all power, data, and signal cables. More expensive than aluminium but offers superior performance in all classes.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">⬜</div><div class="cs-card__title">Aluminium</div><div class="cs-card__desc">Resistivity 0.0282 Ω·mm²/m — about 61% of copper's conductivity. Lighter and significantly cheaper. Used in overhead power lines, large underground feeders, and building wire where weight and cost are priorities. Requires larger cross-section for equivalent resistance.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🔵</div><div class="cs-card__title">Copper-Clad Aluminium (CCA)</div><div class="cs-card__desc">Aluminium core bonded with a thin copper layer. Lighter and cheaper than solid copper. Acceptable for fixed wiring but not for flexing applications — the copper layer can crack with repeated bending. Must not be used where solid copper is specified.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">⚫</div><div class="cs-card__title">Copper-Clad Steel (CCS)</div><div class="cs-card__desc">Steel core with copper coating. High tensile strength for overhead and messenger wire applications. Lower conductivity than pure copper. The skin effect at RF frequencies means current flows mainly in the copper layer — effective for antenna and CATV drop wire.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">⚪</div><div class="cs-card__title">Silver-Plated Copper</div><div class="cs-card__desc">Copper conductor with thin silver coating. Silver has the highest conductivity of any metal (0.0159 Ω·mm²/m). Plating reduces oxidation and improves high-frequency performance. Used in aerospace, military, microwave, and precision signal cables.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🟡</div><div class="cs-card__title">Tinned Copper</div><div class="cs-card__desc">Copper coated with a thin tin layer. Prevents oxidation in harsh or humid environments. Easier to solder than bare copper. Standard for marine cables, automotive wiring, and connectors exposed to moisture or corrosive atmospheres.</div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// IEC 60228 CLASSES</p>
-    <h2 class="cs-section__title">CONDUCTOR CLASSES</h2>
-    <div class="cs-prose"><p>IEC 60228 defines conductor classes based on flexibility and construction. The class determines the maximum number and minimum diameter of individual strands.</p></div>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead><tr><th>Class</th><th>Construction</th><th>Flexibility</th><th>Typical Application</th></tr></thead>
-        <tbody>
-          <tr><td>Class 1</td><td>Solid single wire</td><td>Rigid — fixed installation only</td><td>Building wiring, conduit installation</td></tr>
-          <tr><td>Class 2</td><td>Stranded, minimum number of wires</td><td>Low — fixed installation</td><td>Power cables, distribution cables</td></tr>
-          <tr><td>Class 5</td><td>Flexible — many fine wires</td><td>High — portable use</td><td>Flexible cords, portable tools, extension leads</td></tr>
-          <tr><td>Class 6</td><td>Extra-flexible — very fine wires</td><td>Very high — continuous flexing</td><td>Welding cables, drag chains, robotics</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// MATERIAL COMPARISON</p>
-    <h2 class="cs-section__title">COPPER vs ALUMINIUM</h2>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead><tr><th>Property</th><th>Copper</th><th>Aluminium</th></tr></thead>
-        <tbody>
-          <tr><td>Resistivity at 20°C</td><td>0.01724 Ω·mm²/m</td><td>0.0282 Ω·mm²/m</td></tr>
-          <tr><td>Relative conductivity</td><td>100%</td><td>61%</td></tr>
-          <tr><td>Density</td><td>8.89 g/cm³</td><td>2.70 g/cm³</td></tr>
-          <tr><td>Tensile strength</td><td>200–250 MPa (annealed)</td><td>60–100 MPa (annealed)</td></tr>
-          <tr><td>Thermal coefficient α</td><td>0.00393 /°C</td><td>0.00403 /°C</td></tr>
-          <tr><td>Melting point</td><td>1083°C</td><td>660°C</td></tr>
-          <tr><td>Relative cost</td><td>Higher</td><td>Lower (~40% of copper)</td></tr>
-          <tr><td>Cross-section for same R</td><td>1×</td><td>~1.64×</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// RELATED</p>
-    <h2 class="cs-section__title">RELATED CALCULATORS</h2>
-    <div class="cs-cards">
-      <a href="conductor-resistance.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductor Resistance</div><div class="cs-card__desc">Calculate DC resistance at any temperature for Cu or Al.</div><div class="cs-card__arrow">Calculate →</div></a>
-      <a href="awg-to-mm.html" class="cs-card"><div class="cs-card__icon">📐</div><div class="cs-card__title">AWG ↔ MM Converter</div><div class="cs-card__desc">Convert between AWG gauge and metric diameter and area.</div><div class="cs-card__arrow">Convert →</div></a>
-      <a href="wire-drawing.html" class="cs-card"><div class="cs-card__icon">🔩</div><div class="cs-card__title">Wire Drawing Machine</div><div class="cs-card__desc">How conductors are drawn to size from wire rod.</div><div class="cs-card__arrow">Read →</div></a>
-    </div>
-  </section>
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// ALL COMPONENTS</p>
-    <h2 class="cs-section__title">CABLE COMPONENTS SERIES</h2>
-    <div class="cs-cards">
-      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors</div><div class="cs-card__desc">Copper, aluminium, CCA, CCS, silver-plated.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation</div><div class="cs-card__desc">PVC, XLPE, PE, EPR, PTFE, foam PE.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="shielding.html" class="cs-card"><div class="cs-card__icon">📡</div><div class="cs-card__title">Shielding</div><div class="cs-card__desc">Foil, braid, spiral, combination shields.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="jacket-sheath.html" class="cs-card"><div class="cs-card__icon">🧱</div><div class="cs-card__title">Jacket / Sheath</div><div class="cs-card__desc">PVC, PE, LSZH, TPU, neoprene, silicone.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="fillers.html" class="cs-card"><div class="cs-card__icon">🔬</div><div class="cs-card__title">Fillers</div><div class="cs-card__desc">PP yarn, PE rods, water-blocking compounds.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="strength-members.html" class="cs-card"><div class="cs-card__icon">💪</div><div class="cs-card__title">Strength Members</div><div class="cs-card__desc">Kevlar, fibreglass, steel wire tension elements.</div><div class="cs-card__arrow">Read →</div></a>
-    </div>
-  </section>
-</main>
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Tutorials</h4><a href="conductors.html">Conductors</a><a href="insulation.html">Insulation</a><a href="shielding.html">Shielding</a><a href="jacket-sheath.html">Jacket / Sheath</a><a href="fillers.html">Fillers</a><a href="strength-members.html">Strength Members</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="die-tip-calculator.html">Calculators</a><a href="wire-drawing.html">Machines</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// OTHER TUTORIALS</div><div class="sec-title">ALL COMPONENTS</div>
+<div class="cards">
+  <a href="conductors.html" class="card"><div class="card-icon">🔴</div><div class="card-title">Conductors</div><div class="card-arrow">Learn →</div></a>
+  <a href="insulation.html" class="card"><div class="card-icon">🟡</div><div class="card-title">Insulation</div><div class="card-arrow">Learn →</div></a>
+  <a href="shielding.html" class="card"><div class="card-icon">🔵</div><div class="card-title">Shielding</div><div class="card-arrow">Learn →</div></a>
+  <a href="jacket-sheath.html" class="card"><div class="card-icon">🟢</div><div class="card-title">Jacket / Sheath</div><div class="card-arrow">Learn →</div></a>
+  <a href="fillers.html" class="card"><div class="card-icon">⚪</div><div class="card-title">Fillers & Compounds</div><div class="card-arrow">Learn →</div></a>
+  <a href="strength-members.html" class="card"><div class="card-icon">💪</div><div class="card-title">Strength Members</div><div class="card-arrow">Learn →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.i
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>

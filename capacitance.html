@@ -1,132 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CAPACITANCE
-CALCULATOR — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-    @media(max-width:700px){ .calc-grid { grid-template-columns:1fr; } }
-    .formula-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px; }
-    .formula-box h3 { font-family: var(--display, "Bebas Neue",sans-serif); font-size:1.4rem; letter-spacing:.05em; color:var(--highlight,#fff9ec); margin-bottom:16px; }
-    .formula-item { margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border); }
-    .formula-item:last-child { border-bottom:none; margin-bottom:0; }
-    .formula-eq { font-family:monospace; font-size:.95rem; color:var(--accent,#f0a500); background:var(--surface2); padding:8px 14px; border-radius:5px; display:inline-block; margin:6px 0; }
-    .formula-desc { font-size:.82rem; color:var(--muted,#7a8099); margin-top:4px; }
-    .error-msg { color:#f08080; font-size:.82rem; margin-top:8px; display:none; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capacitance Calculator | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html">Machines</a></li>
-    <li><a href="die-tip-calculator.html" class="active">Calculators</a></li>
-    <li><a href="conductors.html">Tutorials</a></li>
-    <li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="die-tip-calculator.html">Calculators</a><span>/</span>Capacitance</div>
-  <p class="cs-hero__tag">// RF & SIGNAL CABLES</p>
-  <h1 class="cs-hero__title">CAPACITANCE
-CALCULATOR</h1>
-  <p class="cs-hero__sub">Calculate capacitance per metre and characteristic impedance for coaxial cables and insulated conductors.</p>
-</div>
-<main class="cs-main">
-  <section class="cs-section reveal">
-    <div class="calc-grid">
-      <div>
-<div class="cs-calc">
-  <div class="cs-calc__title">Capacitance Calculator</div>
-  <div class="cs-calc__group">
-    <label class="cs-calc__label">Conductor Diameter (mm)</label>
-    <input class="cs-calc__input" id="cap-cd" type="number" step="0.001" placeholder="e.g. 1.78">
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
   </div>
-  <div class="cs-calc__group">
-    <label class="cs-calc__label">Insulation OD / Outer Conductor ID (mm)</label>
-    <input class="cs-calc__input" id="cap-od" type="number" step="0.001" placeholder="e.g. 3.66">
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="die-tip-calculator.html">Calculators</a> / Capacitance Calculator</div>
+  <div class="tag">// ENGINEERING CALCULATOR</div>
+  <h1>CAPACITANCE CALCULATOR</h1>
+  <p class="hero-sub">Capacitance per metre and characteristic impedance Z₀ for coaxial cables from geometry and dielectric material.</p>
+</div><div class="main">
+<div class="section">
+  <div class="calc-wrap">
+    <div><div class="calc">
+<div class="calc-title">Capacitance Calculator</div>
+<div class="form-group"><label class="form-label">Conductor Diameter (mm)</label><input class="form-input" id="cp-cd" type="number" step="0.001" placeholder="e.g. 1.78"></div>
+<div class="form-group"><label class="form-label">Insulation OD / Outer Conductor ID (mm)</label><input class="form-input" id="cp-od" type="number" step="0.001" placeholder="e.g. 3.66"></div>
+<div class="form-group"><label class="form-label">Dielectric Material</label>
+<select class="form-select" id="cp-er">
+<option value="2.3">Solid PE — εᵣ = 2.30</option>
+<option value="1.5">Foam PE — εᵣ = 1.50</option>
+<option value="3.5">PVC — εᵣ = 3.50</option>
+<option value="2.25">PTFE — εᵣ = 2.25</option>
+<option value="2.35">XLPE — εᵣ = 2.35</option>
+<option value="1.0">Air — εᵣ = 1.00</option>
+</select></div>
+<button class="calc-btn" onclick="calcCAP()">CALCULATE</button>
+<p class="err" id="cp-err">Insulation OD must be greater than conductor diameter.</p>
+<div class="result-box" id="cp-res">
+  <div class="result-grid">
+    <div><div class="result-label">Capacitance</div><div class="result-value" id="cp-pf">—</div><div class="result-unit">pF / m</div></div>
+    <div><div class="result-label">Capacitance</div><div class="result-value" id="cp-nf">—</div><div class="result-unit">nF / km</div></div>
   </div>
-  <div class="cs-calc__group">
-    <label class="cs-calc__label">Dielectric Material</label>
-    <select class="cs-calc__select" id="cap-er">
-      <option value="2.3">Solid PE — εᵣ = 2.30</option>
-      <option value="1.5">Foam PE — εᵣ = 1.50</option>
-      <option value="3.5">PVC — εᵣ = 3.50</option>
-      <option value="2.25">PTFE — εᵣ = 2.25</option>
-      <option value="2.35">XLPE — εᵣ = 2.35</option>
-      <option value="1.0">Air — εᵣ = 1.00</option>
-    </select>
-  </div>
-  <button class="cs-calc__btn" onclick="calcCap()">CALCULATE</button>
-  <div class="error-msg" id="cap-err">Please fill all fields with valid numbers.</div>
-  <div class="cs-calc__result" id="cap-result">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-      <div><div class="cs-calc__result-label">Capacitance</div><div class="cs-calc__result-value" id="cap-val">—</div><div class="cs-calc__result-unit">pF / m</div></div>
-      <div><div class="cs-calc__result-label">Capacitance</div><div class="cs-calc__result-value" id="cap-nf">—</div><div class="cs-calc__result-unit">nF / km</div></div>
-    </div>
-    <div style="margin-top:16px;"><div class="cs-calc__result-label">Characteristic Impedance (Z₀)</div><div class="cs-calc__result-value" id="cap-z0" style="font-size:1.6rem">—</div><div class="cs-calc__result-unit">Ω</div></div>
-  </div>
-</div>
+  <div style="margin-top:12px;"><div class="result-label">Characteristic Impedance Z₀</div><div class="result-value" id="cp-z0" style="font-size:1.4rem">—</div><div class="result-unit">Ω</div></div>
+</div></div>
 <script>
-function calcCap(){
-  const cd=parseFloat(document.getElementById("cap-cd").value);
-  const od=parseFloat(document.getElementById("cap-od").value);
-  const er=parseFloat(document.getElementById("cap-er").value);
-  const err=document.getElementById("cap-err");
-  if([cd,od,er].some(isNaN)||cd<=0||od<=cd){
-    err.style.display="block";
-    document.getElementById("cap-result").classList.remove("visible");
-    return;
-  }
-  err.style.display="none";
-  const eps0=8.854e-12;
-  const C = 2*Math.PI*er*eps0/Math.log(od/cd); // F/m
-  const Cpf = C*1e12;
-  const Cnf = C*1e9*1000;
-  const Z0 = 138/Math.sqrt(er)*Math.log10(od/cd);
-  document.getElementById("cap-val").textContent=Cpf.toFixed(2);
-  document.getElementById("cap-nf").textContent=Cnf.toFixed(2);
-  document.getElementById("cap-z0").textContent=Z0.toFixed(1);
-  document.getElementById("cap-result").classList.add("visible");
+function calcCAP(){
+  var cd=+document.getElementById("cp-cd").value,od=+document.getElementById("cp-od").value,er=+document.getElementById("cp-er").value;
+  if(!cd||!od||od<=cd){document.getElementById("cp-err").style.display="block";document.getElementById("cp-res").classList.remove("show");return;}
+  document.getElementById("cp-err").style.display="none";
+  var C=2*Math.PI*er*8.854e-12/Math.log(od/cd),Z0=138/Math.sqrt(er)*Math.log10(od/cd);
+  document.getElementById("cp-pf").textContent=(C*1e12).toFixed(2);
+  document.getElementById("cp-nf").textContent=(C*1e9*1000).toFixed(2);
+  document.getElementById("cp-z0").textContent=Z0.toFixed(1);
+  document.getElementById("cp-res").classList.add("show");
 }
 </script></div>
-      <div>
-<div class="formula-box">
-  <h3>Formulas Used</h3>
-  <div class="formula-item">
-    <div class="formula-eq">C = 2πε₀εᵣ / ln(D/d)</div>
-    <div class="formula-desc">Capacitance per metre. ε₀ = 8.854×10⁻¹² F/m. D = outer conductor ID, d = inner conductor OD. Result in F/m → convert to pF/m × 10¹².</div>
-  </div>
-  <div class="formula-item">
-    <div class="formula-eq">Z₀ = 138/√εᵣ × log₁₀(D/d)</div>
-    <div class="formula-desc">Characteristic impedance in Ω. For coaxial cables. 50 Ω cables: D/d ≈ 3.6 in PE. 75 Ω cables: D/d ≈ 6.5 in PE.</div>
-  </div>
-  <div class="formula-item">
-    <div class="formula-eq">VoP = 1/√εᵣ × 100%</div>
-    <div class="formula-desc">Velocity of Propagation as % of speed of light. Solid PE (εᵣ=2.3): VoP ≈ 66%.</div>
-  </div>
+    <div><div class="formula-box"><h3>Formulas Used</h3>
+<div class="formula-item"><div style="color:#f0a500;font-weight:bold;margin-bottom:4px;">C = 2πε₀εᵣ / ln(D/d)</div><div class="formula-desc">Capacitance per metre. ε₀ = 8.854×10⁻¹² F/m. D = outer conductor ID, d = inner conductor OD.</div></div>
+<div class="formula-item"><div style="color:#f0a500;font-weight:bold;margin-bottom:4px;">Z₀ = 138/√εᵣ × log₁₀(D/d)</div><div class="formula-desc">Characteristic impedance in Ω for coaxial cables.</div></div>
+<div class="formula-item"><div style="color:#f0a500;font-weight:bold;margin-bottom:4px;">VoP = 1/√εᵣ × 100%</div><div class="formula-desc">Velocity of Propagation as % of speed of light. Solid PE: VoP ≈ 66%.</div></div>
 </div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OTHER CALCULATORS</p>
-    <h2 class="cs-section__title">RELATED CALCULATORS</h2>
-    <div class="cs-cards"><a href="awg-to-mm.html" class="cs-card"><div class="cs-card__icon">📐</div><div class="cs-card__title">AWG to MM</div><div class="cs-card__arrow">Open →</div></a>
-<a href="conductor-resistance.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductor Resistance</div><div class="cs-card__arrow">Open →</div></a>
-<a href="braiding-calculator.html" class="cs-card"><div class="cs-card__icon">🌐</div><div class="cs-card__title">Braiding Calculator</div><div class="cs-card__arrow">Open →</div></a></div>
-  </section>
-</main>
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Calculators</h4><a href="die-tip-calculator.html">Die Tip</a><a href="sheath-weight.html">Sheath Weight</a><a href="conductor-resistance.html">Conductor Resistance</a><a href="awg-to-mm.html">AWG to MM</a><a href="capacitance.html">Capacitance</a><a href="braiding-calculator.html">Braiding</a><a href="bobbin-capacity.html">Bobbin Capacity</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="wire-drawing.html">Machines</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+  </div>
+</div>
+
+<hr class="div">
+<div class="section"><div class="sec-tag">// OTHER CALCULATORS</div><div class="sec-title">ALL CALCULATORS</div>
+<div class="cards">
+  <a href="die-tip-calculator.html" class="card"><div class="card-icon">⚙️</div><div class="card-title">Die Tip Calculator</div><div class="card-arrow">Open →</div></a>
+  <a href="sheath-weight.html" class="card"><div class="card-icon">⚖️</div><div class="card-title">Sheath Weight</div><div class="card-arrow">Open →</div></a>
+  <a href="conductor-resistance.html" class="card"><div class="card-icon">⚡</div><div class="card-title">Conductor Resistance</div><div class="card-arrow">Open →</div></a>
+  <a href="awg-to-mm.html" class="card"><div class="card-icon">📐</div><div class="card-title">AWG to MM</div><div class="card-arrow">Open →</div></a>
+  <a href="capacitance.html" class="card"><div class="card-icon">🔋</div><div class="card-title">Capacitance</div><div class="card-arrow">Open →</div></a>
+  <a href="braiding-calculator.html" class="card"><div class="card-icon">🌀</div><div class="card-title">Braiding</div><div class="card-arrow">Open →</div></a>
+  <a href="bobbin-capacity.html" class="card"><div class="card-icon">🧵</div><div class="card-title">Bobbin Capacity</div><div class="card-arrow">Open →</div></a>
+  <a href="foam-by-water.html" class="card"><div class="card-icon">💧</div><div class="card-title">Foam % by Water</div><div class="card-arrow">Open →</div></a>
+  <a href="foam-percentage.html" class="card"><div class="card-icon">📊</div><div class="card-title">Foam Percentage</div><div class="card-arrow">Open →</div></a>
+  <a href="multicore-cable.html" class="card"><div class="card-icon">🔌</div><div class="card-title">MultiCore OD</div><div class="card-arrow">Open →</div></a>
+  <a href="efficiency.html" class="card"><div class="card-icon">📈</div><div class="card-title">Efficiency (OEE)</div><div class="card-arrow">Open →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-sta
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>

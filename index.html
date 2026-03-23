@@ -1,352 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cable Script — Industrial Cable Engineering Platform</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 100px 48px 60px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(240,165,0,.07) 0%, transparent 70%),
-                  radial-gradient(ellipse 50% 80% at 20% 80%, rgba(224,95,0,.06) 0%, transparent 60%);
-    }
-    .cable-lines { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-    .cable-lines svg { width: 100%; height: 100%; opacity: .1; }
-    @keyframes dash { to { stroke-dashoffset: -300; } }
-    .anim-line { stroke-dasharray: 8 14; animation: dash 4s linear infinite; }
-    .anim-line2 { stroke-dasharray: 4 20; animation: dash 6s linear infinite; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cable Script – Home | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
 
-    .hero-content { position: relative; z-index: 2; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(240,165,0,.1); border: 1px solid rgba(240,165,0,.3);
-      color: var(--accent); font-family: 'JetBrains Mono',monospace;
-      font-size: .7rem; letter-spacing: .1em; padding: 5px 14px;
-      border-radius: 2px; margin-bottom: 28px;
-      animation: fadeUp .6s ease both;
-    }
-    .hero-badge span { width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.5s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
 
-    .hero h1 {
-      font-family: 'Bebas Neue',sans-serif;
-      font-size: clamp(4rem,8vw,7.5rem);
-      line-height: .92; letter-spacing: .03em;
-      color: var(--highlight);
-      animation: fadeUp .7s .1s ease both;
-    }
-    .hero h1 em { font-style:normal; color:var(--accent); display:block; }
-    .hero-sub { margin-top:28px; font-size:1.05rem; color:var(--muted); max-width:480px; line-height:1.7; animation:fadeUp .7s .2s ease both; }
-    .hero-actions { margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; animation:fadeUp .7s .3s ease both; }
-
-    .btn-primary {
-      background:var(--accent); color:#0a0c10; padding:14px 32px;
-      font-weight:600; font-size:.95rem; border:none; cursor:pointer;
-      border-radius:4px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
-      transition:background .2s,transform .15s;
-    }
-    .btn-primary:hover { background:var(--accent2); color:#fff; transform:translateY(-2px); }
-    .btn-secondary {
-      background:transparent; color:var(--text); padding:14px 32px;
-      font-weight:500; font-size:.95rem; border:1px solid var(--border);
-      cursor:pointer; border-radius:4px; text-decoration:none;
-      display:inline-flex; align-items:center; gap:8px; transition:border-color .2s,color .2s;
-    }
-    .btn-secondary:hover { border-color:var(--accent); color:var(--accent); }
-
-    /* ── HERO VISUAL ── */
-    .hero-visual { position:relative; z-index:2; display:flex; justify-content:center; align-items:center; animation:fadeIn 1s .4s ease both; }
-    .cable-diagram {
-      width:100%; max-width:460px; background:var(--surface);
-      border:1px solid var(--border); border-radius:12px; padding:32px; position:relative; overflow:hidden;
-    }
-    .cable-diagram::before {
-      content:''; position:absolute; top:-1px; left:10%; right:10%; height:2px;
-      background:linear-gradient(90deg,transparent,var(--accent),transparent);
-    }
-    .cable-cross-section { display:flex; align-items:center; justify-content:center; margin-bottom:24px; }
-    .cs-wrap { position:relative; width:220px; height:220px; }
-    .cs-ring { position:absolute; border-radius:50%; border:2px solid; transform:translate(-50%,-50%); left:50%; top:50%; transition:all .3s; }
-    .cs-ring:hover { filter:brightness(1.3); transform:translate(-50%,-50%) scale(1.03); }
-    .ring-jacket { width:220px;height:220px;border-color:#4a5568;background:rgba(74,85,104,.12); }
-    .ring-armor  { width:180px;height:180px;border-color:#718096;background:rgba(113,128,150,.1); }
-    .ring-shield { width:140px;height:140px;border-color:#e05f00;background:rgba(224,95,0,.08); }
-    .ring-insul  { width:100px;height:100px;border-color:#68d391;background:rgba(104,211,145,.08); }
-    .ring-core   { width:60px;height:60px;border-color:#f0a500;background:rgba(240,165,0,.15); }
-    .cs-label { position:absolute; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.08em; color:var(--muted); white-space:nowrap; }
-    .diagram-label { font-family:'JetBrains Mono',monospace; font-size:.7rem; color:var(--muted); text-align:center; letter-spacing:.1em; text-transform:uppercase; }
-    .diagram-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:20px; }
-    .dstat { text-align:center; background:var(--surface2); border-radius:6px; padding:12px 8px; border:1px solid var(--border); }
-    .dstat-num { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--accent); line-height:1; }
-    .dstat-label { font-size:.65rem; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-top:4px; }
-
-    /* ── STATS BAR ── */
-    .stats-bar {
-      background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-      padding:28px 48px; display:grid; grid-template-columns:repeat(4,1fr);
-    }
-    .stat-item { text-align:center; padding:0 24px; border-right:1px solid var(--border); }
-    .stat-item:last-child { border-right:none; }
-    .stat-num { font-family:'Bebas Neue',sans-serif; font-size:2.6rem; color:var(--accent); line-height:1; letter-spacing:.04em; }
-    .stat-desc { font-size:.8rem; color:var(--muted); margin-top:4px; letter-spacing:.05em; }
-
-    /* ── SECTIONS ── */
-    .home-section { padding:80px 48px; }
-    .home-section.alt { background:var(--surface2); }
-    .section-tag { font-family:'JetBrains Mono',monospace; font-size:.7rem; color:var(--accent); letter-spacing:.15em; text-transform:uppercase; margin-bottom:12px; }
-    .section-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.2rem,4vw,3.5rem); letter-spacing:.04em; color:var(--highlight); line-height:1; margin-bottom:16px; }
-    .section-sub { color:var(--muted); max-width:560px; font-size:1rem; line-height:1.7; margin-bottom:44px; }
-
-    /* ── MACHINE STEPS ── */
-    .machine-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .machine-item {
-      background:var(--surface); border:1px solid var(--border); border-radius:8px;
-      padding:20px 24px; display:flex; align-items:center; gap:16px;
-      text-decoration:none; color:var(--text); transition:border-color .2s,background .2s;
-    }
-    .machine-item:hover { border-color:var(--accent); background:rgba(240,165,0,.04); }
-    .machine-step {
-      width:36px; height:36px; background:var(--accent); color:#0a0c10;
-      border-radius:50%; display:flex; align-items:center; justify-content:center;
-      font-family:'Bebas Neue',sans-serif; font-size:1.1rem; flex-shrink:0;
-    }
-    .machine-name { font-weight:600; font-size:.95rem; color:var(--highlight); }
-    .machine-desc { font-size:.8rem; color:var(--muted); margin-top:3px; }
-
-    /* ── CALC PILLS ── */
-    .calc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
-    .calc-pill {
-      background:var(--surface); border:1px solid var(--border); border-radius:8px;
-      padding:16px 20px; text-decoration:none; color:var(--text);
-      display:flex; align-items:center; gap:12px; transition:border-color .2s,background .2s;
-      font-size:.875rem; font-weight:500;
-    }
-    .calc-pill:hover { border-color:var(--accent); background:rgba(240,165,0,.05); color:var(--accent); }
-    .calc-pill-icon { width:32px;height:32px;background:rgba(240,165,0,.08);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0; }
-
-    /* ── CABLE TYPES GRID ── */
-    .types-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .type-card {
-      background:var(--surface); border:1px solid var(--border); border-radius:10px;
-      padding:36px 28px; position:relative; overflow:hidden; transition:border-color .25s,transform .25s;
-    }
-    .type-card:hover { border-color:rgba(240,165,0,.4); transform:translateY(-3px); }
-    .type-number { font-family:'Bebas Neue',sans-serif; font-size:5rem; color:rgba(240,165,0,.07); position:absolute; top:8px; right:16px; line-height:1; }
-    .type-title { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:.06em; color:var(--accent); margin-bottom:12px; }
-    .type-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
-    .type-list li { font-size:.875rem; color:var(--muted); display:flex; align-items:center; gap:10px; padding:6px 0; border-bottom:1px solid rgba(255,255,255,.04); }
-    .type-list li::before { content:''; width:4px; height:4px; background:var(--accent); border-radius:50%; flex-shrink:0; }
-    .type-list a { color:var(--muted); text-decoration:none; transition:color .2s; }
-    .type-list a:hover { color:var(--accent); }
-
-    /* ── CONTACT STRIP ── */
-    .contact-strip {
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
-      padding:40px 48px; display:flex; align-items:center; justify-content:space-between; gap:32px;
-      margin:0 48px 80px;
-    }
-    .contact-strip h3 { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:.06em; color:var(--highlight); }
-    .contact-strip p { color:var(--muted); margin-top:8px; }
-
-    @media(max-width:900px){
-      .hero { grid-template-columns:1fr; padding:90px 20px 40px; }
-      .hero-visual { margin-top:40px; }
-      .hero h1, .hero-sub, .hero-actions { text-align:center; margin-left:auto; margin-right:auto; justify-content:center; }
-      .stats-bar { grid-template-columns:1fr 1fr; padding:24px 20px; }
-      .stat-item:nth-child(2) { border-right:none; }
-      .home-section { padding:60px 20px; }
-      .types-grid, .machine-grid { grid-template-columns:1fr; }
-      .contact-strip { flex-direction:column; text-align:center; margin:0 20px 60px; padding:32px 24px; }
-    }
-  </style>
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo">
-    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>
-    Cable Script
-  </a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html">Machines</a></li>
-    <li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html">Tutorials</a></li>
-    <li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
 </nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="cable-lines">
-    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
-      <line x1="0" y1="200" x2="1200" y2="200" stroke="#f0a500" stroke-width=".5" class="anim-line"/>
-      <line x1="0" y1="400" x2="1200" y2="400" stroke="#e05f00" stroke-width=".5" class="anim-line2"/>
-      <line x1="0" y1="560" x2="1200" y2="560" stroke="#f0a500" stroke-width=".5" class="anim-line" style="animation-delay:2s"/>
-      <path d="M0,600 Q300,400 600,500 T1200,300" stroke="#f0a500" stroke-width=".6" fill="none" class="anim-line" style="animation-delay:1s"/>
-    </svg>
+<div class="hero" style="padding:80px 40px 60px; background: linear-gradient(135deg,#111318 0%,#0d0f14 100%);">
+  <div class="tag">// CABLE ENGINEERING REFERENCE</div>
+  <h1 style="font-size:clamp(2.5rem,7vw,5rem);letter-spacing:-2px;">CABLE<br>SCRIPT</h1>
+  <p class="hero-sub" style="font-size:1.1rem; max-width:540px; margin-top:12px;">The complete technical reference for cable types, manufacturing machines, engineering calculators, and component tutorials — all in one place.</p>
+  <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
+    <a href="ethernet-cables.html" style="background:#f0a500;color:#000;padding:12px 28px;border-radius:6px;font-weight:900;font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;">Explore Cable Types</a>
+    <a href="die-tip-calculator.html" style="background:#111318;color:#f0a500;padding:12px 28px;border-radius:6px;font-weight:900;font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;border:1px solid #f0a500;">Open Calculators</a>
   </div>
-  <div class="hero-content">
-    <div class="hero-badge"><span></span> INDUSTRIAL KNOWLEDGE PLATFORM</div>
-    <h1>CABLE<em>SCRIPT</em></h1>
-    <p class="hero-sub">Your comprehensive technical resource for cable engineering — types, manufacturing processes, formulas, and precision calculators for industry professionals.</p>
-    <div class="hero-actions">
-      <a href="ethernet-cables.html" class="btn-primary">Explore Cables →</a>
-      <a href="die-tip-calculator.html" class="btn-secondary">⚡ Calculators</a>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="cable-diagram">
-      <div class="cable-cross-section">
-        <div class="cs-wrap">
-          <div class="cs-ring ring-jacket"></div>
-          <div class="cs-ring ring-armor"></div>
-          <div class="cs-ring ring-shield"></div>
-          <div class="cs-ring ring-insul"></div>
-          <div class="cs-ring ring-core"></div>
-          <div class="cs-label" style="right:-10px;top:14px">JACKET</div>
-          <div class="cs-label" style="right:-10px;top:38px;color:#e05f00">SHIELDING</div>
-          <div class="cs-label" style="right:-10px;top:62px;color:#68d391">INSULATION</div>
-          <div class="cs-label" style="right:-10px;top:86px;color:#f0a500">CONDUCTOR</div>
-        </div>
-      </div>
-      <p class="diagram-label">Cross-Section Anatomy</p>
-      <div class="diagram-stats">
-        <div class="dstat"><div class="dstat-num">6</div><div class="dstat-label">Layers</div></div>
-        <div class="dstat"><div class="dstat-num">Cu</div><div class="dstat-label">Material</div></div>
-        <div class="dstat"><div class="dstat-num">IEC</div><div class="dstat-label">Standard</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat-item"><div class="stat-num">11+</div><div class="stat-desc">Engineering Calculators</div></div>
-  <div class="stat-item"><div class="stat-num">7</div><div class="stat-desc">Manufacturing Processes</div></div>
-  <div class="stat-item"><div class="stat-num">3</div><div class="stat-desc">Cable Categories</div></div>
-  <div class="stat-item"><div class="stat-num">∞</div><div class="stat-desc">Free to Access</div></div>
 </div>
 
-<!-- CABLE TYPES -->
-<section class="home-section reveal">
-  <p class="section-tag">// PRODUCT FAMILIES</p>
-  <h2 class="section-title">TYPES OF CABLE</h2>
-  <p class="section-sub">From power distribution to high-frequency communications — explore every category of cable technology in depth.</p>
-  <div class="types-grid">
-    <div class="type-card reveal">
-      <div class="type-number">01</div>
-      <div class="type-title">COMMUNICATION</div>
-      <ul class="type-list">
-        <li><a href="ethernet-cables.html">Ethernet Cables (Cat5e–Cat8)</a></li>
-        <li><a href="coaxial-cables.html">Coaxial Cables (RG Series)</a></li>
-        <li><a href="fiber-optic-cables.html">Fiber Optic Cables</a></li>
-      </ul>
-    </div>
-    <div class="type-card reveal" style="transition-delay:.1s">
-      <div class="type-number">02</div>
-      <div class="type-title">ELECTRICAL</div>
-      <ul class="type-list">
-        <li><a href="electrical-cables.html">Power Distribution Cables</a></li>
-        <li><a href="electrical-cables.html">Control &amp; Instrumentation</a></li>
-        <li><a href="electrical-cables.html">High Voltage Cables</a></li>
-      </ul>
-    </div>
-    <div class="type-card reveal" style="transition-delay:.2s">
-      <div class="type-number">03</div>
-      <div class="type-title">AUTOMOTIVE</div>
-      <ul class="type-list">
-        <li><a href="automotive-cables.html">Primary Wire Harnesses</a></li>
-        <li><a href="automotive-cables.html">High Voltage EV Cables</a></li>
-        <li><a href="automotive-cables.html">CAN Bus &amp; LIN Cables</a></li>
-      </ul>
+<div class="main">
+
+  <!-- WHAT IS A CABLE -->
+  <div class="section">
+    <div class="sec-tag">// OVERVIEW</div>
+    <div class="sec-title">WHAT IS A CABLE?</div>
+    <div class="prose">
+      <p>A cable is a flexible or rigid structure consisting of one or more conductors — typically made of copper or aluminium — surrounded by insulation and protective coverings. It is designed to transmit electrical power, data, or signals between devices, systems, or locations.</p>
+      <p>Cables play a crucial role in electrical and communication systems by facilitating the efficient and reliable transfer of energy or information over short or long distances. They are used in power distribution, telecommunications, networking, control systems, and more.</p>
+      <p>A cable typically consists of several key components: <strong>conductors</strong> (carry current), <strong>insulation</strong> (electrically separates conductors), <strong>shielding</strong> (blocks EMI), <strong>fillers</strong> (maintain shape), <strong>armour</strong> (mechanical protection), and an <strong>outer jacket</strong> (environmental protection).</p>
     </div>
   </div>
-</section>
 
-<!-- MACHINES -->
-<section class="home-section alt reveal">
-  <p class="section-tag">// MANUFACTURING LINE</p>
-  <h2 class="section-title">CABLE MANUFACTURING MACHINES</h2>
-  <p class="section-sub">Step-by-step — from wire rod to finished cable. Every machine explained with technical depth.</p>
-  <div class="machine-grid">
-    <a href="wire-drawing.html" class="machine-item reveal"><div class="machine-step">1</div><div><div class="machine-name">Wire Drawing</div><div class="machine-desc">Reduce conductor diameter through precision die sets</div></div></a>
-    <a href="buncher.html" class="machine-item reveal" style="transition-delay:.05s"><div class="machine-step">2</div><div><div class="machine-name">Buncher</div><div class="machine-desc">Bundle multiple wires into a single conductor assembly</div></div></a>
-    <a href="extruder.html" class="machine-item reveal" style="transition-delay:.1s"><div class="machine-step">3</div><div><div class="machine-name">Extruder</div><div class="machine-desc">Apply insulation or jacket material via extrusion</div></div></a>
-    <a href="braiding.html" class="machine-item reveal" style="transition-delay:.15s"><div class="machine-step">4</div><div><div class="machine-name">Braiding</div><div class="machine-desc">Weave shields or reinforcement around the cable core</div></div></a>
-    <a href="laying-up.html" class="machine-item reveal" style="transition-delay:.2s"><div class="machine-step">5</div><div><div class="machine-name">Laying Up</div><div class="machine-desc">Assemble multiple cores into final configuration</div></div></a>
-    <a href="armoring.html" class="machine-item reveal" style="transition-delay:.25s"><div class="machine-step">6</div><div><div class="machine-name">Armoring</div><div class="machine-desc">Apply steel wire or tape for mechanical protection</div></div></a>
-    <a href="jacketing.html" class="machine-item reveal" style="transition-delay:.3s"><div class="machine-step">7</div><div><div class="machine-name">Jacketing</div><div class="machine-desc">Final outer sheath extrusion — the last protective layer</div></div></a>
+  <hr class="div">
+
+  <!-- CABLE TYPES -->
+  <div class="section">
+    <div class="sec-tag">// TYPES OF CABLE</div>
+    <div class="sec-title">CABLE TYPES</div>
+    <div class="cards">
+      <a href="ethernet-cables.html" class="card">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Ethernet Cables</div>
+        <div class="card-desc">Cat5e through Cat8 — twisted pair networking cables for LAN, data centres, and enterprise systems.</div>
+        <div class="card-arrow">Explore →</div>
+      </a>
+      <a href="coaxial-cables.html" class="card">
+        <div class="card-icon">📡</div>
+        <div class="card-title">Coaxial Cables</div>
+        <div class="card-desc">RG series cables for CATV, CCTV, RF, and antenna systems. 50Ω and 75Ω types.</div>
+        <div class="card-arrow">Explore →</div>
+      </a>
+      <a href="fiber-optic-cables.html" class="card">
+        <div class="card-icon">💡</div>
+        <div class="card-title">Fiber Optic Cables</div>
+        <div class="card-desc">Single-mode and multi-mode fiber for high-speed, long-distance light-based data transmission.</div>
+        <div class="card-arrow">Explore →</div>
+      </a>
+      <a href="electrical-cables.html" class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Electrical Cables</div>
+        <div class="card-desc">LV and MV power cables, control cables, and instrumentation cables for electrical installations.</div>
+        <div class="card-arrow">Explore →</div>
+      </a>
+      <a href="automotive-cables.html" class="card">
+        <div class="card-icon">🚗</div>
+        <div class="card-title">Automotive Cables</div>
+        <div class="card-desc">Wire harnesses, HV EV cables, CAN bus, LIN bus, and automotive data network cables.</div>
+        <div class="card-arrow">Explore →</div>
+      </a>
+    </div>
   </div>
-</section>
 
-<!-- CALCULATORS -->
-<section class="home-section reveal">
-  <p class="section-tag">// ENGINEERING TOOLS</p>
-  <h2 class="section-title">PRECISION CALCULATORS</h2>
-  <p class="section-sub">Industry-grade calculation tools for cable engineers — all working in your browser, no sign-up needed.</p>
-  <div class="calc-grid">
-    <a href="die-tip-calculator.html" class="calc-pill reveal"><div class="calc-pill-icon">⚙️</div>Die Tip Calculator</a>
-    <a href="sheath-weight.html" class="calc-pill reveal" style="transition-delay:.04s"><div class="calc-pill-icon">⚖️</div>Sheath Weight</a>
-    <a href="conductor-resistance.html" class="calc-pill reveal" style="transition-delay:.08s"><div class="calc-pill-icon">⚡</div>Conductor Resistance</a>
-    <a href="awg-to-mm.html" class="calc-pill reveal" style="transition-delay:.12s"><div class="calc-pill-icon">📐</div>AWG → MM Converter</a>
-    <a href="capacitance.html" class="calc-pill reveal" style="transition-delay:.16s"><div class="calc-pill-icon">🔋</div>Capacitance</a>
-    <a href="braiding-calculator.html" class="calc-pill reveal" style="transition-delay:.20s"><div class="calc-pill-icon">🌐</div>Braiding Calculator</a>
-    <a href="bobbin-capacity.html" class="calc-pill reveal" style="transition-delay:.24s"><div class="calc-pill-icon">🧵</div>Bobbin Capacity</a>
-    <a href="foam-by-water.html" class="calc-pill reveal" style="transition-delay:.28s"><div class="calc-pill-icon">💧</div>Foam % by Water</a>
-    <a href="foam-percentage.html" class="calc-pill reveal" style="transition-delay:.32s"><div class="calc-pill-icon">📊</div>Foam Percentage</a>
-    <a href="multicore-cable.html" class="calc-pill reveal" style="transition-delay:.36s"><div class="calc-pill-icon">🔌</div>MultiCore Cable OD</a>
-    <a href="efficiency.html" class="calc-pill reveal" style="transition-delay:.40s"><div class="calc-pill-icon">📈</div>Machine Efficiency</a>
+  <hr class="div">
+
+  <!-- MACHINES -->
+  <div class="section">
+    <div class="sec-tag">// MANUFACTURING</div>
+    <div class="sec-title">CABLE MANUFACTURING MACHINES</div>
+    <div class="cards">
+      <a href="wire-drawing.html" class="card"><div class="card-icon">🔩</div><div class="card-title">1. Wire Drawing</div><div class="card-desc">Reducing copper/aluminium rod to precise wire diameter through progressive dies.</div><div class="card-arrow">Step 1 →</div></a>
+      <a href="buncher.html" class="card"><div class="card-icon">🔀</div><div class="card-title">2. Buncher</div><div class="card-desc">Twisting multiple wires into a single stranded conductor for flexibility and performance.</div><div class="card-arrow">Step 2 →</div></a>
+      <a href="extruder.html" class="card"><div class="card-icon">🏭</div><div class="card-title">3. Extruder</div><div class="card-desc">Melting polymer compound and coating it over conductors as insulation or jacket.</div><div class="card-arrow">Step 3 →</div></a>
+      <a href="braiding.html" class="card"><div class="card-icon">🌐</div><div class="card-title">4. Braiding</div><div class="card-desc">Weaving metallic strands over the cable core to form EMI shielding.</div><div class="card-arrow">Step 4 →</div></a>
+      <a href="laying-up.html" class="card"><div class="card-icon">🔄</div><div class="card-title">5. Laying Up</div><div class="card-desc">Assembling multiple insulated cores into the multi-core cable formation.</div><div class="card-arrow">Step 5 →</div></a>
+      <a href="armoring.html" class="card"><div class="card-icon">🛡️</div><div class="card-title">6. Armoring</div><div class="card-desc">Applying steel wire or tape armour for mechanical and burial protection.</div><div class="card-arrow">Step 6 →</div></a>
+      <a href="jacketing.html" class="card"><div class="card-icon">🎯</div><div class="card-title">7. Jacketing</div><div class="card-desc">Final outer sheath extrusion — cable identity, protection, and permanent marking.</div><div class="card-arrow">Step 7 →</div></a>
+    </div>
   </div>
-</section>
 
-<!-- TUTORIALS -->
-<section class="home-section alt reveal">
-  <p class="section-tag">// TECHNICAL KNOWLEDGE</p>
-  <h2 class="section-title">TUTORIALS & GUIDES</h2>
-  <p class="section-sub">Deep-dive technical guides on every component in cable engineering.</p>
-  <div class="cs-cards">
-    <a href="conductors.html" class="cs-card reveal"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors</div><div class="cs-card__desc">Copper, aluminium, CCA, CCS, silver-plated — materials, IEC 60228 classes and comparison.</div><div class="cs-card__arrow">Read →</div></a>
-    <a href="insulation.html" class="cs-card reveal" style="transition-delay:.05s"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation</div><div class="cs-card__desc">PVC, XLPE, PE, EPR, PTFE — temperature ratings, dielectric properties, and selection guide.</div><div class="cs-card__arrow">Read →</div></a>
-    <a href="shielding.html" class="cs-card reveal" style="transition-delay:.1s"><div class="cs-card__icon">📡</div><div class="cs-card__title">Shielding</div><div class="cs-card__desc">Foil, braid, spiral, combination shields — shielding effectiveness and ISO notation.</div><div class="cs-card__arrow">Read →</div></a>
-    <a href="jacket-sheath.html" class="cs-card reveal" style="transition-delay:.15s"><div class="cs-card__icon">🧱</div><div class="cs-card__title">Jacket / Sheath</div><div class="cs-card__desc">PVC, PE, LSZH, TPU, neoprene, silicone — installation environment selection guide.</div><div class="cs-card__arrow">Read →</div></a>
-    <a href="fillers.html" class="cs-card reveal" style="transition-delay:.2s"><div class="cs-card__icon">🔬</div><div class="cs-card__title">Fillers</div><div class="cs-card__desc">PP yarn, PE rods, water-blocking tapes — achieving a round stable multi-core assembly.</div><div class="cs-card__arrow">Read →</div></a>
-    <a href="strength-members.html" class="cs-card reveal" style="transition-delay:.25s"><div class="cs-card__icon">💪</div><div class="cs-card__title">Strength Members</div><div class="cs-card__desc">Kevlar, fibreglass, steel wire, UHMWPE — tensile reinforcement for installation and flexing.</div><div class="cs-card__arrow">Read →</div></a>
+  <hr class="div">
+
+  <!-- CALCULATORS -->
+  <div class="section">
+    <div class="sec-tag">// ENGINEERING TOOLS</div>
+    <div class="sec-title">CALCULATORS</div>
+    <div class="cards">
+      <a href="die-tip-calculator.html" class="card"><div class="card-icon">⚙️</div><div class="card-title">Die Tip Calculator</div><div class="card-desc">Die tip ID and die ID from conductor size and DDR.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="sheath-weight.html" class="card"><div class="card-icon">⚖️</div><div class="card-title">Sheath Weight</div><div class="card-desc">Cable sheath weight in kg/km from OD and density.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="conductor-resistance.html" class="card"><div class="card-icon">⚡</div><div class="card-title">Conductor Resistance</div><div class="card-desc">DC resistance with temperature correction per IEC 60228.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="awg-to-mm.html" class="card"><div class="card-icon">📐</div><div class="card-title">AWG to MM Converter</div><div class="card-desc">Convert AWG gauge to mm diameter, mm² area, and resistance.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="capacitance.html" class="card"><div class="card-icon">🔋</div><div class="card-title">Capacitance Calculator</div><div class="card-desc">Capacitance per metre and characteristic impedance Z₀.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="braiding-calculator.html" class="card"><div class="card-icon">🌀</div><div class="card-title">Braiding Calculator</div><div class="card-desc">Braid coverage %, pitch, and total wire count.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="bobbin-capacity.html" class="card"><div class="card-icon">🧵</div><div class="card-title">Bobbin Capacity</div><div class="card-desc">Wire length on bobbin from flange, core, and traverse dimensions.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="foam-by-water.html" class="card"><div class="card-icon">💧</div><div class="card-title">Foam % by Water</div><div class="card-desc">Foam percentage by Archimedes water displacement method.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="foam-percentage.html" class="card"><div class="card-icon">📊</div><div class="card-title">Foam Percentage</div><div class="card-desc">Foam % by dimensional measurement of insulation OD and conductor OD.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="multicore-cable.html" class="card"><div class="card-icon">🔌</div><div class="card-title">MultiCore Cable OD</div><div class="card-desc">Assembly OD from core OD and number of cores using K factors.</div><div class="card-arrow">Calculate →</div></a>
+      <a href="efficiency.html" class="card"><div class="card-icon">📈</div><div class="card-title">OEE / Efficiency</div><div class="card-desc">Overall Equipment Effectiveness: Availability × Performance × Quality.</div><div class="card-arrow">Calculate →</div></a>
+    </div>
   </div>
-</section>
 
-<!-- CONTACT STRIP -->
-<div class="contact-strip reveal">
+  <hr class="div">
+
+  <!-- TUTORIALS -->
+  <div class="section">
+    <div class="sec-tag">// TUTORIALS</div>
+    <div class="sec-title">CABLE COMPONENTS</div>
+    <div class="cards">
+      <a href="conductors.html" class="card"><div class="card-icon">🔴</div><div class="card-title">Conductors</div><div class="card-desc">Copper, aluminium, CCA — IEC 60228 classes, properties, and selection.</div><div class="card-arrow">Learn →</div></a>
+      <a href="insulation.html" class="card"><div class="card-icon">🟡</div><div class="card-title">Insulation</div><div class="card-desc">PVC, XLPE, PE, PTFE, EPR, Silicone — properties and applications.</div><div class="card-arrow">Learn →</div></a>
+      <a href="shielding.html" class="card"><div class="card-icon">🔵</div><div class="card-title">Shielding</div><div class="card-desc">Foil, braid, spiral shields — EMI protection types and effectiveness.</div><div class="card-arrow">Learn →</div></a>
+      <a href="jacket-sheath.html" class="card"><div class="card-icon">🟢</div><div class="card-title">Jacket / Sheath</div><div class="card-desc">Outer sheath materials for every environment — indoor, outdoor, buried, marine.</div><div class="card-arrow">Learn →</div></a>
+      <a href="fillers.html" class="card"><div class="card-icon">⚪</div><div class="card-title">Fillers & Filling Compounds</div><div class="card-desc">PP yarn, PE rods, swellable tape, jelly compounds — maintaining cable form.</div><div class="card-arrow">Learn →</div></a>
+      <a href="strength-members.html" class="card"><div class="card-icon">💪</div><div class="card-title">Strength Members</div><div class="card-desc">Aramid, fibreglass, steel wire — tensile strength for demanding installations.</div><div class="card-arrow">Learn →</div></a>
+    </div>
+  </div>
+
+</div>
+<footer class="footer">
   <div>
-    <h3>GET IN TOUCH</h3>
-    <p>Questions, suggestions, or technical discussions — we'd love to hear from you.</p>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
   </div>
-  <a href="mailto:somshekhar.heechage@gmail.com" class="btn-primary">✉️ somshekhar.heechage@gmail.com</a>
-</div>
-
-<!-- FOOTER -->
-<footer class="cs-footer">
-  <div class="cs-footer__brand">
-    <div class="cs-footer__logo">Cable Script</div>
-    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
-  </div>
-  <div class="cs-footer__col">
+  <div>
     <h4>Cable Types</h4>
     <a href="ethernet-cables.html">Ethernet Cables</a>
     <a href="coaxial-cables.html">Coaxial Cables</a>
@@ -354,25 +271,25 @@
     <a href="electrical-cables.html">Electrical Cables</a>
     <a href="automotive-cables.html">Automotive Cables</a>
   </div>
-  <div class="cs-footer__col">
+  <div>
     <h4>Machines</h4>
     <a href="wire-drawing.html">Wire Drawing</a>
     <a href="buncher.html">Buncher</a>
     <a href="extruder.html">Extruder</a>
     <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
     <a href="armoring.html">Armoring</a>
     <a href="jacketing.html">Jacketing</a>
   </div>
-  <div class="cs-footer__col">
+  <div>
     <h4>Resources</h4>
-    <a href="conductors.html">Tutorials</a>
     <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
     <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
   </div>
 </footer>
-<div class="cs-footer__bottom">
+<div class="footer-bottom">
   <span>© 2025 Cable Script. All rights reserved.</span>
-  <span>Built for cable engineering professionals.</span>
+  <span>somshekhar.heechage@gmail.com</span>
 </div>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-deco
+</body></html>

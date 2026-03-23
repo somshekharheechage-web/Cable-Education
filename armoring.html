@@ -1,74 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARMORING MACHINE — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armoring | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li><li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html" class="active">Machines</a></li><li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html">Tutorials</a></li><li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="wire-drawing.html">Machines</a><span>/</span>ARMORING MACHINE</div>
-  <p class="cs-hero__tag">// MANUFACTURING — STEP 6 OF 7</p>
-  <h1 class="cs-hero__title">ARMORING MACHINE</h1>
-  <p class="cs-hero__sub">Applying steel wire or steel tape armour over the cable core assembly — providing mechanical protection against impact, crush, and rodent attack for buried and industrial cables.</p>
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="wire-drawing.html">Machines</a> / Armoring</div>
+  <div class="tag">// MANUFACTURING — STEP 6 OF 7</div>
+  <h1>ARMORING MACHINE</h1>
+  <p class="hero-sub">Applying steel wire or steel tape armour over the cable core — providing mechanical protection for buried and industrial cable installations.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT IS CABLE ARMORING?</div>
+<div class="prose"><p>Armoring applies steel wire or tape over the laid-up cable assembly to protect against impact, crush forces, rodent attack, and demands of direct burial or industrial installation. Required wherever physical damage cannot be prevented by the jacket alone.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// ARMOUR TYPES</div><div class="sec-title">TYPES OF CABLE ARMOUR</div>
+<div class="cards">
+  <div class="card"><div class="card-icon">🔩</div><div class="card-title">Steel Wire Armour (SWA)</div><div class="card-desc">Individual galvanised steel wires wound helically. Most common armour type for power cables. Wire diameter typically 0.8–3.15 mm. Provides excellent crush and impact resistance per IEC 60502.</div></div>
+  <div class="card"><div class="card-icon">📜</div><div class="card-title">Steel Tape Armour (STA)</div><div class="card-desc">Two layers of thin steel tape (0.2–0.5 mm) wound in opposing directions. More compact than SWA with better crush resistance for stable soil conditions.</div></div>
+  <div class="card"><div class="card-icon">🌀</div><div class="card-title">Aluminium Wire Armour (AWA)</div><div class="card-desc">Used on single-core cables where steel would cause inductive heating. Aluminium doesn't form a closed magnetic circuit — essential for single-core HV cables.</div></div>
+  <div class="card"><div class="card-icon">⚡</div><div class="card-title">Double Steel Wire Armour (DSWA)</div><div class="card-desc">Two layers of steel wire in opposing helical directions. For submarine cables and extreme mechanical stress — handles deep-water installation tensions and seabed movement.</div></div>
+</div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// PROCESS</div><div class="sec-title">MACHINE OPERATION</div>
+  <div class="step"><div class="step-num">1</div><div><div class="step-title">Wire Pay-off Cage</div><div class="step-text">Steel wires fed from a rotating cage carrying multiple supply bobbins arranged around the cable path. All positions must maintain equal, controlled tension for uniform lay angle and wire spacing.</div></div></div>
+  <div class="step"><div class="step-num">2</div><div><div class="step-title">Forming Die</div><div class="step-text">Wires converge through a closing die at the correct lay angle. Die diameter set to give target coverage and wire-to-wire gap. Wires must sit tangentially on the bedding surface without crossing.</div></div></div>
+  <div class="step"><div class="step-num">3</div><div><div class="step-title">Lay Length Control</div><div class="step-text">Lay length = haul-off speed ÷ cage rotation speed. Typical lay: 10–20× the armoured cable OD. Short lay gives more wires per metre and higher crush resistance.</div></div></div>
+  <div class="step"><div class="step-num">4</div><div><div class="step-title">Armour Continuity Test</div><div class="step-text">Steel wire or tape tested for electrical continuity across the full drum length. For SWA cables, the armour is the fault return path — any broken wire must be detected here before jacketing.</div></div></div>
 </div>
-<main class="cs-main">
 
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">WHAT IS CABLE ARMORING?</h2>
-    <div class="cs-prose">
-      <p>Armoring applies a layer of steel wire or steel tape over the laid-up cable assembly to provide mechanical protection against impact, crush forces, rodent attack, and the demands of direct burial or industrial installation. Armoured cables are specified wherever physical damage cannot be prevented by the jacket alone.</p>
-      <p>The armoring machine applies armour wires or tapes helically over the bedded assembly. After armoring, the cable moves to the jacketing extruder for the final outer sheath.</p>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// ARMOUR TYPES</p>
-    <h2 class="cs-section__title">TYPES OF CABLE ARMOUR</h2>
-    <div class="cs-cards">
-      <div class="cs-card"><div class="cs-card__icon">🔩</div><div class="cs-card__title">Steel Wire Armour (SWA)</div><div class="cs-card__desc">Individual galvanised steel wires wound helically around the cable. The most common armour type for power cables. Wire diameter is typically 0.8–3.15 mm. Provides excellent crush and impact resistance. Specified in IEC 60502.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">📜</div><div class="cs-card__title">Steel Tape Armour (STA)</div><div class="cs-card__desc">Two layers of thin steel tape (0.2–0.5 mm) wound helically in opposing directions. More compact than SWA with better crush resistance. Suitable for cables in stable soil conditions and short runs with limited installation tension.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🌀</div><div class="cs-card__title">Aluminium Wire Armour (AWA)</div><div class="cs-card__desc">Used on single-core cables where steel wire would cause inductive heating from the cable's magnetic field. Aluminium does not form a closed magnetic circuit, eliminating eddy current losses. Essential for single-core HV cables.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Double Steel Wire Armour (DSWA)</div><div class="cs-card__desc">Two layers of steel wire in opposing helical directions. Used for submarine cables and extreme mechanical stress installations — provides tensile strength to handle deep-water installation tensions and seabed movement.</div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// PROCESS</p>
-    <h2 class="cs-section__title">ARMORING MACHINE OPERATION</h2>
-    <div class="cs-steps">
-      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">Wire Pay-off Cage</div><div class="cs-step__text">Steel wires are fed from a rotating cage carrying multiple supply bobbins arranged around the cable path. All positions must maintain equal, controlled tension to ensure uniform lay angle and wire spacing around the circumference.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">Forming Die</div><div class="cs-step__text">Wires converge through a closing die that positions each wire at the correct lay angle. Die diameter is set to give the target coverage and wire-to-wire gap. Wires must sit tangentially on the bedding surface without crossing or lifting.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Lay Length Control</div><div class="cs-step__text">Lay length = haul-off speed divided by cage rotation speed. Short lay gives more wires per metre and higher crush resistance; long lay reduces material usage. Typical lay: 10–20× the armoured cable OD. Specified in the cable construction drawing.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">4</div><div class="cs-step__body"><div class="cs-step__title">Armour Continuity Test</div><div class="cs-step__text">After armoring, the steel wire or tape is tested for electrical continuity across the full drum length. For SWA cables, the armour is the fault return path in the electrical installation — any broken wire would compromise protection and must be detected here.</div></div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// EXPLORE MORE</p>
-    <h2 class="cs-section__title">RELATED PAGES</h2>
-    <div class="cs-cards">
-      <a href="laying-up.html" class="cs-card"><div class="cs-card__icon">←</div><div class="cs-card__title">Laying Up — Step 5</div><div class="cs-card__desc">Previous step in the manufacturing process.</div><div class="cs-card__arrow">Previous →</div></a>
-      <a href="jacketing.html" class="cs-card"><div class="cs-card__icon">→</div><div class="cs-card__title">Jacketing — Step 7</div><div class="cs-card__desc">Next step in the manufacturing process.</div><div class="cs-card__arrow">Next step →</div></a>
-      <a href="sheath-weight.html" class="cs-card"><div class="cs-card__icon">🔢</div><div class="cs-card__title">Related Calculator</div><div class="cs-card__desc">Engineering calculator for this process.</div><div class="cs-card__arrow">Calculate →</div></a>
-    </div>
-  </section>
-</main>
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Machines</h4><a href="wire-drawing.html">Wire Drawing</a><a href="buncher.html">Buncher</a><a href="extruder.html">Extruder</a><a href="braiding.html">Braiding</a><a href="laying-up.html">Laying Up</a><a href="armoring.html">Armoring</a><a href="jacketing.html">Jacketing</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="die-tip-calculator.html">Calculators</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// NAVIGATE</div><div class="sec-title">ALL MANUFACTURING STEPS</div>
+<div class="cards">
+  <a href="wire-drawing.html" class="card"><div class="card-icon">🔩</div><div class="card-title">1. Wire Drawing</div><div class="card-arrow">Go →</div></a>
+  <a href="buncher.html" class="card"><div class="card-icon">🔀</div><div class="card-title">2. Buncher</div><div class="card-arrow">Go →</div></a>
+  <a href="extruder.html" class="card"><div class="card-icon">🏭</div><div class="card-title">3. Extruder</div><div class="card-arrow">Go →</div></a>
+  <a href="braiding.html" class="card"><div class="card-icon">🌐</div><div class="card-title">4. Braiding</div><div class="card-arrow">Go →</div></a>
+  <a href="laying-up.html" class="card"><div class="card-icon">🔄</div><div class="card-title">5. Laying Up</div><div class="card-arrow">Go →</div></a>
+  <a href="armoring.html" class="card"><div class="card-icon">🛡️</div><div class="card-title">6. Armoring</div><div class="card-arrow">Go →</div></a>
+  <a href="jacketing.html" class="card"><div class="card-icon">🎯</div><div class="card-title">7. Jacketing</div><div class="card-arrow">Go →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.i
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>

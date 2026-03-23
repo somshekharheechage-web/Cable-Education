@@ -1,101 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INSULATION — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insulation | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html">Machines</a></li>
-    <li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html" class="active">Tutorials</a></li>
-    <li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="conductors.html">Tutorials</a><span>/</span>Insulation</div>
-  <p class="cs-hero__tag">// CABLE COMPONENTS — 2 OF 6</p>
-  <h1 class="cs-hero__title">INSULATION</h1>
-  <p class="cs-hero__sub">PVC, XLPE, PE, EPR, PTFE, silicone — insulation materials, temperature ratings, dielectric properties, and selection.</p>
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="conductors.html">Tutorials</a> / Insulation</div>
+  <div class="tag">// TUTORIAL — CABLE COMPONENTS</div>
+  <h1>INSULATION</h1>
+  <p class="hero-sub">PVC, XLPE, PE, PTFE, EPR, Silicone — insulation materials, dielectric properties, and temperature ratings.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT IS CABLE INSULATION?</div>
+<div class="prose"><p>Insulation is the electrically non-conductive layer applied over each conductor to prevent current from flowing between conductors or to ground. It must maintain its dielectric properties across the full operating temperature range and resist the mechanical and chemical stresses of the installation environment.</p>
+<p>Insulation material choice determines the cable's voltage rating, maximum operating temperature, flexibility, chemical resistance, and flammability classification.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// MATERIALS</div><div class="sec-title">INSULATION MATERIALS</div>
+<div class="tbl-wrap"><table>
+  <tr><th>Material</th><th>Max Temp</th><th>Dielectric Constant (εᵣ)</th><th>Key Properties</th><th>Applications</th></tr>
+  <tr><td>PVC</td><td>70°C</td><td>3.0–5.0</td><td>Low cost, flame retardant, flexible</td><td>Building wire, control cable, flexible cords</td></tr>
+  <tr><td>XLPE</td><td>90°C (130°C short circuit)</td><td>2.3</td><td>Low dielectric loss, good thermal stability</td><td>Power distribution, MV/HV cables</td></tr>
+  <tr><td>PE (solid)</td><td>70–80°C</td><td>2.3</td><td>Low dielectric loss, moisture resistant</td><td>Coaxial cables, direct burial</td></tr>
+  <tr><td>Foam PE</td><td>60°C</td><td>1.3–1.8</td><td>Very low loss, lightweight</td><td>Coaxial dielectric, high-frequency cables</td></tr>
+  <tr><td>FEP / PTFE</td><td>200–260°C</td><td>2.1</td><td>Chemical resistance, ultra-high temp</td><td>Plenum Ethernet, petrochemical, aerospace</td></tr>
+  <tr><td>EPR</td><td>90°C</td><td>3.0–3.5</td><td>Flexible at low temps, wet locations</td><td>Mining cables, shipboard, flexible power</td></tr>
+  <tr><td>Silicone</td><td>150–200°C</td><td>3.0–4.0</td><td>Wide temperature range, very flexible</td><td>Heater cables, ovens, aerospace</td></tr>
+</table></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// PROCESS</div><div class="sec-title">INSULATION PROCESS NOTES</div>
+  <div class="step"><div class="step-num">1</div><div><div class="step-title">Extrusion</div><div class="step-text">Thermoplastic insulation materials (PVC, PE, XLPE) are applied by extrusion. The conductor passes through the crosshead die while molten polymer is forced over it. Wall thickness and concentricity are controlled by die and tip sizing.</div></div></div>
+  <div class="step"><div class="step-num">2</div><div><div class="step-title">Cross-linking (for XLPE)</div><div class="step-text">After extrusion, XLPE is cross-linked by peroxide chemistry (in a steam or dry cure tube) or by irradiation. Cross-linking creates 3D molecular bonds that prevent melting at elevated temperatures — giving XLPE its superior thermal performance over standard PE.</div></div></div>
+  <div class="step"><div class="step-num">3</div><div><div class="step-title">Spark Testing</div><div class="step-text">Every metre of insulated conductor is tested with an inline high-voltage spark tester. The electrode voltage is set to 3–5× the rated voltage. Any pinhole or thin spot creates a discharge, triggering an immediate alarm and line stop.</div></div></div>
+  <div class="step"><div class="step-num">4</div><div><div class="step-title">Colour Coding</div><div class="step-text">Insulation colour identifies each core. IEC 60446 specifies: Green/Yellow = Earth, Blue = Neutral, Brown/Black/Grey = Live. Cable manufacturers add pigment masterbatch to the extrusion compound to achieve the required colour consistently along the entire drum length.</div></div></div>
 </div>
-<main class="cs-main">
 
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">WHAT IS CABLE INSULATION?</h2>
-    <div class="cs-prose">
-      <p>Insulation surrounds each conductor to prevent current leakage, maintain electrical isolation between conductors, and protect against environmental hazards. The insulation material determines the cable's maximum operating voltage, temperature rating, dielectric loss, and chemical resistance.</p>
-      <p>Selecting the wrong insulation compound is one of the most common causes of premature cable failure. Every insulation material involves trade-offs between cost, electrical performance, mechanical strength, and temperature range.</p>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// MATERIAL GUIDE</p>
-    <h2 class="cs-section__title">INSULATION MATERIALS</h2>
-    <div class="cs-steps">
-      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">PVC (Polyvinyl Chloride)</div><div class="cs-step__text">Max temp 70°C. The most widely used insulation due to low cost, good processability, and inherent flame retardancy. Good moisture and abrasion resistance. Limitations: releases HCl gas in fire, poor low-temperature flexibility below −5°C, higher dielectric loss than PE. Used in building wire, control cables, and general-purpose wiring.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">XLPE (Cross-Linked Polyethylene)</div><div class="cs-step__text">Max temp 90°C conductor (250°C short circuit). Cross-linking converts thermoplastic PE into a thermoset — dramatically improving thermal and mechanical performance. Low dielectric loss, excellent voltage withstand, and good chemical resistance. Industry standard for medium and high voltage power cables per IEC 60502 and IEC 60840.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Polyethylene (PE / MDPE / HDPE)</div><div class="cs-step__text">Max temp 75°C. Excellent dielectric properties — low εᵣ (2.3) and very low loss tangent. The standard insulation for coaxial cables, Ethernet, and telecommunications. Resistant to moisture and most chemicals. Does not support combustion without an additive. HDPE is stiffer; MDPE balances flexibility and stiffness for outdoor cables.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">4</div><div class="cs-step__body"><div class="cs-step__title">Foam PE (FPE / Cellular PE)</div><div class="cs-step__text">PE with controlled air cells — typically 40–65% foam content. Lower dielectric constant (1.4–1.8) than solid PE reduces capacitance and improves velocity of propagation. Essential for high-frequency coaxial cables where low signal loss is critical — CATV, broadband, LMR antenna cables. Requires careful extrusion to maintain uniform cell structure.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">5</div><div class="cs-step__body"><div class="cs-step__title">EPR (Ethylene Propylene Rubber)</div><div class="cs-step__text">Max temp 90°C. Outstanding flexibility even at low temperatures, excellent ozone and UV resistance, and good electrical properties in wet conditions. More expensive than XLPE but preferred for mining cables, shipboard wiring, and portable power cables that must flex continuously in harsh environments.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">6</div><div class="cs-step__body"><div class="cs-step__title">PTFE (Teflon)</div><div class="cs-step__text">Max temp 260°C. Exceptional chemical inertness, ultra-low dielectric constant (2.1), and the widest temperature range of any cable insulation. Used in aerospace wiring, high-frequency microwave cables, chemical plant instrumentation, and military applications. High cost limits use to demanding applications.</div></div></div>
-      <div class="cs-step"><div class="cs-step__num">7</div><div class="cs-step__body"><div class="cs-step__title">Silicone Rubber</div><div class="cs-step__text">Max temp 180°C continuously (200°C+ short term). Remains flexible at −60°C. Good electrical properties and excellent resistance to ozone, UV, and weathering. Used for flexible heater cables, oven wiring, automotive engine wiring, and any application combining extreme temperature with required flexibility.</div></div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// COMPARISON TABLE</p>
-    <h2 class="cs-section__title">INSULATION PROPERTIES AT A GLANCE</h2>
-    <div class="cs-table-wrap">
-      <table class="cs-table">
-        <thead><tr><th>Material</th><th>Max Temp</th><th>εᵣ</th><th>Flame Ret.</th><th>Cost</th><th>Key Strength</th></tr></thead>
-        <tbody>
-          <tr><td>PVC</td><td>70°C</td><td>3.5</td><td>Yes</td><td>Low</td><td>Low cost, processability</td></tr>
-          <tr><td>XLPE</td><td>90°C</td><td>2.35</td><td>No (additive)</td><td>Medium</td><td>HV performance, low loss</td></tr>
-          <tr><td>Solid PE</td><td>75°C</td><td>2.30</td><td>No</td><td>Low–Med</td><td>Low loss, moisture resistance</td></tr>
-          <tr><td>Foam PE</td><td>75°C</td><td>1.4–1.8</td><td>No</td><td>Medium</td><td>Ultra-low loss at RF</td></tr>
-          <tr><td>EPR</td><td>90°C</td><td>2.8</td><td>No (additive)</td><td>High</td><td>Flexibility, wet environments</td></tr>
-          <tr><td>PTFE</td><td>260°C</td><td>2.10</td><td>Yes</td><td>Very high</td><td>Chemical resistance, HF</td></tr>
-          <tr><td>Silicone</td><td>180°C</td><td>3.0</td><td>Yes (ash)</td><td>High</td><td>Extreme temp + flexibility</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// RELATED</p>
-    <h2 class="cs-section__title">RELATED PAGES</h2>
-    <div class="cs-cards">
-      <a href="extruder.html" class="cs-card"><div class="cs-card__icon">🌡️</div><div class="cs-card__title">Extruder Machine</div><div class="cs-card__desc">How insulation is applied over the conductor by extrusion.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="die-tip-calculator.html" class="cs-card"><div class="cs-card__icon">⚙️</div><div class="cs-card__title">Die Tip Calculator</div><div class="cs-card__desc">Calculate die dimensions for insulation extrusion.</div><div class="cs-card__arrow">Calculate →</div></a>
-      <a href="capacitance.html" class="cs-card"><div class="cs-card__icon">🔋</div><div class="cs-card__title">Capacitance Calculator</div><div class="cs-card__desc">How insulation εᵣ affects cable capacitance and impedance.</div><div class="cs-card__arrow">Calculate →</div></a>
-    </div>
-  </section>
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// ALL COMPONENTS</p>
-    <h2 class="cs-section__title">CABLE COMPONENTS SERIES</h2>
-    <div class="cs-cards">
-      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors</div><div class="cs-card__desc">Copper, aluminium, CCA, CCS, silver-plated.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation</div><div class="cs-card__desc">PVC, XLPE, PE, EPR, PTFE, foam PE.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="shielding.html" class="cs-card"><div class="cs-card__icon">📡</div><div class="cs-card__title">Shielding</div><div class="cs-card__desc">Foil, braid, spiral, combination shields.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="jacket-sheath.html" class="cs-card"><div class="cs-card__icon">🧱</div><div class="cs-card__title">Jacket / Sheath</div><div class="cs-card__desc">PVC, PE, LSZH, TPU, neoprene, silicone.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="fillers.html" class="cs-card"><div class="cs-card__icon">🔬</div><div class="cs-card__title">Fillers</div><div class="cs-card__desc">PP yarn, PE rods, water-blocking compounds.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="strength-members.html" class="cs-card"><div class="cs-card__icon">💪</div><div class="cs-card__title">Strength Members</div><div class="cs-card__desc">Kevlar, fibreglass, steel wire tension elements.</div><div class="cs-card__arrow">Read →</div></a>
-    </div>
-  </section>
-</main>
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Tutorials</h4><a href="conductors.html">Conductors</a><a href="insulation.html">Insulation</a><a href="shielding.html">Shielding</a><a href="jacket-sheath.html">Jacket / Sheath</a><a href="fillers.html">Fillers</a><a href="strength-members.html">Strength Members</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="die-tip-calculator.html">Calculators</a><a href="wire-drawing.html">Machines</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// OTHER TUTORIALS</div><div class="sec-title">ALL COMPONENTS</div>
+<div class="cards">
+  <a href="conductors.html" class="card"><div class="card-icon">🔴</div><div class="card-title">Conductors</div><div class="card-arrow">Learn →</div></a>
+  <a href="insulation.html" class="card"><div class="card-icon">🟡</div><div class="card-title">Insulation</div><div class="card-arrow">Learn →</div></a>
+  <a href="shielding.html" class="card"><div class="card-icon">🔵</div><div class="card-title">Shielding</div><div class="card-arrow">Learn →</div></a>
+  <a href="jacket-sheath.html" class="card"><div class="card-icon">🟢</div><div class="card-title">Jacket / Sheath</div><div class="card-arrow">Learn →</div></a>
+  <a href="fillers.html" class="card"><div class="card-icon">⚪</div><div class="card-title">Fillers & Compounds</div><div class="card-arrow">Learn →</div></a>
+  <a href="strength-members.html" class="card"><div class="card-icon">💪</div><div class="card-title">Strength Members</div><div class="card-arrow">Learn →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.i
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>

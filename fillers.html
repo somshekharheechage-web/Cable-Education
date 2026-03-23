@@ -1,90 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FILLERS — Cable Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fillers & Filling Compounds | Cable Script</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; color: #e0e2ea; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.7; }
+  a { color: #f0a500; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* NAV */
+  .nav { background: #111318; border-bottom: 2px solid #f0a500; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-logo { color: #f0a500; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: #aaa; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; }
+  .nav-links a:hover { color: #f0a500; background: rgba(240,165,0,0.1); }
+  .nav-links .cta { background: #f0a500; color: #000 !important; font-weight: bold; }
+  .nav-links .cta:hover { background: #e09000; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #111318 0%, #0d0f14 100%); border-bottom: 1px solid #232733; padding: 60px 40px 40px; }
+  .breadcrumb { color: #666; font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: #f0a500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-sub { color: #888; font-size: 1rem; max-width: 600px; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .sec-tag { color: #f0a500; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace; }
+  .sec-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #ffffff; margin-bottom: 20px; }
+  
+  /* PROSE */
+  .prose p { color: #aaa; margin-bottom: 18px; line-height: 1.8; }
+  .prose strong { color: #e0e2ea; }
+  .prose h3 { color: #f0a500; font-size: 1.1rem; margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .prose ul, .prose ol { padding-left: 22px; color: #aaa; margin-bottom: 18px; }
+  .prose li { margin-bottom: 8px; }
+  
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid #232733; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #181b22; color: #f0a500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid #232733; white-space: nowrap; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1d25; color: #aaa; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.04); }
+  td:first-child { color: #e0e2ea; font-weight: 600; }
+  
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; text-decoration: none; color: #e0e2ea; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: #f0a500; transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.95rem; }
+  .card-desc { font-size: 0.85rem; color: #888; flex: 1; line-height: 1.6; }
+  .card-arrow { color: #f0a500; font-size: 0.8rem; margin-top: 4px; }
+  
+  /* STEPS */
+  .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #1a1d25; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; flex-shrink: 0; background: #f0a500; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .step-title { font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-text { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+  
+  /* CALLOUT */
+  .callout { background: #111318; border-left: 3px solid #f0a500; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 20px 0; }
+  .callout.blue { border-left-color: #5b9bd5; }
+  .callout.green { border-left-color: #5cb85c; }
+  .callout.yellow { border-left-color: #f0c040; }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .callout-body { color: #aaa; font-size: 0.875rem; line-height: 1.7; }
+  
+  /* CALC */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .calc { background: #111318; border: 1px solid #232733; border-top: 3px solid #f0a500; border-radius: 0 0 10px 10px; padding: 28px; }
+  .calc-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 22px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 7px; font-family: monospace; }
+  .form-input { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 1rem; padding: 11px 14px; outline: none; font-family: monospace; }
+  .form-input:focus { border-color: #f0a500; }
+  .form-select { width: 100%; background: #0d0f14; border: 1px solid #333; border-radius: 6px; color: #e0e2ea; font-size: 0.9rem; padding: 11px 14px; outline: none; cursor: pointer; }
+  .calc-btn { width: 100%; background: #f0a500; color: #000; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 900; padding: 13px; cursor: pointer; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .calc-btn:hover { background: #d99000; }
+  .result-box { display: none; margin-top: 20px; background: #0d0f14; border: 1px solid #333; border-radius: 8px; padding: 18px 22px; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  .result-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: #666; font-family: monospace; margin-bottom: 3px; }
+  .result-value { font-size: 2rem; font-weight: 900; color: #f0a500; line-height: 1; }
+  .result-unit { font-size: 0.8rem; color: #666; margin-top: 2px; font-family: monospace; }
+  .err { color: #f08080; font-size: 0.82rem; margin-top: 8px; display: none; }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #111318; border: 1px solid #232733; border-radius: 10px; padding: 24px; }
+  .formula-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 18px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #1a1d25; }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-eq { background: #0d0f14; color: #f0a500; font-family: monospace; padding: 8px 14px; border-radius: 5px; font-size: 0.9rem; display: block; margin: 6px 0; word-break: break-all; }
+  .formula-desc { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  
+  /* DIVIDER */
+  hr.div { border: none; border-top: 1px solid #1a1d25; margin: 48px 0; }
+  
+  /* FOOTER */
+  .footer { background: #111318; border-top: 1px solid #232733; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: #f0a500; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+  .footer-tagline { color: #666; font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: #f0a500; }
+  .footer-bottom { background: #0d0f14; border-top: 1px solid #1a1d25; padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+  
+  @media(max-width: 800px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 50px 16px 30px; }
+    .main { padding: 32px 16px; }
+    .calc-wrap, .grid2 { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-<nav class="cs-nav">
-  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
-  <ul class="cs-nav__links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ethernet-cables.html">Cable Types</a></li>
-    <li><a href="wire-drawing.html">Machines</a></li>
-    <li><a href="die-tip-calculator.html">Calculators</a></li>
-    <li><a href="conductors.html" class="active">Tutorials</a></li>
-    <li><a href="mailto:somshekhar.heechage@gmail.com" class="cs-nav__cta">Contact</a></li>
-  </ul>
-</nav>
-<div class="cs-hero">
-  <div class="cs-hero__bg"></div>
-  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="conductors.html">Tutorials</a><span>/</span>Fillers</div>
-  <p class="cs-hero__tag">// CABLE COMPONENTS — 5 OF 6</p>
-  <h1 class="cs-hero__title">FILLERS</h1>
-  <p class="cs-hero__sub">PP yarn, PE rods, water-blocking tapes, and flooding compounds — how fillers create a round, stable multi-core cable.</p>
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com" class="cta">Contact</a>
+  </div>
+</nav><div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="conductors.html">Tutorials</a> / Fillers & Filling Compounds</div>
+  <div class="tag">// TUTORIAL — CABLE COMPONENTS</div>
+  <h1>FILLERS & FILLING COMPOUNDS</h1>
+  <p class="hero-sub">PP yarn, PE rods, swellable tape, jelly compounds — maintaining cable roundness, stability, and water protection.</p>
+</div><div class="main">
+<div class="section"><div class="sec-tag">// OVERVIEW</div><div class="sec-title">WHAT ARE FILLERS?</div>
+<div class="prose"><p>Within the cable structure, fillers or filling compounds are used to maintain the shape and structure of the cable, reduce stress on the conductors, provide additional insulation support, and increase cable service life.</p>
+<p>The specific type of filler depends on the cable type, application, environmental conditions, and specific performance requirements. Manufacturers customise filler selection based on the needs of each cable design.</p></div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// FILLER TYPES</div><div class="sec-title">TYPES OF FILLERS</div>
+<div class="cards">
+  <div class="card"><div class="card-icon">🧵</div><div class="card-title">Polypropylene (PP) Yarn</div><div class="card-desc">The most common dry filler. Non-hygroscopic, lightweight, and compatible with all common insulation materials. Occupies the interstices between cores to maintain the round cable form during armour and jacket application.</div></div>
+  <div class="card"><div class="card-icon">⬜</div><div class="card-title">Polyethylene (PE) Rods</div><div class="card-desc">Solid PE rods used in power cables and larger multi-core constructions. Provide dimensional stability and consistent round form. Compatible with PE and XLPE bedding extrusion. Used where yarn would compress excessively under armour pressure.</div></div>
+  <div class="card"><div class="card-icon">💧</div><div class="card-title">Swellable (Water-Blocking) Tape</div><div class="card-desc">Tape containing superabsorbent polymer powder that swells to many times its original volume when wetted. Applied between cores and as a longitudinal barrier. Required for direct burial and submarine cables — prevents water propagation along the cable length in the event of jacket damage.</div></div>
+  <div class="card"><div class="card-icon">🫙</div><div class="card-title">Petroleum Jelly / Gel Compounds</div><div class="card-desc">Semi-solid filling compound injected into the interstices of the cable during manufacturing. Provides excellent longitudinal and radial water blocking without the weight of swellable materials. Common in direct-burial telephone and data cables (filled cables). Messy to terminate — special cleaning solvents required.</div></div>
+  <div class="card"><div class="card-icon">🔴</div><div class="card-title">LSZH Fillers</div><div class="card-desc">Non-hygroscopic filling compound designed for use in LSZH cables where the entire cable construction must meet halogen-free requirements. Standard PP yarn contains no halogens, but some gel compounds may — verify compound composition against LSZH standards.</div></div>
+</div></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// KEY RULE</div><div class="sec-title">THE ROUNDNESS RULE</div>
+<div class="callout"><div class="callout-title">Why Roundness Matters</div><div class="callout-body">A round cable cross-section is not just aesthetic — it is functional. Armour wires or tapes applied over an oval or irregular assembly will have unequal contact pressure: tighter on one side, loose on the other. This causes uneven mechanical protection, potential core damage under crush loads, and difficulties achieving uniform jacket wall thickness. Fillers are the primary tool for achieving and maintaining cable roundness throughout the manufacturing process.</div></div>
 </div>
-<main class="cs-main">
 
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// OVERVIEW</p>
-    <h2 class="cs-section__title">WHAT ARE CABLE FILLERS?</h2>
-    <div class="cs-prose">
-      <p>Fillers occupy the interstitial gaps between round cable cores when they are assembled into a multi-core construction. Without fillers, the spaces between cores create voids in the cable cross-section — resulting in an oval or irregular shape that makes armour application difficult and allows the cores to shift position under mechanical stress.</p>
-      <p>Good filler design achieves a <strong>circular, compact, stable cable cross-section</strong> while adding minimal weight and cost. Fillers also play a role in water-blocking, fire performance, and — in some designs — cushioning the cores against armour wire penetration.</p>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// FILLER TYPES</p>
-    <h2 class="cs-section__title">TYPES OF FILLERS</h2>
-    <div class="cs-cards">
-      <div class="cs-card"><div class="cs-card__icon">🧵</div><div class="cs-card__title">Polypropylene (PP) Yarn</div><div class="cs-card__desc">The most common filler. Lightweight, low cost, chemically inert, and thermally stable to 130°C. Easily coloured. Applied by wrapping bundles around and between cores. Available in different weights (tex) to fill different gap sizes. Standard for power, control, and instrumentation cables.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🔵</div><div class="cs-card__title">PE / PP Rods and Profiles</div><div class="cs-card__desc">Extruded solid or shaped profiles that fit precisely into the interstices between specific core configurations — especially triangular gaps in 3-core and 4-core cables. Provide a very consistent, dimensionally stable cross-section. Used where precise roundness is critical for subsequent processing.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">💧</div><div class="cs-card__title">Water-Blocking (Swellable) Tape / Yarn</div><div class="cs-card__desc">Filled with superabsorbent polymer (SAP) particles that swell rapidly on contact with water, sealing any longitudinal water migration path along the cable. Essential for direct burial, submarine, and any cable where water ingress at a cut end or damaged section must not travel along the cable length.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🟡</div><div class="cs-card__title">Jelly-Filled / Flooding Compound</div><div class="cs-card__desc">Petroleum or synthetic gel that fills all voids in the cable core under positive pressure. Completely blocks water and moisture migration. Standard in outdoor and direct-burial telephone cables, some data cables, and submarine cables. Messy to work with — gloves and solvents required for termination.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">🔬</div><div class="cs-card__title">LSZH / Flame Retardant Fillers</div><div class="cs-card__desc">PP or PE fillers compounded with flame retardant additives or LSZH compounds. Used in cables where the filler contributes to the overall fire performance rating. Important in cables for transit, offshore, and public building applications where the entire cable construction must meet fire standards.</div></div>
-      <div class="cs-card"><div class="cs-card__icon">📰</div><div class="cs-card__title">Binder / Wrapping Tape</div><div class="cs-card__desc">Polyester, nylon, or paper tapes applied over the filled core assembly to bind everything together before bedding or armour. Not a filler in the traditional sense but performs the same function of maintaining cable geometry. Overlap of 10–25% is typical.</div></div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// DESIGN RULE</p>
-    <h2 class="cs-section__title">WHY ROUNDNESS MATTERS</h2>
-    <div class="cs-callout cs-callout--tip">
-      <div class="cs-callout__title">💡 The roundness rule</div>
-      <div class="cs-callout__body">A cable must present a circular cross-section to the armoring machine. An oval assembly causes armour wires to apply unequal pressure around the circumference — some wires lift off the surface while others embed into the bedding. This causes armour gaps, bedding damage, and potential damage to the cores underneath. Always verify roundness with a go/no-go gauge after laying up before proceeding to armoring.</div>
-    </div>
-  </section>
-  <hr class="cs-divider">
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// RELATED</p>
-    <h2 class="cs-section__title">RELATED PAGES</h2>
-    <div class="cs-cards">
-      <a href="laying-up.html" class="cs-card"><div class="cs-card__icon">🔌</div><div class="cs-card__title">Laying Up Machine</div><div class="cs-card__desc">Where fillers are applied in the manufacturing process.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="armoring.html" class="cs-card"><div class="cs-card__icon">🔩</div><div class="cs-card__title">Armoring Machine</div><div class="cs-card__desc">Why a round, filled assembly is critical before armoring.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="multicore-cable.html" class="cs-card"><div class="cs-card__icon">🔢</div><div class="cs-card__title">MultiCore OD Calculator</div><div class="cs-card__desc">Estimate assembly OD including filler factor.</div><div class="cs-card__arrow">Calculate →</div></a>
-    </div>
-  </section>
-
-  <section class="cs-section reveal">
-    <p class="cs-section__tag">// ALL COMPONENTS</p>
-    <h2 class="cs-section__title">CABLE COMPONENTS SERIES</h2>
-    <div class="cs-cards">
-      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors</div><div class="cs-card__desc">Copper, aluminium, CCA, CCS, silver-plated.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation</div><div class="cs-card__desc">PVC, XLPE, PE, EPR, PTFE, foam PE.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="shielding.html" class="cs-card"><div class="cs-card__icon">📡</div><div class="cs-card__title">Shielding</div><div class="cs-card__desc">Foil, braid, spiral, combination shields.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="jacket-sheath.html" class="cs-card"><div class="cs-card__icon">🧱</div><div class="cs-card__title">Jacket / Sheath</div><div class="cs-card__desc">PVC, PE, LSZH, TPU, neoprene, silicone.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="fillers.html" class="cs-card"><div class="cs-card__icon">🔬</div><div class="cs-card__title">Fillers</div><div class="cs-card__desc">PP yarn, PE rods, water-blocking compounds.</div><div class="cs-card__arrow">Read →</div></a>
-      <a href="strength-members.html" class="cs-card"><div class="cs-card__icon">💪</div><div class="cs-card__title">Strength Members</div><div class="cs-card__desc">Kevlar, fibreglass, steel wire tension elements.</div><div class="cs-card__arrow">Read →</div></a>
-    </div>
-  </section>
-</main>
-<footer class="cs-footer">
-  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
-  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
-  <div class="cs-footer__col"><h4>Tutorials</h4><a href="conductors.html">Conductors</a><a href="insulation.html">Insulation</a><a href="shielding.html">Shielding</a><a href="jacket-sheath.html">Jacket / Sheath</a><a href="fillers.html">Fillers</a><a href="strength-members.html">Strength Members</a></div>
-  <div class="cs-footer__col"><h4>Resources</h4><a href="die-tip-calculator.html">Calculators</a><a href="wire-drawing.html">Machines</a><a href="mailto:somshekhar.heechage@gmail.com">Contact</a></div>
+<hr class="div">
+<div class="section"><div class="sec-tag">// OTHER TUTORIALS</div><div class="sec-title">ALL COMPONENTS</div>
+<div class="cards">
+  <a href="conductors.html" class="card"><div class="card-icon">🔴</div><div class="card-title">Conductors</div><div class="card-arrow">Learn →</div></a>
+  <a href="insulation.html" class="card"><div class="card-icon">🟡</div><div class="card-title">Insulation</div><div class="card-arrow">Learn →</div></a>
+  <a href="shielding.html" class="card"><div class="card-icon">🔵</div><div class="card-title">Shielding</div><div class="card-arrow">Learn →</div></a>
+  <a href="jacket-sheath.html" class="card"><div class="card-icon">🟢</div><div class="card-title">Jacket / Sheath</div><div class="card-arrow">Learn →</div></a>
+  <a href="fillers.html" class="card"><div class="card-icon">⚪</div><div class="card-title">Fillers & Compounds</div><div class="card-arrow">Learn →</div></a>
+  <a href="strength-members.html" class="card"><div class="card-icon">💪</div><div class="card-title">Strength Members</div><div class="card-arrow">Learn →</div></a>
+</div></div></div><footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:somshekhar.heechage@gmail.com">Contact</a>
+  </div>
 </footer>
-<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
-<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.i
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>somshekhar.heechage@gmail.com</span>
+</div>
+</body></html>
