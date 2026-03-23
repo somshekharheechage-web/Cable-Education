@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extruder — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li><li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html" class="active">Machines</a></li><li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li><li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="wire-drawing.html">Machines</a><span>/</span>Extruder</div>
+  <p class="cs-hero__tag">// MANUFACTURING — STEP 3 OF 7</p>
+  <h1 class="cs-hero__title">EXTRUDER<br>MACHINE</h1>
+  <p class="cs-hero__sub">Melting and forcing polymer compound over a moving conductor — the process that applies insulation, bedding, and jacket layers to a cable.</p>
+</div>
+<main class="cs-main">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">THE EXTRUSION PROCESS</h2>
+    <div class="cs-prose">
+      <p>A cable extruder heats thermoplastic or thermoset polymer compound (PVC, XLPE, PE, LSZH, silicone) and forces it through a crosshead die over the moving conductor. As the material exits the die and cools in a water trough, it solidifies into a uniform insulation or jacket layer.</p>
+      <p>Extrusion is used at multiple stages: <strong>insulation</strong> of individual conductors, <strong>bedding</strong> between cores and armour, and <strong>jacketing</strong> the outer sheath. Each pass requires precise control of temperature, screw speed, line speed, and die geometry to maintain consistent wall thickness and concentricity.</p>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// MACHINE COMPONENTS</p>
+    <h2 class="cs-section__title">KEY EXTRUDER COMPONENTS</h2>
+    <div class="cs-steps">
+      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">Hopper</div><div class="cs-step__text">The material feed point. Granules or pellets of polymer compound are loaded here. A hopper dryer is often fitted above to remove moisture from hygroscopic materials (PVC, nylon, LSZH) — moisture in the melt causes bubbles, voids, and poor surface finish.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">Barrel &amp; Screw</div><div class="cs-step__text">The barrel is a heated cylinder, typically 20–120 mm diameter, containing the rotating screw. The screw has three zones: <strong>Feed</strong> (conveys granules inward), <strong>Compression</strong> (melts and compresses material), and <strong>Metering</strong> (delivers uniform melt at constant pressure to the die).</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Temperature Zones</div><div class="cs-step__text">The barrel is divided into 3–6 independent heating zones controlled by PID controllers. Temperature rises from the feed zone (~140°C for PVC) to the metering zone (~190°C). The crosshead and die also have their own independently controlled heating zones.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">4</div><div class="cs-step__body"><div class="cs-step__title">Crosshead Die</div><div class="cs-step__text">The crosshead redirects melt flow 90° onto the moving conductor. Inside are a <strong>die tip</strong> (which the conductor passes through) and a <strong>die</strong> (which shapes the outer surface). The gap between tip and die determines the insulation wall thickness and concentricity.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">5</div><div class="cs-step__body"><div class="cs-step__title">Water Trough &amp; Cooling</div><div class="cs-step__text">The extruded cable passes immediately into a water cooling trough — typically 20–60 m long for high-speed lines. Water temperature is staged (warm to cold) to prevent surface crazing. For XLPE, a steam or nitrogen tube vulcanising (CV) tube replaces the open water trough.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">6</div><div class="cs-step__body"><div class="cs-step__title">Spark Tester</div><div class="cs-step__text">An inline high-voltage electrode (typically 5–30 kV AC or DC) tests every centimetre of insulation for pinholes, voids, and thin spots as it leaves the cooling trough. Any fault triggers an alarm and marks the defect location. Mandatory for insulated conductors per IEC 60811.</div></div></div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// DIE TYPES</p>
+    <h2 class="cs-section__title">PRESSURE vs TUBE EXTRUSION</h2>
+    <div class="cs-grid-2">
+      <div class="cs-callout">
+        <div class="cs-callout__title">Pressure Extrusion</div>
+        <div class="cs-callout__body">The die tip is flush with or inside the die orifice. Melt contacts the conductor under pressure inside the die, giving excellent concentricity and adhesion. Used for PVC, LSZH, and PE insulation where tight wall control is critical. The die tip calculator on this site is used for this geometry.</div>
+      </div>
+      <div class="cs-callout cs-callout--info">
+        <div class="cs-callout__title">Tube (Vacuum) Extrusion</div>
+        <div class="cs-callout__body">The die tip protrudes beyond the die. A tube of melt is formed and then drawn down onto the conductor outside the die. A vacuum port collapses the tube onto the conductor. Used for XLPE and applications where the insulation must not be bonded to the conductor screen.</div>
+      </div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// PROCESS CONTROL</p>
+    <h2 class="cs-section__title">CRITICAL CONTROL PARAMETERS</h2>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead><tr><th>Parameter</th><th>Effect if Too High</th><th>Effect if Too Low</th></tr></thead>
+        <tbody>
+          <tr><td>Melt Temperature</td><td>Degradation, discolouration, bubbles</td><td>Poor fusion, rough surface, high motor load</td></tr>
+          <tr><td>Screw Speed (RPM)</td><td>Melt overheating, surging</td><td>Under-feeding, wall thickness variation</td></tr>
+          <tr><td>Line Speed</td><td>Thin walls, necking</td><td>Thick walls, excess material usage</td></tr>
+          <tr><td>Die Gap</td><td>Thick wall, eccentricity</td><td>Thin wall, spark test failures</td></tr>
+          <tr><td>Cooling Rate</td><td>Surface crazing, internal stress</td><td>Deformation before solidification</td></tr>
+          <tr><td>Back Pressure</td><td>Melt instability</td><td>Poor homogenisation, contamination</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="buncher.html" class="cs-card"><div class="cs-card__icon">🔀</div><div class="cs-card__title">Buncher — Step 2</div><div class="cs-card__desc">Stranding conductors before insulation.</div><div class="cs-card__arrow">Previous step →</div></a>
+      <a href="braiding.html" class="cs-card"><div class="cs-card__icon">🌐</div><div class="cs-card__title">Braiding — Step 4</div><div class="cs-card__desc">Applying braided shields over insulated cores.</div><div class="cs-card__arrow">Next step →</div></a>
+      <a href="die-tip-calculator.html" class="cs-card"><div class="cs-card__icon">⚙️</div><div class="cs-card__title">Die Tip Calculator</div><div class="cs-card__desc">Calculate die tip and die dimensions for your extrusion.</div><div class="cs-card__arrow">Calculate →</div></a>
+    </div>
+  </section>
+</main>
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Machines</h4><a href="wire-drawing.html">Wire Drawing</a><a href="buncher.html">Buncher</a><a href="extruder.html">Extruder</a><a href="braiding.html">Braiding</a><a href="laying-up.html">Laying Up</a><a href="armoring.html">Armoring</a><a href="jacketing.html">Jacketing</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="die-tip-calculator.html">Calculators</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));</script>
+</body></html>

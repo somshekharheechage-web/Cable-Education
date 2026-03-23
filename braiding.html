@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRAIDING MACHINE — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li><li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html" class="active">Machines</a></li><li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li><li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="wire-drawing.html">Machines</a><span>/</span>BRAIDING MACHINE</div>
+  <p class="cs-hero__tag">// MANUFACTURING — STEP 4 OF 7</p>
+  <h1 class="cs-hero__title">BRAIDING MACHINE</h1>
+  <p class="cs-hero__sub">Weaving metallic or non-metallic strands over an insulated cable core to form a shielding layer — protecting against EMI and providing mechanical reinforcement.</p>
+</div>
+<main class="cs-main">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">WHAT IS CABLE BRAIDING?</h2>
+    <div class="cs-prose">
+      <p>A braiding machine interlaces strands of wire or yarn over a cable core in a diagonal weave pattern — creating a tubular mesh layer. In cable manufacturing, braiding serves two main functions: <strong>electromagnetic shielding</strong> (using tinned copper or bare copper wire) and <strong>mechanical reinforcement</strong> (using fibreglass, Kevlar, or stainless steel).</p>
+      <p>The key performance metric is <strong>braid coverage</strong> — the percentage of the underlying surface covered by the braid strands. Coverage of 85–95% is typical for shielded cables. Higher coverage means better EMI attenuation but also more material, slower speed, and a stiffer cable.</p>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// MACHINE OPERATION</p>
+    <h2 class="cs-section__title">HOW A BRAIDER WORKS</h2>
+    <div class="cs-steps">
+      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">Carriers</div><div class="cs-step__text">Small bobbins (carriers) loaded with wire or yarn are mounted on a circular track in two groups — clockwise and counter-clockwise. They travel around each other, weaving over and under as the cable passes through the centre. A typical braider has 8–144 carriers.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">Braiding Point</div><div class="cs-step__text">The point where opposing carrier strands cross and lock onto the cable surface. The distance from the carrier track to this point — the braiding angle — determines braid lay and coverage percentage. Steep angles give high coverage; shallow angles give lower coverage at higher speed.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Take-up Speed</div><div class="cs-step__text">A caterpillar haul-off pulls the cable at constant speed. The ratio of haul-off speed to carrier rotation speed sets the braid pitch. Increasing line speed reduces coverage; reducing it increases coverage and material usage.</div></div></div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// COVERAGE FORMULA</p>
+    <h2 class="cs-section__title">BRAID COVERAGE FORMULA</h2>
+    <div class="cs-callout">
+      <div class="cs-callout__title">C = 1 − (1 − n·d / (π·D·sin θ))²</div>
+      <div class="cs-callout__body"><strong>n</strong> = carriers per group &nbsp;|&nbsp; <strong>d</strong> = strand wire diameter (mm) &nbsp;|&nbsp; <strong>D</strong> = cable OD under braid (mm) &nbsp;|&nbsp; <strong>θ</strong> = braid angle (degrees)<br><br>Use the <a href="braiding-calculator.html">Braiding Calculator</a> to compute coverage, pitch, and carrier speed automatically.</div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// MATERIALS</p>
+    <h2 class="cs-section__title">BRAIDING MATERIALS</h2>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead><tr><th>Material</th><th>Application</th><th>Coverage Range</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Tinned copper</td><td>EMI shielding</td><td>85–97%</td><td>Most common. Good conductivity, solderable.</td></tr>
+          <tr><td>Bare copper</td><td>EMI shielding</td><td>85–97%</td><td>Lower cost. May oxidise in humid environments.</td></tr>
+          <tr><td>Stainless steel</td><td>Mechanical protection</td><td>70–90%</td><td>High strength, corrosion resistant, poor conductor.</td></tr>
+          <tr><td>Kevlar / Aramid yarn</td><td>Tensile strength</td><td>60–85%</td><td>Lightweight, non-conductive, high tensile strength.</td></tr>
+          <tr><td>Fibreglass yarn</td><td>Heat resistance</td><td>60–80%</td><td>Used in high-temperature and fire-resistant cables.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="extruder.html" class="cs-card"><div class="cs-card__icon">←</div><div class="cs-card__title">Extruder — Step 3</div><div class="cs-card__desc">Previous step in the manufacturing process.</div><div class="cs-card__arrow">Previous →</div></a>
+      <a href="laying-up.html" class="cs-card"><div class="cs-card__icon">→</div><div class="cs-card__title">Laying Up — Step 5</div><div class="cs-card__desc">Next step in the manufacturing process.</div><div class="cs-card__arrow">Next step →</div></a>
+      <a href="braiding-calculator.html" class="cs-card"><div class="cs-card__icon">🔢</div><div class="cs-card__title">Related Calculator</div><div class="cs-card__desc">Engineering calculator for this process.</div><div class="cs-card__arrow">Calculate →</div></a>
+    </div>
+  </section>
+</main>
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Machines</h4><a href="wire-drawing.html">Wire Drawing</a><a href="buncher.html">Buncher</a><a href="extruder.html">Extruder</a><a href="braiding.html">Braiding</a><a href="laying-up.html">Laying Up</a><a href="armoring.html">Armoring</a><a href="jacketing.html">Jacketing</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="die-tip-calculator.html">Calculators</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));</script>
+</body></html>

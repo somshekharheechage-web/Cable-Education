@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wire Drawing — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li><li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html" class="active">Machines</a></li><li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li><li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="wire-drawing.html">Machines</a><span>/</span>Wire Drawing</div>
+  <p class="cs-hero__tag">// MANUFACTURING — STEP 1 OF 7</p>
+  <h1 class="cs-hero__title">WIRE<br>DRAWING</h1>
+  <p class="cs-hero__sub">Reducing wire rod diameter through a series of precision dies — the first and most fundamental step in cable conductor manufacturing.</p>
+</div>
+
+<main class="cs-main">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">WHAT IS WIRE DRAWING?</h2>
+    <div class="cs-prose">
+      <p>Wire drawing is a metalworking process where a wire rod — typically 8–12 mm diameter copper or aluminium — is pulled through a series of progressively smaller dies to reduce its diameter and increase its length. Each pass through a die is called a <strong>draft</strong>, and each die reduces the cross-sectional area by a controlled percentage known as the <strong>reduction in area (RA)</strong>.</p>
+      <p>The process work-hardens the metal, improving tensile strength. After drawing, the wire is often <strong>annealed</strong> (heat treated) to restore ductility and flexibility, which is essential for cables that must be bent and flexed during installation and use.</p>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// MACHINE TYPES</p>
+    <h2 class="cs-section__title">TYPES OF WIRE DRAWING MACHINES</h2>
+    <div class="cs-cards">
+      <div class="cs-card">
+        <div class="cs-card__icon">🔩</div>
+        <div class="cs-card__title">Rod Breakdown Machine (RBD)</div>
+        <div class="cs-card__desc">Handles the initial large reduction from 8 mm rod down to ~1.5–2.5 mm wire. Uses high pulling forces and heavy-duty dies. Typically 9–13 draft passes in one continuous run. The first machine in any wire manufacturing line.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">⚙️</div>
+        <div class="cs-card__title">Intermediate Drawing Machine</div>
+        <div class="cs-card__desc">Takes wire from ~1.5 mm down to ~0.5 mm. Multiple draft blocks with individual speed control to maintain correct tension and back-tension between dies. Used for medium-sized conductor wire.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🔬</div>
+        <div class="cs-card__title">Fine Wire Drawing Machine</div>
+        <div class="cs-card__desc">Produces fine wire from 0.5 mm down to 0.05 mm or smaller. Requires extremely precise die alignment, superior lubrication, and high-speed capstans. Used for signal wire, magnet wire, and fine stranded conductors.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🔀</div>
+        <div class="cs-card__title">Multi-Wire Drawing Machine</div>
+        <div class="cs-card__desc">Draws multiple wires simultaneously in parallel — up to 20+ wires at once. Dramatically increases output for high-volume production. Each wire passes through its own die series with shared take-up spools.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// KEY FORMULAS</p>
+    <h2 class="cs-section__title">WIRE DRAWING FORMULAS</h2>
+    <div class="cs-prose"><p>These are the essential calculations used daily in wire drawing operations. All variables are defined below the table.</p></div>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead><tr><th>Parameter</th><th>Formula</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Reduction in Area (RA)</td><td>RA = (Dl² − Ds²) / Dl² × 100%</td><td>Percentage cross-section reduced per draft</td></tr>
+          <tr><td>Area Reduction per Die</td><td>AR = (D₁² − D₂²) / D₁²</td><td>Fractional area reduction at a single die</td></tr>
+          <tr><td>Draw Ratio</td><td>DR = Dl / Ds</td><td>Ratio of starting to finishing diameter</td></tr>
+          <tr><td>Elongation</td><td>E = (Dl / Ds)²</td><td>Length increase factor after drawing</td></tr>
+          <tr><td>Die Bearing Length</td><td>Bl = 0.3 × Df to 0.5 × Df</td><td>Optimal bearing zone length in die</td></tr>
+          <tr><td>True Strain (per pass)</td><td>ε = 2 × ln(Dl / Ds)</td><td>True plastic strain introduced per draft</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cs-callout" style="margin-top:20px">
+      <div class="cs-callout__title">Variable Definitions</div>
+      <div class="cs-callout__body"><strong>Dl</strong> = Starting (larger) wire diameter &nbsp;|&nbsp; <strong>Ds</strong> = Finishing (smaller) wire diameter &nbsp;|&nbsp; <strong>Df</strong> = Finished die diameter &nbsp;|&nbsp; <strong>Bl</strong> = Bearing length &nbsp;|&nbsp; <strong>A</strong> = Die approach angle &nbsp;|&nbsp; <strong>N</strong> = Number of dies</div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// PROCESS NOTES</p>
+    <h2 class="cs-section__title">KEY PROCESS PARAMETERS</h2>
+    <div class="cs-steps">
+      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">Lubrication</div><div class="cs-step__text">Proper lubrication is critical to reduce die wear, friction heat, and surface defects. Wet drawing uses oil-in-water emulsions or neat oils. Dry drawing uses soap or powder lubricants. The lubricant film must survive the extreme pressure at the die entry angle.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">Die Angle</div><div class="cs-step__text">The semi-angle of the die approach zone (typically 6°–12°) controls the deformation zone geometry. Too shallow increases friction surface; too steep causes redundant deformation and wire breakage. Optimal angle depends on reduction ratio and material.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Annealing</div><div class="cs-step__text">Drawing work-hardens copper, reducing ductility. Intermediate or final annealing at 300–500°C (copper) recrystallises the grain structure, restoring elongation and flexibility. Continuous annealing lines anneal wire inline immediately after drawing.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">4</div><div class="cs-step__body"><div class="cs-step__title">Die Material</div><div class="cs-step__text">Tungsten carbide dies are standard for copper and aluminium. Polycrystalline diamond (PCD) dies are used for fine wire and hard materials — they last 10–50× longer but cost significantly more. Die wear is the primary maintenance cost in wire drawing.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">5</div><div class="cs-step__body"><div class="cs-step__title">Speed &amp; Tension</div><div class="cs-step__text">Drawing speed ranges from 5 m/s (rod breakdown) to over 50 m/s (fine wire). Back-tension between capstans is carefully controlled — too little causes wire slip, too much risks breakage. Modern machines use closed-loop tension feedback.</div></div></div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="buncher.html" class="cs-card"><div class="cs-card__icon">🔀</div><div class="cs-card__title">Buncher — Step 2</div><div class="cs-card__desc">Twist drawn wires into stranded conductors.</div><div class="cs-card__arrow">Next step →</div></a>
+      <a href="die-tip-calculator.html" class="cs-card"><div class="cs-card__icon">⚙️</div><div class="cs-card__title">Die Tip Calculator</div><div class="cs-card__desc">Calculate die dimensions from wire specifications.</div><div class="cs-card__arrow">Calculate →</div></a>
+      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors Tutorial</div><div class="cs-card__desc">Conductor types, stranding, and resistance properties.</div><div class="cs-card__arrow">Learn →</div></a>
+    </div>
+  </section>
+</main>
+
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Machines</h4><a href="wire-drawing.html">Wire Drawing</a><a href="buncher.html">Buncher</a><a href="extruder.html">Extruder</a><a href="braiding.html">Braiding</a><a href="laying-up.html">Laying Up</a><a href="armoring.html">Armoring</a><a href="jacketing.html">Jacketing</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="die-tip-calculator.html">Calculators</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));</script>
+</body></html>
