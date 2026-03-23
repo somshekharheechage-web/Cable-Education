@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAGE TITLE — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ NAVBAR (same on every page) ══ -->
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/>
+      <circle cx="14" cy="14" r="8"  stroke="#e05f00" stroke-width="1.5"/>
+      <circle cx="14" cy="14" r="4"  stroke="#f0a500" stroke-width="1.5"/>
+      <circle cx="14" cy="14" r="2"  fill="#f0a500"/>
+    </svg>
+    Cable Script
+  </a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <a href="#">Cable Types</a>
+    <span>/</span>
+    Page Name
+  </div>
+  <p class="cs-hero__tag">// CATEGORY TAG</p>
+  <h1 class="cs-hero__title">PAGE TITLE</h1>
+  <p class="cs-hero__sub">Short description of what this page covers goes here.</p>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main class="cs-main">
+
+  <!-- Example: prose section -->
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// SECTION TAG</p>
+    <h2 class="cs-section__title">SECTION HEADING</h2>
+    <div class="cs-prose">
+      <p>Your paragraph text goes here.</p>
+    </div>
+  </section>
+
+  <!-- Example: cards -->
+  <section class="cs-section reveal">
+    <div class="cs-cards">
+      <a href="#" class="cs-card">
+        <div class="cs-card__icon">⚡</div>
+        <div class="cs-card__title">Card Title</div>
+        <div class="cs-card__desc">Card description text.</div>
+        <div class="cs-card__arrow">Learn more →</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER (same on every page) ══ -->
+<footer class="cs-footer">
+  <div class="cs-footer__brand">
+    <div class="cs-footer__logo">Cable Script</div>
+    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Resources</h4>
+    <a href="conductors.html">Tutorials</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="mailto:fclcoax@gmail.com">Contact</a>
+  </div>
+</footer>
+<div class="cs-footer__bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>Built for cable engineering professionals.</span>
+</div>
+
+<!-- ══ SCROLL REVEAL SCRIPT (same on every page) ══ -->
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
