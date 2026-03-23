@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JACKET / SHEATH — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html" class="active">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="conductors.html">Tutorials</a><span>/</span>Jacket / Sheath</div>
+  <p class="cs-hero__tag">// CABLE COMPONENTS — 4 OF 6</p>
+  <h1 class="cs-hero__title">JACKET / SHEATH</h1>
+  <p class="cs-hero__sub">PVC, PE, LSZH, TPU, neoprene, silicone — outer jacket materials, their properties, and installation environment selection guide.</p>
+</div>
+<main class="cs-main">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">THE ROLE OF THE OUTER JACKET</h2>
+    <div class="cs-prose">
+      <p>The outer jacket (or sheath) is the cable's last line of defence against the installation environment. It protects all internal components from mechanical damage, moisture ingress, UV radiation, chemical attack, and temperature extremes. It also carries the cable's identification marking and colour coding.</p>
+      <p>The jacket does not carry current or signal — its role is purely protective. But a jacket failure allows moisture into the core, which can cause insulation degradation, short circuits, and corrosion of conductors over time. Jacket selection is therefore as critical as any other design decision.</p>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// MATERIALS</p>
+    <h2 class="cs-section__title">JACKET MATERIALS</h2>
+    <div class="cs-cards">
+      <div class="cs-card"><div class="cs-card__icon">🔵</div><div class="cs-card__title">PVC (Polyvinyl Chloride)</div><div class="cs-card__desc">Max 70°C. Low cost, flexible, inherently flame retardant. Available in dozens of colours. Good moisture and abrasion resistance. Releases HCl smoke in fire — avoid in enclosed spaces. The default choice for general-purpose cables in moderate environments.</div></div>
+      <div class="cs-card"><div class="cs-card__icon">⬜</div><div class="cs-card__title">Polyethylene (PE / MDPE / HDPE)</div><div class="cs-card__desc">Max 80°C. Excellent moisture and chemical resistance. Semi-rigid — provides good mechanical protection. UV-stabilised grades for outdoor use. Standard for direct burial, underground ducts, and aerial cables. Black PE is the most UV-resistant colour.</div></div>
+      <div class="cs-card"><div class="cs-card__icon">🟢</div><div class="cs-card__title">LSZH (Low Smoke Zero Halogen)</div><div class="cs-card__desc">Max 70°C. Minimal toxic smoke and no halogen acid gas when burning. Mandatory in tunnels, public buildings, rail, data centres, and offshore platforms. Less flexible than PVC and slightly more expensive. Must meet IEC 61034 (smoke) and IEC 60754 (halogen) tests.</div></div>
+      <div class="cs-card"><div class="cs-card__icon">🟡</div><div class="cs-card__title">TPU (Thermoplastic Polyurethane)</div><div class="cs-card__desc">Max 80°C. Outstanding abrasion resistance — 10× better than PVC. Excellent oil and chemical resistance. Used in robotics, drag chains, food processing, and any cable subject to constant mechanical wear. More expensive than PVC but dramatically outlasts it in abrasive environments.</div></div>
+      <div class="cs-card"><div class="cs-card__icon">🔴</div><div class="cs-card__title">Neoprene (CR — Chloroprene Rubber)</div><div class="cs-card__desc">Max 90°C. Excellent weather, ozone, and oil resistance. Good mechanical toughness. Used in mining cables, welding leads, portable power tools, and marine applications where rubber flexibility and oil resistance are both required.</div></div>
+      <div class="cs-card"><div class="cs-card__icon">🟠</div><div class="cs-card__title">Silicone Rubber</div><div class="cs-card__desc">Max 180°C continuously. Remains flexible at −60°C. Used for furnace and kiln wiring, aerospace, medical equipment, and high-temperature industrial applications. Fragile surface — not suitable where abrasion is a concern without an overbraid.</div></div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// SELECTION GUIDE</p>
+    <h2 class="cs-section__title">CHOOSING THE RIGHT JACKET</h2>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead><tr><th>Installation Environment</th><th>Recommended Jacket</th></tr></thead>
+        <tbody>
+          <tr><td>Indoor office / commercial building</td><td>PVC or LSZH</td></tr>
+          <tr><td>Public building, tunnel, metro, rail</td><td>LSZH (mandatory)</td></tr>
+          <tr><td>Direct burial / underground</td><td>MDPE or HDPE (black)</td></tr>
+          <tr><td>Outdoor aerial (UV exposure)</td><td>UV-stabilised PE or black PVC</td></tr>
+          <tr><td>Industrial factory floor</td><td>PUR or Neoprene (oil/abrasion)</td></tr>
+          <tr><td>Robot arm / drag chain</td><td>TPU or PUR (flex + abrasion)</td></tr>
+          <tr><td>High temperature (>90°C)</td><td>Silicone or PTFE jacketed</td></tr>
+          <tr><td>Marine / offshore</td><td>LSZH or Neoprene</td></tr>
+          <tr><td>Mining / quarry</td><td>Neoprene or EPR jacketed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// RELATED</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="jacketing.html" class="cs-card"><div class="cs-card__icon">🏭</div><div class="cs-card__title">Jacketing Machine</div><div class="cs-card__desc">Step 7 of manufacturing — applying the outer sheath.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="sheath-weight.html" class="cs-card"><div class="cs-card__icon">⚖️</div><div class="cs-card__title">Sheath Weight Calculator</div><div class="cs-card__desc">Calculate jacket weight per km from dimensions and density.</div><div class="cs-card__arrow">Calculate →</div></a>
+      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation Tutorial</div><div class="cs-card__desc">The difference between insulation and jacket materials.</div><div class="cs-card__arrow">Read →</div></a>
+    </div>
+  </section>
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// ALL COMPONENTS</p>
+    <h2 class="cs-section__title">CABLE COMPONENTS SERIES</h2>
+    <div class="cs-cards">
+      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors</div><div class="cs-card__desc">Copper, aluminium, CCA, CCS, silver-plated.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation</div><div class="cs-card__desc">PVC, XLPE, PE, EPR, PTFE, foam PE.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="shielding.html" class="cs-card"><div class="cs-card__icon">📡</div><div class="cs-card__title">Shielding</div><div class="cs-card__desc">Foil, braid, spiral, combination shields.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="jacket-sheath.html" class="cs-card"><div class="cs-card__icon">🧱</div><div class="cs-card__title">Jacket / Sheath</div><div class="cs-card__desc">PVC, PE, LSZH, TPU, neoprene, silicone.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="fillers.html" class="cs-card"><div class="cs-card__icon">🔬</div><div class="cs-card__title">Fillers</div><div class="cs-card__desc">PP yarn, PE rods, water-blocking compounds.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="strength-members.html" class="cs-card"><div class="cs-card__icon">💪</div><div class="cs-card__title">Strength Members</div><div class="cs-card__desc">Kevlar, fibreglass, steel wire tension elements.</div><div class="cs-card__arrow">Read →</div></a>
+    </div>
+  </section>
+</main>
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Tutorials</h4><a href="conductors.html">Conductors</a><a href="insulation.html">Insulation</a><a href="shielding.html">Shielding</a><a href="jacket-sheath.html">Jacket / Sheath</a><a href="fillers.html">Fillers</a><a href="strength-members.html">Strength Members</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="die-tip-calculator.html">Calculators</a><a href="wire-drawing.html">Machines</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add("visible")),{threshold:0.1,rootMargin:"0px 0px -40px 0px"});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));</script>
+</body></html>

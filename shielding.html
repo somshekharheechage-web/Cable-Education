@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHIELDING — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html" class="active">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="conductors.html">Tutorials</a><span>/</span>Shielding</div>
+  <p class="cs-hero__tag">// CABLE COMPONENTS — 3 OF 6</p>
+  <h1 class="cs-hero__title">SHIELDING</h1>
+  <p class="cs-hero__sub">Foil, braid, spiral, and combination shields — shielding effectiveness, ISO notation, and correct termination practice.</p>
+</div>
+<main class="cs-main">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">WHY CABLES NEED SHIELDING</h2>
+    <div class="cs-prose">
+      <p>Shielding is a conductive layer applied around insulated conductors to attenuate electromagnetic interference (EMI) and radio frequency interference (RFI). Without shielding, cables act as antennas — both radiating interference to nearby equipment and picking up noise from their environment.</p>
+      <p>Shielding effectiveness (SE) is measured in decibels (dB). A shield with 40 dB SE reduces the electric field to 1% of the unshielded value. The type, coverage, and termination method of the shield all affect SE — even a perfect shield provides no protection if it is poorly terminated at the connector.</p>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// SHIELD TYPES</p>
+    <h2 class="cs-section__title">TYPES OF CABLE SHIELDING</h2>
+    <div class="cs-steps">
+      <div class="cs-step"><div class="cs-step__num">1</div><div class="cs-step__body"><div class="cs-step__title">Foil Shield (Aluminium or Copper)</div><div class="cs-step__text">A thin metallic foil (typically 0.02–0.05 mm aluminium/polyester laminate) wrapped helically or longitudinally around the core. Provides 100% coverage and excellent high-frequency EMI attenuation. Very low add-on diameter. A drain wire runs inside the foil to provide a solderable ground connection. Most cost-effective shielding for data and instrumentation cables.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">2</div><div class="cs-step__body"><div class="cs-step__title">Braided Shield</div><div class="cs-step__text">Woven mesh of tinned copper wires — typically 85–97% coverage. Superior to foil at low frequencies and provides excellent mechanical protection. More flexible than foil and better at surviving repeated bending. Coverage percentage directly determines shielding effectiveness. Used in audio cables, instrumentation, coaxial cables, and demanding signal applications.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">3</div><div class="cs-step__body"><div class="cs-step__title">Spiral (Serve) Shield</div><div class="cs-step__text">Copper wires wound helically in one direction — like a spring. Provides 95–98% coverage and maximum flexibility, making it ideal for cables that flex continuously (microphone cables, headphone cables, patch cables). However, impedance increases when bent — not suitable for RF or high-frequency signal cables.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">4</div><div class="cs-step__body"><div class="cs-step__title">Combination Shield (Foil + Braid)</div><div class="cs-step__text">Inner foil provides high-frequency coverage and barrier continuity; outer braid adds low-frequency attenuation, mechanical protection, and a robust ground path. The gold standard for demanding environments — industrial instrumentation, medical equipment, and broadcast cables. Typical SE: 80–100 dB across a wide frequency range.</div></div></div>
+      <div class="cs-step"><div class="cs-step__num">5</div><div class="cs-step__body"><div class="cs-step__title">Semi-Conductive Tape Screen</div><div class="cs-step__text">Used in medium and high voltage power cables — not for EMI. A carbon-loaded semi-conductive compound applied over the insulation smooths out the electric field at the insulation-screen interface, preventing partial discharge. Essential for cables above 1 kV per IEC 60502.</div></div></div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// SHIELDING CODES</p>
+    <h2 class="cs-section__title">ISO / IEC SHIELDING NOTATION</h2>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead><tr><th>Code</th><th>Construction</th><th>Typical SE</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>U</td><td>Unshielded</td><td>—</td><td>Low-noise environments</td></tr>
+          <tr><td>F/UTP</td><td>Overall foil, unshielded pairs</td><td>40–55 dB</td><td>Cat 6a Ethernet, data cables</td></tr>
+          <tr><td>S/UTP</td><td>Overall braid, unshielded pairs</td><td>50–65 dB</td><td>General screened data cables</td></tr>
+          <tr><td>SF/UTP</td><td>Braid + foil overall</td><td>60–75 dB</td><td>Industrial data, moderate EMI</td></tr>
+          <tr><td>F/FTP</td><td>Overall foil + individual foils</td><td>65–80 dB</td><td>Cat 7 Ethernet, multi-pair data</td></tr>
+          <tr><td>S/FTP</td><td>Overall braid + individual foils</td><td>75–90 dB</td><td>Cat 7/8, high-frequency data</td></tr>
+          <tr><td>SF/FTP</td><td>Braid + foil overall + individual foils</td><td>85–100 dB</td><td>Demanding industrial, broadcast</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// KEY RULE</p>
+    <h2 class="cs-section__title">SHIELDING TERMINATION</h2>
+    <div class="cs-callout cs-callout--warn">
+      <div class="cs-callout__title">⚠ A shield is only as good as its termination</div>
+      <div class="cs-callout__body">An improperly terminated shield can be worse than no shield at all — it can act as an antenna. The shield must be connected to a low-impedance ground at both ends for differential-mode rejection. For single-ended audio, connect at the source end only to prevent ground loops. Pigtail terminations degrade HF performance — always use 360° circumferential clamp terminations above 10 MHz.</div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// RELATED</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="braiding.html" class="cs-card"><div class="cs-card__icon">🌐</div><div class="cs-card__title">Braiding Machine</div><div class="cs-card__desc">How braided shields are applied on the manufacturing line.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="braiding-calculator.html" class="cs-card"><div class="cs-card__icon">🔢</div><div class="cs-card__title">Braiding Calculator</div><div class="cs-card__desc">Calculate braid coverage, pitch, and carrier speed.</div><div class="cs-card__arrow">Calculate →</div></a>
+      <a href="coaxial-cables.html" class="cs-card"><div class="cs-card__icon">📡</div><div class="cs-card__title">Coaxial Cables</div><div class="cs-card__desc">How shielding defines coaxial cable performance.</div><div class="cs-card__arrow">Read →</div></a>
+    </div>
+  </section>
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// ALL COMPONENTS</p>
+    <h2 class="cs-section__title">CABLE COMPONENTS SERIES</h2>
+    <div class="cs-cards">
+      <a href="conductors.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductors</div><div class="cs-card__desc">Copper, aluminium, CCA, CCS, silver-plated.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="insulation.html" class="cs-card"><div class="cs-card__icon">🛡️</div><div class="cs-card__title">Insulation</div><div class="cs-card__desc">PVC, XLPE, PE, EPR, PTFE, foam PE.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="shielding.html" class="cs-card"><div class="cs-card__icon">📡</div><div class="cs-card__title">Shielding</div><div class="cs-card__desc">Foil, braid, spiral, combination shields.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="jacket-sheath.html" class="cs-card"><div class="cs-card__icon">🧱</div><div class="cs-card__title">Jacket / Sheath</div><div class="cs-card__desc">PVC, PE, LSZH, TPU, neoprene, silicone.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="fillers.html" class="cs-card"><div class="cs-card__icon">🔬</div><div class="cs-card__title">Fillers</div><div class="cs-card__desc">PP yarn, PE rods, water-blocking compounds.</div><div class="cs-card__arrow">Read →</div></a>
+      <a href="strength-members.html" class="cs-card"><div class="cs-card__icon">💪</div><div class="cs-card__title">Strength Members</div><div class="cs-card__desc">Kevlar, fibreglass, steel wire tension elements.</div><div class="cs-card__arrow">Read →</div></a>
+    </div>
+  </section>
+</main>
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Tutorials</h4><a href="conductors.html">Conductors</a><a href="insulation.html">Insulation</a><a href="shielding.html">Shielding</a><a href="jacket-sheath.html">Jacket / Sheath</a><a href="fillers.html">Fillers</a><a href="strength-members.html">Strength Members</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="die-tip-calculator.html">Calculators</a><a href="wire-drawing.html">Machines</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add("visible")),{threshold:0.1,rootMargin:"0px 0px -40px 0px"});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));</script>
+</body></html>
