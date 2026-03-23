@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethernet Cables — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>
+    Cable Script
+  </a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html" class="active">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb">
+    <a href="index.html">Home</a><span>/</span>
+    <a href="ethernet-cables.html">Cable Types</a><span>/</span>
+    Ethernet Cables
+  </div>
+  <p class="cs-hero__tag">// COMMUNICATION CABLES</p>
+  <h1 class="cs-hero__title">ETHERNET<br>CABLES</h1>
+  <p class="cs-hero__sub">The backbone of wired networking — from Cat 5e to Cat 8, covering construction, performance standards, and selection guidance.</p>
+</div>
+
+<main class="cs-main">
+
+  <!-- Overview -->
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">WHAT ARE ETHERNET CABLES?</h2>
+    <div class="cs-prose">
+      <p>Ethernet cables are the standard medium for wired local area network (LAN) connections. They allow devices — computers, routers, switches, modems, and servers — to communicate and transfer data reliably over short to medium distances.</p>
+      <p>Unlike wireless connections, Ethernet cables provide consistent bandwidth, lower latency, and greater security, making them essential in professional, industrial, and data-centre environments.</p>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <!-- Categories table -->
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// PERFORMANCE CATEGORIES</p>
+    <h2 class="cs-section__title">CABLE CATEGORIES</h2>
+    <div class="cs-prose">
+      <p>Ethernet cables are categorised by their maximum bandwidth and transmission speed. Higher categories offer greater performance and reduced crosstalk.</p>
+    </div>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Max Speed</th>
+            <th>Bandwidth</th>
+            <th>Max Distance</th>
+            <th>Shielding</th>
+            <th>Typical Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cat 5e</td>
+            <td>1 Gbps</td>
+            <td>100 MHz</td>
+            <td>100 m</td>
+            <td>UTP / FTP</td>
+            <td>Home &amp; small office networks</td>
+          </tr>
+          <tr>
+            <td>Cat 6</td>
+            <td>10 Gbps</td>
+            <td>250 MHz</td>
+            <td>55 m @ 10G</td>
+            <td>UTP / STP</td>
+            <td>Office LANs, demanding applications</td>
+          </tr>
+          <tr>
+            <td>Cat 6a</td>
+            <td>10 Gbps</td>
+            <td>500 MHz</td>
+            <td>100 m @ 10G</td>
+            <td>F/UTP, S/FTP</td>
+            <td>Data centres, enterprise networks</td>
+          </tr>
+          <tr>
+            <td>Cat 7</td>
+            <td>10 Gbps</td>
+            <td>600 MHz</td>
+            <td>100 m</td>
+            <td>S/FTP (fully shielded)</td>
+            <td>High-interference environments</td>
+          </tr>
+          <tr>
+            <td>Cat 8</td>
+            <td>25–40 Gbps</td>
+            <td>2000 MHz</td>
+            <td>30 m</td>
+            <td>S/FTP</td>
+            <td>Data centre top-of-rack connections</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <!-- Construction -->
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// CONSTRUCTION</p>
+    <h2 class="cs-section__title">CABLE CONSTRUCTION</h2>
+    <div class="cs-grid-2">
+      <div class="cs-prose">
+        <h3>Conductors</h3>
+        <p>Standard Ethernet cables contain <strong>4 twisted pairs</strong> (8 wires total) of copper conductors. Each pair is colour-coded for easy identification. Conductors are either solid copper (for fixed installations) or stranded copper (for flexible patch cables).</p>
+        <h3>Insulation</h3>
+        <p>Each conductor is individually insulated, typically with <strong>polyethylene (PE)</strong> or <strong>FEP</strong> (for high-temperature or plenum-rated cables). Insulation separates pairs and controls the dielectric constant, which directly affects signal speed.</p>
+      </div>
+      <div class="cs-prose">
+        <h3>Shielding</h3>
+        <p>Unshielded (UTP) cables rely on twisting alone to cancel interference. Shielded variants add foil (F/) around individual pairs or a braid (S/) around all pairs to protect against external EMI — essential near motors, power cables, or RF sources.</p>
+        <h3>Connectors</h3>
+        <p>All standard Ethernet cables terminate in <strong>RJ45 connectors</strong> with 8 gold-plated pins. Wiring follows either <strong>T568A</strong> or <strong>T568B</strong> standards. Cat 7 may use GG45 or TERA connectors for full shielding continuity.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <!-- Shielding types -->
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// SHIELDING CODES</p>
+    <h2 class="cs-section__title">UNDERSTANDING SHIELDING NOTATION</h2>
+    <div class="cs-cards">
+      <div class="cs-card">
+        <div class="cs-card__icon">🔵</div>
+        <div class="cs-card__title">UTP — Unshielded Twisted Pair</div>
+        <div class="cs-card__desc">No overall shield. Relies entirely on pair twisting for noise rejection. Lightest, most flexible, easiest to terminate. Suitable for most office environments.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🟡</div>
+        <div class="cs-card__title">F/UTP — Foil over all pairs</div>
+        <div class="cs-card__desc">A single aluminium foil wraps all four pairs together. Good protection against external EMI without the bulk of braided shielding. Common in Cat 6a.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🟠</div>
+        <div class="cs-card__title">S/FTP — Braid + individual foils</div>
+        <div class="cs-card__desc">Each pair has its own foil shield, plus an overall braided screen. Maximum EMI protection. Used in Cat 7 and Cat 8 for the most demanding environments.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🟢</div>
+        <div class="cs-card__title">SF/UTP — Braid + foil overall</div>
+        <div class="cs-card__desc">Combines foil and braid around all pairs without individual pair shields. A middle ground between F/UTP and S/FTP for moderately noisy environments.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <!-- Installation tips -->
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// INSTALLATION</p>
+    <h2 class="cs-section__title">INSTALLATION GUIDELINES</h2>
+    <div class="cs-steps">
+      <div class="cs-step">
+        <div class="cs-step__num">1</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Keep runs under 100 m (328 ft)</div>
+          <div class="cs-step__text">The IEEE 802.3 standard limits horizontal cable runs to 100 m for Cat 5e through Cat 6a. Beyond this, signal attenuation causes errors. Use a switch or repeater for longer distances.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">2</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Avoid sharp bends</div>
+          <div class="cs-step__text">Maintain a minimum bend radius of 4× the cable diameter. Sharp bends deform the twisted pairs, increase crosstalk, and degrade performance — especially critical for Cat 6a and above.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">3</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Separate from power cables</div>
+          <div class="cs-step__text">Run data cables at least 200 mm away from power cables. Where crossing is unavoidable, cross at 90° to minimise inductive coupling. Use shielded cable in electrically noisy environments.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">4</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Use the correct category throughout</div>
+          <div class="cs-step__text">A link's performance is limited by its lowest-rated component. If you install Cat 6a cable but use Cat 5e patch panels or keystones, the entire link performs to Cat 5e. Match all components.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">5</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Test after installation</div>
+          <div class="cs-step__text">Use a certified cable tester to verify wire map, length, attenuation, NEXT, and return loss. Field certification is required for warranty claims from most cable manufacturers.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <!-- Related pages -->
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="coaxial-cables.html" class="cs-card">
+        <div class="cs-card__icon">📡</div>
+        <div class="cs-card__title">Coaxial Cables</div>
+        <div class="cs-card__desc">RG series, impedance, shielding, and RF applications.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="fiber-optic-cables.html" class="cs-card">
+        <div class="cs-card__icon">💡</div>
+        <div class="cs-card__title">Fiber Optic Cables</div>
+        <div class="cs-card__desc">Single-mode vs multi-mode, connectors, and long-distance transmission.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="conductors.html" class="cs-card">
+        <div class="cs-card__icon">⚡</div>
+        <div class="cs-card__title">Conductor Tutorial</div>
+        <div class="cs-card__desc">Deep dive into copper conductor types, stranding, and resistance.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="conductor-resistance.html" class="cs-card">
+        <div class="cs-card__icon">🔢</div>
+        <div class="cs-card__title">Conductor Resistance Calculator</div>
+        <div class="cs-card__desc">Calculate DC resistance from conductor size and material.</div>
+        <div class="cs-card__arrow">Calculate →</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cs-footer">
+  <div class="cs-footer__brand">
+    <div class="cs-footer__logo">Cable Script</div>
+    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Resources</h4>
+    <a href="conductors.html">Tutorials</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="mailto:fclcoax@gmail.com">Contact</a>
+  </div>
+</footer>
+<div class="cs-footer__bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>Built for cable engineering professionals.</span>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

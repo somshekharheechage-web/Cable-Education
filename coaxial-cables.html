@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coaxial Cables — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>
+    Cable Script
+  </a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html" class="active">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb">
+    <a href="index.html">Home</a><span>/</span>
+    <a href="ethernet-cables.html">Cable Types</a><span>/</span>
+    Coaxial Cables
+  </div>
+  <p class="cs-hero__tag">// COMMUNICATION CABLES</p>
+  <h1 class="cs-hero__title">COAXIAL<br>CABLES</h1>
+  <p class="cs-hero__sub">Centre conductor, dielectric, shield, jacket — the classic RF transmission line used in CATV, CCTV, antenna feeds, and high-frequency signal systems.</p>
+</div>
+
+<main class="cs-main">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">WHAT IS A COAXIAL CABLE?</h2>
+    <div class="cs-prose">
+      <p>A coaxial cable — or "coax" — consists of a central conductor surrounded by a tubular insulating layer, a tubular conducting shield, and an outer insulating jacket. All layers share the same geometric axis, hence the name <strong>co-axial</strong>.</p>
+      <p>This concentric design confines the electromagnetic field between the inner conductor and outer shield, dramatically reducing signal radiation and external interference compared to open-wire transmission lines. Coax is the standard choice for RF, video, and broadband signal transmission.</p>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// CONSTRUCTION</p>
+    <h2 class="cs-section__title">LAYER BY LAYER</h2>
+    <div class="cs-steps">
+      <div class="cs-step">
+        <div class="cs-step__num">1</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Centre Conductor</div>
+          <div class="cs-step__text">Solid or stranded copper, copper-clad aluminium (CCA), or copper-clad steel (CCS). Solid conductors offer lower resistance at high frequencies; stranded conductors provide flexibility. Diameter determines the cable's characteristic impedance in combination with the dielectric.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">2</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Dielectric Insulation</div>
+          <div class="cs-step__text">Typically solid PE, foam PE, or PTFE. The dielectric constant of this layer — along with conductor geometry — determines characteristic impedance (50 Ω or 75 Ω) and velocity of propagation. Foam dielectrics reduce signal loss at high frequencies by lowering the dielectric constant.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">3</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Outer Conductor / Shield</div>
+          <div class="cs-step__text">May be a solid tube (hardline), corrugated tube, foil, braided wire, or a combination. The shield serves as both the return current path and the EMI barrier. Braid coverage percentage (85–98%) directly affects shielding effectiveness. Quad-shield cables use two foils and two braids for maximum isolation.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">4</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Outer Jacket</div>
+          <div class="cs-step__text">PVC for general indoor use, PE or LLDPE for direct burial, LSZH for plenum/riser in safety-critical environments. The jacket protects against moisture, abrasion, UV radiation, and chemicals.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// RG SERIES</p>
+    <h2 class="cs-section__title">COMMON RG TYPES</h2>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead>
+          <tr><th>Type</th><th>Impedance</th><th>Outer Dia.</th><th>Typical Loss @ 100 MHz</th><th>Primary Application</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>RG-6</td><td>75 Ω</td><td>6.9 mm</td><td>~5.4 dB/100m</td><td>CATV, satellite, CCTV</td></tr>
+          <tr><td>RG-11</td><td>75 Ω</td><td>10.3 mm</td><td>~2.7 dB/100m</td><td>Long CATV trunk runs</td></tr>
+          <tr><td>RG-58</td><td>50 Ω</td><td>5.0 mm</td><td>~11 dB/100m</td><td>Thin Ethernet, RF test leads</td></tr>
+          <tr><td>RG-59</td><td>75 Ω</td><td>6.1 mm</td><td>~7.5 dB/100m</td><td>CCTV, legacy CATV</td></tr>
+          <tr><td>RG-213</td><td>50 Ω</td><td>10.3 mm</td><td>~4.0 dB/100m</td><td>Amateur radio, base station</td></tr>
+          <tr><td>LMR-400</td><td>50 Ω</td><td>10.3 mm</td><td>~2.7 dB/100m</td><td>Cellular, WiFi antenna runs</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// IMPEDANCE</p>
+    <h2 class="cs-section__title">50 Ω vs 75 Ω</h2>
+    <div class="cs-grid-2">
+      <div class="cs-callout">
+        <div class="cs-callout__title">50 Ω — RF & Data</div>
+        <div class="cs-callout__body">Optimised for power handling and minimum conductor loss. Standard for RF test equipment, transmitters, antenna systems, amateur radio, cellular infrastructure, and Wi-Fi. Never substitute 75 Ω coax in a 50 Ω system — impedance mismatch causes signal reflections and power loss.</div>
+      </div>
+      <div class="cs-callout cs-callout--info">
+        <div class="cs-callout__title">75 Ω — Video & CATV</div>
+        <div class="cs-callout__body">Optimised for minimum signal attenuation over long cable runs. The industry standard for cable television, satellite receivers, CCTV cameras, and broadcast video. RG-6 and RG-11 are the dominant 75 Ω types in residential and commercial installations.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="ethernet-cables.html" class="cs-card">
+        <div class="cs-card__icon">🌐</div>
+        <div class="cs-card__title">Ethernet Cables</div>
+        <div class="cs-card__desc">Cat 5e through Cat 8 — twisted pair networking cables.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="fiber-optic-cables.html" class="cs-card">
+        <div class="cs-card__icon">💡</div>
+        <div class="cs-card__title">Fiber Optic Cables</div>
+        <div class="cs-card__desc">Light-based transmission for maximum speed and distance.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="shielding.html" class="cs-card">
+        <div class="cs-card__icon">🛡️</div>
+        <div class="cs-card__title">Shielding Tutorial</div>
+        <div class="cs-card__desc">EMI/RFI shielding techniques, coverage, and effectiveness.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cs-footer">
+  <div class="cs-footer__brand">
+    <div class="cs-footer__logo">Cable Script</div>
+    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Resources</h4>
+    <a href="conductors.html">Tutorials</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="mailto:fclcoax@gmail.com">Contact</a>
+  </div>
+</footer>
+<div class="cs-footer__bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>Built for cable engineering professionals.</span>
+</div>
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

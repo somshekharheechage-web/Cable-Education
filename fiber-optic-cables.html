@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiber Optic Cables — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>
+    Cable Script
+  </a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html" class="active">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb">
+    <a href="index.html">Home</a><span>/</span>
+    <a href="ethernet-cables.html">Cable Types</a><span>/</span>
+    Fiber Optic Cables
+  </div>
+  <p class="cs-hero__tag">// COMMUNICATION CABLES</p>
+  <h1 class="cs-hero__title">FIBER OPTIC<br>CABLES</h1>
+  <p class="cs-hero__sub">Light-speed data transmission through glass and plastic — single-mode, multi-mode, connectors, and long-haul backbone infrastructure.</p>
+</div>
+
+<main class="cs-main">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">HOW FIBER OPTIC WORKS</h2>
+    <div class="cs-prose">
+      <p>Fiber optic cables transmit data as <strong>pulses of light</strong> through thin strands of glass or plastic called optical fibers. Light travels through the fiber by a principle called <strong>total internal reflection</strong> — the fiber core has a higher refractive index than the surrounding cladding, causing light to continuously bounce along the core without escaping.</p>
+      <p>Because light is the carrier rather than electrical current, fiber is immune to electromagnetic interference, can span vastly greater distances without signal repeaters, and supports far higher bandwidths than any copper medium. It is the foundation of the global internet backbone, long-haul telecommunications, and modern data centres.</p>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// FIBER TYPES</p>
+    <h2 class="cs-section__title">SINGLE-MODE vs MULTI-MODE</h2>
+    <div class="cs-grid-2">
+      <div>
+        <div class="cs-callout">
+          <div class="cs-callout__title">Single-Mode Fiber (SMF)</div>
+          <div class="cs-callout__body">Core diameter: <strong>8–10 µm</strong>. Carries a single ray (mode) of light. Near-zero modal dispersion enables transmission distances of 10–100+ km without amplification. Used in telecoms networks, submarine cables, and long-haul backbones. Requires laser light sources. OS1 (tight-buffered indoor) and OS2 (loose-tube outdoor) are the standard grades.</div>
+        </div>
+        <div class="cs-table-wrap" style="margin-top:16px">
+          <table class="cs-table">
+            <thead><tr><th>Grade</th><th>Use</th><th>Max Distance</th></tr></thead>
+            <tbody>
+              <tr><td>OS1</td><td>Indoor, tight-buffered</td><td>10 km</td></tr>
+              <tr><td>OS2</td><td>Outdoor, loose-tube</td><td>200 km+</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="cs-callout cs-callout--info">
+          <div class="cs-callout__title">Multi-Mode Fiber (MMF)</div>
+          <div class="cs-callout__body">Core diameter: <strong>50 µm or 62.5 µm</strong>. Carries multiple light modes simultaneously. Modal dispersion limits distance to ~300–550 m for 10G applications, but large core makes coupling to LEDs and VCSELs easy and cost-effective. Ideal for data centre and campus networks. OM1–OM5 grades with OM4/OM5 supporting 40G/100G over 100–150 m.</div>
+        </div>
+        <div class="cs-table-wrap" style="margin-top:16px">
+          <table class="cs-table">
+            <thead><tr><th>Grade</th><th>Core</th><th>10G Distance</th></tr></thead>
+            <tbody>
+              <tr><td>OM1</td><td>62.5 µm</td><td>33 m</td></tr>
+              <tr><td>OM3</td><td>50 µm</td><td>300 m</td></tr>
+              <tr><td>OM4</td><td>50 µm</td><td>400 m</td></tr>
+              <tr><td>OM5</td><td>50 µm</td><td>400 m (SWDM)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// CONSTRUCTION</p>
+    <h2 class="cs-section__title">CABLE CONSTRUCTION</h2>
+    <div class="cs-steps">
+      <div class="cs-step">
+        <div class="cs-step__num">1</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Core</div>
+          <div class="cs-step__text">Ultra-pure silica glass (or plastic for POF). The core carries the light signal. Its refractive index is precisely controlled during manufacturing — even tiny impurities cause signal loss measured in dB/km.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">2</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Cladding</div>
+          <div class="cs-step__text">Surrounds the core with a slightly lower refractive index glass layer (125 µm total diameter). The refractive index difference between core and cladding creates total internal reflection, confining light to the core.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">3</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Buffer Coating</div>
+          <div class="cs-step__text">Acrylate polymer coating (250 µm) applied immediately after drawing. Protects against mechanical damage, moisture, and handling stress without affecting optical performance.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">4</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Strength Members</div>
+          <div class="cs-step__text">Kevlar (aramid) yarns, fibreglass rods, or steel wires carry tensile load. Glass fiber itself is brittle — without strength members, installation pulling forces would shatter the fiber.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">5</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Outer Jacket</div>
+          <div class="cs-step__text">PVC, LSZH, or polyethylene depending on the installation environment. Outdoor cables add a moisture barrier (water-blocking tape or gel) and often a corrugated steel or aluminium armour layer.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// CONNECTORS</p>
+    <h2 class="cs-section__title">COMMON CONNECTORS</h2>
+    <div class="cs-cards">
+      <div class="cs-card">
+        <div class="cs-card__icon">🔵</div>
+        <div class="cs-card__title">LC (Lucent Connector)</div>
+        <div class="cs-card__desc">1.25 mm ferrule. The dominant connector in data centres and high-density applications. Small form factor allows twice the port density of SC connectors.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🟡</div>
+        <div class="cs-card__title">SC (Subscriber Connector)</div>
+        <div class="cs-card__desc">2.5 mm ferrule with push-pull latching. Widely used in telecom and CATV. Colour-coded: blue = single-mode, beige/aqua = multi-mode.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🟠</div>
+        <div class="cs-card__title">ST (Straight Tip)</div>
+        <div class="cs-card__desc">2.5 mm bayonet-style connector. Common in legacy multi-mode campus and building installations. Being replaced by LC in new deployments.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🟢</div>
+        <div class="cs-card__title">MPO/MTP</div>
+        <div class="cs-card__desc">Multi-fiber push-on connector carrying 12 or 24 fibers in a single ferrule. Essential for 40G/100G/400G parallel optic applications in hyperscale data centres.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="ethernet-cables.html" class="cs-card">
+        <div class="cs-card__icon">🌐</div>
+        <div class="cs-card__title">Ethernet Cables</div>
+        <div class="cs-card__desc">Cat 5e through Cat 8 twisted pair networking cables.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="coaxial-cables.html" class="cs-card">
+        <div class="cs-card__icon">📡</div>
+        <div class="cs-card__title">Coaxial Cables</div>
+        <div class="cs-card__desc">RG series RF and video transmission cables.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="strength-members.html" class="cs-card">
+        <div class="cs-card__icon">💪</div>
+        <div class="cs-card__title">Strength Members</div>
+        <div class="cs-card__desc">Kevlar, fibreglass, and steel for tensile load bearing.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cs-footer">
+  <div class="cs-footer__brand">
+    <div class="cs-footer__logo">Cable Script</div>
+    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Resources</h4>
+    <a href="conductors.html">Tutorials</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="mailto:fclcoax@gmail.com">Contact</a>
+  </div>
+</footer>
+<div class="cs-footer__bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>Built for cable engineering professionals.</span>
+</div>
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

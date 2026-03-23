@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automotive Cables — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>
+    Cable Script
+  </a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html" class="active">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb">
+    <a href="index.html">Home</a><span>/</span>
+    <a href="ethernet-cables.html">Cable Types</a><span>/</span>
+    Automotive Cables
+  </div>
+  <p class="cs-hero__tag">// AUTOMOTIVE</p>
+  <h1 class="cs-hero__title">AUTOMOTIVE<br>CABLES</h1>
+  <p class="cs-hero__sub">Wire harnesses, high-voltage EV cables, CAN bus, LIN, and sensor leads — engineering cables for the most demanding mobile environments.</p>
+</div>
+
+<main class="cs-main">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">AUTOMOTIVE CABLE CHALLENGES</h2>
+    <div class="cs-prose">
+      <p>Automotive cables operate in one of the harshest environments any cable faces. They must withstand <strong>extreme temperature swings</strong> (−40°C to +150°C under the hood), continuous vibration, exposure to oil, fuel, coolant, and brake fluid, UV radiation, and abrasion — all while remaining as light and compact as possible to meet vehicle weight and packaging targets.</p>
+      <p>The global shift to electric vehicles (EVs) and advanced driver assistance systems (ADAS) has dramatically increased the electrical content per vehicle, making cable engineering a critical discipline in modern automotive design.</p>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// WIRE HARNESS</p>
+    <h2 class="cs-section__title">PRIMARY WIRE & HARNESSES</h2>
+    <div class="cs-prose">
+      <p>A modern passenger vehicle contains <strong>1,500–3,000 individual wires</strong> bundled into harnesses that can stretch over 4 km in total length. Each wire in the harness is a primary automotive wire — a single conductor with a thin cross-linked insulation jacket colour-coded per OEM or ISO 6722 standards.</p>
+    </div>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead>
+          <tr><th>Standard</th><th>Conductor</th><th>Insulation</th><th>Temp Range</th><th>Voltage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ISO 6722 Class A</td><td>Copper / CCA</td><td>PVC</td><td>−40°C to +70°C</td><td>60 V</td></tr>
+          <tr><td>ISO 6722 Class B</td><td>Copper / CCA</td><td>XLPE / XLPVC</td><td>−40°C to +100°C</td><td>60 V</td></tr>
+          <tr><td>ISO 6722 Class C</td><td>Copper</td><td>XLPE</td><td>−40°C to +125°C</td><td>60 V</td></tr>
+          <tr><td>FLRY-B (VW/Bosch)</td><td>Tinned copper</td><td>Thin-wall PVC</td><td>−40°C to +70°C</td><td>60 V</td></tr>
+          <tr><td>FLRY-A</td><td>Tinned copper</td><td>Ultra-thin PVC</td><td>−40°C to +70°C</td><td>60 V</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// ELECTRIC VEHICLES</p>
+    <h2 class="cs-section__title">HIGH VOLTAGE EV CABLES</h2>
+    <div class="cs-prose">
+      <p>Battery electric vehicles (BEVs) and plug-in hybrids (PHEVs) require a completely separate high-voltage (HV) wiring system operating at <strong>400 V or 800 V DC</strong>. These cables must be unmistakably identified (orange insulation per ISO 6469-3), heavily shielded against EMI, and designed to prevent accidental contact.</p>
+    </div>
+    <div class="cs-cards">
+      <div class="cs-card">
+        <div class="cs-card__icon">🔋</div>
+        <div class="cs-card__title">Battery Pack Cables</div>
+        <div class="cs-card__desc">Large cross-section (35–150 mm²) orange cables connecting battery cells to the main junction box. Silicone or XLPE insulation rated to 600 V DC. Shielded to suppress EMI from switching currents.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">⚡</div>
+        <div class="cs-card__title">Motor Drive Cables</div>
+        <div class="cs-card__desc">Three-phase AC cables from inverter to motor. Must handle high-frequency switching noise from the inverter PWM signal — requires shielded construction and careful routing away from LV signal wiring.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🔌</div>
+        <div class="cs-card__title">DC Fast Charge Cables</div>
+        <div class="cs-card__desc">Liquid-cooled cables for 150–350 kW DC fast charging stations. Cooling allows smaller conductor cross-sections despite very high current, keeping the cable flexible for customer use.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🌡️</div>
+        <div class="cs-card__title">Thermal Management</div>
+        <div class="cs-card__desc">HV cables include temperature sensors to monitor conductor heat. Orange outer jacket is mandatory by ISO standard. Bright orange colour alerts emergency responders and service technicians to shock hazard.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// DATA BUSES</p>
+    <h2 class="cs-section__title">AUTOMOTIVE DATA BUS CABLES</h2>
+    <div class="cs-steps">
+      <div class="cs-step">
+        <div class="cs-step__num">1</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">CAN Bus (Controller Area Network)</div>
+          <div class="cs-step__text">Twisted pair, 120 Ω impedance. The dominant vehicle network for engine management, ABS, airbags, and body electronics. CAN FD extends speed to 8 Mbps. The pair twist rate is critical — untwisting at connectors degrades signal integrity.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">2</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">LIN Bus (Local Interconnect Network)</div>
+          <div class="cs-step__text">Single-wire, 19.2 kbps. Low-cost network for non-critical functions: seat adjustment, mirror control, climate system, door modules. Uses the vehicle chassis as the return path — simplifies wiring but limits speed and distance.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">3</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">MOST Bus (Media Oriented Systems Transport)</div>
+          <div class="cs-step__text">Fiber optic ring network for infotainment, audio, and video. Plastic optical fiber (POF) runs in a ring topology throughout the vehicle cabin. Immune to EMI from the powertrain and audio amplifiers.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step__num">4</div>
+        <div class="cs-step__body">
+          <div class="cs-step__title">Automotive Ethernet (100BASE-T1 / 1000BASE-T1)</div>
+          <div class="cs-step__text">Single unshielded twisted pair for ADAS cameras, radar, LiDAR, and domain controllers. 100 Mbps or 1 Gbps over a single pair with advanced DSP — reduces harness weight compared to four-pair standard Ethernet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="electrical-cables.html" class="cs-card">
+        <div class="cs-card__icon">⚡</div>
+        <div class="cs-card__title">Electrical Cables</div>
+        <div class="cs-card__desc">Power distribution, control, and instrumentation cables.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="insulation.html" class="cs-card">
+        <div class="cs-card__icon">🛡️</div>
+        <div class="cs-card__title">Insulation Tutorial</div>
+        <div class="cs-card__desc">XLPE, silicone, and specialty insulation materials.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="shielding.html" class="cs-card">
+        <div class="cs-card__icon">📡</div>
+        <div class="cs-card__title">Shielding Tutorial</div>
+        <div class="cs-card__desc">EMI shielding for automotive data bus cables.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cs-footer">
+  <div class="cs-footer__brand">
+    <div class="cs-footer__logo">Cable Script</div>
+    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Resources</h4>
+    <a href="conductors.html">Tutorials</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="mailto:fclcoax@gmail.com">Contact</a>
+  </div>
+</footer>
+<div class="cs-footer__bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>Built for cable engineering professionals.</span>
+</div>
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

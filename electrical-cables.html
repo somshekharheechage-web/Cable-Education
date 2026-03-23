@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electrical Cables — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo">
+    <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>
+    Cable Script
+  </a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html" class="active">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb">
+    <a href="index.html">Home</a><span>/</span>
+    <a href="ethernet-cables.html">Cable Types</a><span>/</span>
+    Electrical Cables
+  </div>
+  <p class="cs-hero__tag">// POWER DISTRIBUTION</p>
+  <h1 class="cs-hero__title">ELECTRICAL<br>CABLES</h1>
+  <p class="cs-hero__sub">Power distribution, control, and instrumentation cables — voltage ratings, conductor sizing, insulation classes, and installation standards.</p>
+</div>
+
+<main class="cs-main">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OVERVIEW</p>
+    <h2 class="cs-section__title">WHAT ARE ELECTRICAL CABLES?</h2>
+    <div class="cs-prose">
+      <p>Electrical cables are designed to carry electrical current for power distribution, motor control, lighting circuits, and industrial automation. Unlike communication cables — which prioritise signal integrity — electrical cables are engineered for <strong>current-carrying capacity, voltage withstand, and thermal performance</strong>.</p>
+      <p>Selection depends on voltage rating, current load, ambient temperature, installation environment (indoor, outdoor, underground, submerged), and applicable standards such as IEC 60502, BS 7671, or NEC.</p>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// CABLE FAMILIES</p>
+    <h2 class="cs-section__title">TYPES OF ELECTRICAL CABLE</h2>
+    <div class="cs-cards">
+      <div class="cs-card">
+        <div class="cs-card__icon">⚡</div>
+        <div class="cs-card__title">Low Voltage Power Cable (≤1 kV)</div>
+        <div class="cs-card__desc">Used for general power distribution in buildings, factories, and infrastructure. Typically XLPE or PVC insulated with PVC or LSZH jacket. Examples: NYY, NYM, SWA armoured cable.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🔆</div>
+        <div class="cs-card__title">Medium Voltage Cable (1 kV–36 kV)</div>
+        <div class="cs-card__desc">For underground distribution networks, industrial feeders, and substations. XLPE insulation with semi-conductive screens, metal screen, and armour. Designed per IEC 60502-2.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🏭</div>
+        <div class="cs-card__title">Control & Instrumentation Cable</div>
+        <div class="cs-card__desc">Multi-core cables for carrying control signals, 4–20 mA loops, and relay circuits. Individual or overall screened to reject interference in industrial environments.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🌡️</div>
+        <div class="cs-card__title">Heat-Resistant Cable</div>
+        <div class="cs-card__desc">Silicone or PTFE insulated for use near furnaces, boilers, and engines where ambient temperatures exceed the limits of standard PVC (70°C) or XLPE (90°C).</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">💧</div>
+        <div class="cs-card__title">Direct Burial / Submarine Cable</div>
+        <div class="cs-card__desc">Polyethylene outer sheath and steel wire or tape armour. Designed to resist soil pressure, moisture ingress, and mechanical damage without conduit protection.</div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__icon">🔥</div>
+        <div class="cs-card__title">Fire-Resistant Cable (FRC)</div>
+        <div class="cs-card__desc">Maintains circuit integrity during a fire. Uses mica tape over conductors. Required for emergency lighting, fire alarms, and safety system circuits per IEC 60331.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// CONDUCTOR SIZING</p>
+    <h2 class="cs-section__title">CONDUCTOR SIZING GUIDE</h2>
+    <div class="cs-prose">
+      <p>Conductor cross-section determines current-carrying capacity (ampacity). Under-sizing causes overheating; over-sizing wastes material. Always consult IEC 60364 or local wiring regulations for certified sizing tables.</p>
+    </div>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead>
+          <tr><th>Cross-section (mm²)</th><th>Approx. Ampacity (in conduit)</th><th>Approx. Ampacity (in air)</th><th>Typical Application</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1.5 mm²</td><td>13 A</td><td>17 A</td><td>Lighting circuits</td></tr>
+          <tr><td>2.5 mm²</td><td>18 A</td><td>23 A</td><td>Socket outlets, small appliances</td></tr>
+          <tr><td>4 mm²</td><td>24 A</td><td>30 A</td><td>Shower units, cookers</td></tr>
+          <tr><td>6 mm²</td><td>31 A</td><td>38 A</td><td>Sub-main, large appliances</td></tr>
+          <tr><td>10 mm²</td><td>43 A</td><td>52 A</td><td>Distribution boards</td></tr>
+          <tr><td>16 mm²</td><td>57 A</td><td>70 A</td><td>Main incomer, motor feeders</td></tr>
+          <tr><td>25 mm²</td><td>75 A</td><td>92 A</td><td>Large motor feeders</td></tr>
+          <tr><td>50 mm²</td><td>105 A</td><td>133 A</td><td>LV switchboard feeders</td></tr>
+          <tr><td>95 mm²</td><td>153 A</td><td>196 A</td><td>Main supply cables</td></tr>
+          <tr><td>185 mm²</td><td>217 A</td><td>278 A</td><td>HV/LV transformer connections</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cs-callout cs-callout--warn" style="margin-top:20px">
+      <div class="cs-callout__title">⚠ Derating Factors</div>
+      <div class="cs-callout__body">Ampacity values must be derated for ambient temperature above 30°C, grouping of cables in bundles, and installation in thermal insulation. Always apply correction factors from the relevant standard before finalising conductor size.</div>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// INSULATION</p>
+    <h2 class="cs-section__title">INSULATION MATERIALS</h2>
+    <div class="cs-table-wrap">
+      <table class="cs-table">
+        <thead>
+          <tr><th>Material</th><th>Max Temp</th><th>Key Properties</th><th>Typical Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>PVC</td><td>70°C</td><td>Low cost, flame retardant, flexible</td><td>General building wiring</td></tr>
+          <tr><td>XLPE</td><td>90°C (105°C short circuit)</td><td>Better thermal, low dielectric loss</td><td>Power distribution, MV cables</td></tr>
+          <tr><td>EPR</td><td>90°C</td><td>Flexible, good for wet locations</td><td>Mining, shipboard, flexible power</td></tr>
+          <tr><td>Silicone</td><td>180°C</td><td>Extreme heat, flexible at low temps</td><td>Ovens, engines, aerospace</td></tr>
+          <tr><td>PTFE</td><td>260°C</td><td>Chemical resistance, ultra-high temp</td><td>Petrochemical, industrial sensors</td></tr>
+          <tr><td>LSZH</td><td>70–90°C</td><td>Low smoke, zero halogen in fire</td><td>Tunnels, public buildings, rail</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="cs-divider">
+
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// EXPLORE MORE</p>
+    <h2 class="cs-section__title">RELATED PAGES</h2>
+    <div class="cs-cards">
+      <a href="automotive-cables.html" class="cs-card">
+        <div class="cs-card__icon">🚗</div>
+        <div class="cs-card__title">Automotive Cables</div>
+        <div class="cs-card__desc">Wire harnesses, high-voltage EV cables, and CAN bus.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="insulation.html" class="cs-card">
+        <div class="cs-card__icon">🛡️</div>
+        <div class="cs-card__title">Insulation Tutorial</div>
+        <div class="cs-card__desc">Deep dive into insulation materials, properties, and selection.</div>
+        <div class="cs-card__arrow">Explore →</div>
+      </a>
+      <a href="conductor-resistance.html" class="cs-card">
+        <div class="cs-card__icon">🔢</div>
+        <div class="cs-card__title">Resistance Calculator</div>
+        <div class="cs-card__desc">Calculate DC resistance from conductor size and temperature.</div>
+        <div class="cs-card__arrow">Calculate →</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cs-footer">
+  <div class="cs-footer__brand">
+    <div class="cs-footer__logo">Cable Script</div>
+    <p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div class="cs-footer__col">
+    <h4>Resources</h4>
+    <a href="conductors.html">Tutorials</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="mailto:fclcoax@gmail.com">Contact</a>
+  </div>
+</footer>
+<div class="cs-footer__bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span>Built for cable engineering professionals.</span>
+</div>
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
