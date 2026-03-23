@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONDUCTOR RESISTANCE
+CALCULATOR — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media(max-width:700px){ .calc-grid { grid-template-columns:1fr; } }
+    .formula-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px; }
+    .formula-box h3 { font-family: var(--display, "Bebas Neue",sans-serif); font-size:1.4rem; letter-spacing:.05em; color:var(--highlight,#fff9ec); margin-bottom:16px; }
+    .formula-item { margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .formula-item:last-child { border-bottom:none; margin-bottom:0; }
+    .formula-eq { font-family:monospace; font-size:.95rem; color:var(--accent,#f0a500); background:var(--surface2); padding:8px 14px; border-radius:5px; display:inline-block; margin:6px 0; }
+    .formula-desc { font-size:.82rem; color:var(--muted,#7a8099); margin-top:4px; }
+    .error-msg { color:#f08080; font-size:.82rem; margin-top:8px; display:none; }
+  </style>
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html" class="active">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="die-tip-calculator.html">Calculators</a><span>/</span>Conductor Resistance</div>
+  <p class="cs-hero__tag">// ELECTRICAL PERFORMANCE</p>
+  <h1 class="cs-hero__title">CONDUCTOR RESISTANCE
+CALCULATOR</h1>
+  <p class="cs-hero__sub">Calculate DC resistance at any temperature for copper or aluminium conductors per IEC 60228.</p>
+</div>
+<main class="cs-main">
+  <section class="cs-section reveal">
+    <div class="calc-grid">
+      <div>
+<div class="cs-calc">
+  <div class="cs-calc__title">Conductor Resistance</div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Conductor Cross-Section (mm²)</label>
+    <input class="cs-calc__input" id="cr-area" type="number" step="0.01" placeholder="e.g. 2.5">
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Material</label>
+    <select class="cs-calc__select" id="cr-mat">
+      <option value="0.017241">Copper (annealed) — 0.01724 Ω·mm²/m</option>
+      <option value="0.0282">Aluminium — 0.0282 Ω·mm²/m</option>
+      <option value="0.0200">Copper (hard drawn) — 0.0200 Ω·mm²/m</option>
+      <option value="0.100">Nichrome — 0.100 Ω·mm²/m</option>
+    </select>
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Temperature (°C)</label>
+    <input class="cs-calc__input" id="cr-temp" type="number" value="20" placeholder="20">
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Length (m)</label>
+    <input class="cs-calc__input" id="cr-len" type="number" value="1000" placeholder="e.g. 1000">
+  </div>
+  <button class="cs-calc__btn" onclick="calcResistance()">CALCULATE</button>
+  <div class="error-msg" id="cr-err">Please fill all fields with valid numbers.</div>
+  <div class="cs-calc__result" id="cr-result">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div><div class="cs-calc__result-label">DC Resistance at T</div><div class="cs-calc__result-value" id="cr-r">—</div><div class="cs-calc__result-unit">Ω / km</div></div>
+      <div><div class="cs-calc__result-label">Total Resistance</div><div class="cs-calc__result-value" id="cr-rtot">—</div><div class="cs-calc__result-unit">Ω</div></div>
+    </div>
+    <div style="margin-top:16px;"><div class="cs-calc__result-label">Resistance at 20°C</div><div class="cs-calc__result-value" id="cr-r20" style="font-size:1.6rem">—</div><div class="cs-calc__result-unit">Ω / km</div></div>
+  </div>
+</div>
+<script>
+function calcResistance(){
+  const A=parseFloat(document.getElementById("cr-area").value);
+  const rho=parseFloat(document.getElementById("cr-mat").value);
+  const T=parseFloat(document.getElementById("cr-temp").value);
+  const L=parseFloat(document.getElementById("cr-len").value);
+  const err=document.getElementById("cr-err");
+  if([A,rho,T,L].some(isNaN)||A<=0||L<=0){
+    err.style.display="block";
+    document.getElementById("cr-result").classList.remove("visible");
+    return;
+  }
+  err.style.display="none";
+  const R20 = rho / A * 1000; // Ω/km at 20°C
+  const alpha = 0.00393; // copper temp coefficient
+  const RT = R20 * (1 + alpha*(T-20));
+  const Rtot = RT * L / 1000;
+  document.getElementById("cr-r20").textContent=R20.toFixed(4);
+  document.getElementById("cr-r").textContent=RT.toFixed(4);
+  document.getElementById("cr-rtot").textContent=Rtot.toFixed(4);
+  document.getElementById("cr-result").classList.add("visible");
+}
+</script></div>
+      <div>
+<div class="formula-box">
+  <h3>Formulas Used</h3>
+  <div class="formula-item">
+    <div class="formula-eq">R₂₀ = ρ / A × 1000</div>
+    <div class="formula-desc">DC resistance at 20°C in Ω/km. ρ = resistivity (Ω·mm²/m), A = area (mm²).</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">R_T = R₂₀ × [1 + α(T − 20)]</div>
+    <div class="formula-desc">Temperature correction. α = 0.00393 /°C for annealed copper (IEC 60228).</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">R_total = R_T × Length / 1000</div>
+    <div class="formula-desc">Total resistance of a conductor of given length in Ω.</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">Copper ρ = 0.01724 Ω·mm²/m at 20°C</div>
+    <div class="formula-desc">IEC 60228 reference resistivity for annealed copper conductors.</div>
+  </div>
+</div></div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OTHER CALCULATORS</p>
+    <h2 class="cs-section__title">RELATED CALCULATORS</h2>
+    <div class="cs-cards"><a href="awg-to-mm.html" class="cs-card"><div class="cs-card__icon">📐</div><div class="cs-card__title">AWG to MM</div><div class="cs-card__arrow">Open →</div></a>
+<a href="capacitance.html" class="cs-card"><div class="cs-card__icon">🔋</div><div class="cs-card__title">Capacitance</div><div class="cs-card__arrow">Open →</div></a>
+<a href="die-tip-calculator.html" class="cs-card"><div class="cs-card__icon">⚙️</div><div class="cs-card__title">Die Tip</div><div class="cs-card__arrow">Open →</div></a></div>
+  </section>
+</main>
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Calculators</h4><a href="die-tip-calculator.html">Die Tip</a><a href="sheath-weight.html">Sheath Weight</a><a href="conductor-resistance.html">Conductor Resistance</a><a href="awg-to-mm.html">AWG to MM</a><a href="capacitance.html">Capacitance</a><a href="braiding-calculator.html">Braiding</a><a href="bobbin-capacity.html">Bobbin Capacity</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="wire-drawing.html">Machines</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add("visible")),{threshold:0.1,rootMargin:"0px 0px -40px 0px"});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));</script>
+</body></html>

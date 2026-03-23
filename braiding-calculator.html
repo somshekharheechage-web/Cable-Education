@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRAIDING
+CALCULATOR — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media(max-width:700px){ .calc-grid { grid-template-columns:1fr; } }
+    .formula-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px; }
+    .formula-box h3 { font-family: var(--display, "Bebas Neue",sans-serif); font-size:1.4rem; letter-spacing:.05em; color:var(--highlight,#fff9ec); margin-bottom:16px; }
+    .formula-item { margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .formula-item:last-child { border-bottom:none; margin-bottom:0; }
+    .formula-eq { font-family:monospace; font-size:.95rem; color:var(--accent,#f0a500); background:var(--surface2); padding:8px 14px; border-radius:5px; display:inline-block; margin:6px 0; }
+    .formula-desc { font-size:.82rem; color:var(--muted,#7a8099); margin-top:4px; }
+    .error-msg { color:#f08080; font-size:.82rem; margin-top:8px; display:none; }
+  </style>
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html" class="active">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="die-tip-calculator.html">Calculators</a><span>/</span>Braiding</div>
+  <p class="cs-hero__tag">// BRAID SHIELD DESIGN</p>
+  <h1 class="cs-hero__title">BRAIDING
+CALCULATOR</h1>
+  <p class="cs-hero__sub">Calculate braid coverage %, braid OD, pitch, and total wire count from carrier and geometry inputs.</p>
+</div>
+<main class="cs-main">
+  <section class="cs-section reveal">
+    <div class="calc-grid">
+      <div>
+<div class="cs-calc">
+  <div class="cs-calc__title">Braiding Calculator</div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Cable OD Under Braid (mm)</label>
+    <input class="cs-calc__input" id="br-od" type="number" step="0.01" placeholder="e.g. 8.0">
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Number of Carriers (each group)</label>
+    <input class="cs-calc__input" id="br-n" type="number" placeholder="e.g. 16">
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Wire Diameter per Carrier (mm)</label>
+    <input class="cs-calc__input" id="br-d" type="number" step="0.001" placeholder="e.g. 0.15">
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Braid Angle (degrees)</label>
+    <input class="cs-calc__input" id="br-angle" type="number" value="45" placeholder="e.g. 45">
+  </div>
+  <button class="cs-calc__btn" onclick="calcBraid()">CALCULATE</button>
+  <div class="error-msg" id="br-err">Please fill all fields with valid numbers.</div>
+  <div class="cs-calc__result" id="br-result">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div><div class="cs-calc__result-label">Braid Coverage</div><div class="cs-calc__result-value" id="br-cov">—</div><div class="cs-calc__result-unit">%</div></div>
+      <div><div class="cs-calc__result-label">Braid OD</div><div class="cs-calc__result-value" id="br-bod">—</div><div class="cs-calc__result-unit">mm</div></div>
+    </div>
+    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div><div class="cs-calc__result-label">Braid Pitch</div><div class="cs-calc__result-value" id="br-pitch">—</div><div class="cs-calc__result-unit">mm</div></div>
+      <div><div class="cs-calc__result-label">Total Wire Count</div><div class="cs-calc__result-value" id="br-total">—</div><div class="cs-calc__result-unit">wires</div></div>
+    </div>
+  </div>
+</div>
+<script>
+function calcBraid(){
+  const D=parseFloat(document.getElementById("br-od").value);
+  const n=parseFloat(document.getElementById("br-n").value);
+  const d=parseFloat(document.getElementById("br-d").value);
+  const theta=parseFloat(document.getElementById("br-angle").value)*Math.PI/180;
+  const err=document.getElementById("br-err");
+  if([D,n,d,theta].some(isNaN)||D<=0||n<=0||d<=0){
+    err.style.display="block";
+    document.getElementById("br-result").classList.remove("visible");
+    return;
+  }
+  err.style.display="none";
+  const sinT=Math.sin(theta);
+  const cover_single=n*d/(Math.PI*D*sinT);
+  const coverage=(1-Math.pow(1-cover_single,2))*100;
+  const pitch=Math.PI*D/Math.tan(theta);
+  const bod=D+2*d;
+  const total=n*2;
+  document.getElementById("br-cov").textContent=Math.min(coverage,100).toFixed(1);
+  document.getElementById("br-bod").textContent=bod.toFixed(2);
+  document.getElementById("br-pitch").textContent=pitch.toFixed(1);
+  document.getElementById("br-total").textContent=total;
+  document.getElementById("br-result").classList.add("visible");
+}
+</script></div>
+      <div>
+<div class="formula-box">
+  <h3>Formulas Used</h3>
+  <div class="formula-item">
+    <div class="formula-eq">C = 1 − (1 − n·d/(π·D·sinθ))²</div>
+    <div class="formula-desc">Braid coverage %. n = carriers per group, d = wire Ø, D = cable OD under braid, θ = braid angle.</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">Pitch = π·D / tan(θ)</div>
+    <div class="formula-desc">Axial distance for one complete revolution of a braid strand.</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">Total wires = n × 2</div>
+    <div class="formula-desc">Two groups of n carriers each. Total carriers = 2n.</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">Braid OD = Cable OD + 2 × wire Ø</div>
+    <div class="formula-desc">Approximate OD of the cable after braiding.</div>
+  </div>
+</div></div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OTHER CALCULATORS</p>
+    <h2 class="cs-section__title">RELATED CALCULATORS</h2>
+    <div class="cs-cards"><a href="bobbin-capacity.html" class="cs-card"><div class="cs-card__icon">🧵</div><div class="cs-card__title">Bobbin Capacity</div><div class="cs-card__arrow">Open →</div></a>
+<a href="sheath-weight.html" class="cs-card"><div class="cs-card__icon">⚖️</div><div class="cs-card__title">Sheath Weight</div><div class="cs-card__arrow">Open →</div></a>
+<a href="die-tip-calculator.html" class="cs-card"><div class="cs-card__icon">⚙️</div><div class="cs-card__title">Die Tip</div><div class="cs-card__arrow">Open →</div></a></div>
+  </section>
+</main>
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Calculators</h4><a href="die-tip-calculator.html">Die Tip</a><a href="sheath-weight.html">Sheath Weight</a><a href="conductor-resistance.html">Conductor Resistance</a><a href="awg-to-mm.html">AWG to MM</a><a href="capacitance.html">Capacitance</a><a href="braiding-calculator.html">Braiding</a><a href="bobbin-capacity.html">Bobbin Capacity</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="wire-drawing.html">Machines</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add("visible")),{threshold:0.1,rootMargin:"0px 0px -40px 0px"});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));</script>
+</body></html>

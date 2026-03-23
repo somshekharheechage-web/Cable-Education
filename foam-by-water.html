@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOAM % BY WATER
+CALCULATOR — Cable Script</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media(max-width:700px){ .calc-grid { grid-template-columns:1fr; } }
+    .formula-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px; }
+    .formula-box h3 { font-family: var(--display, "Bebas Neue",sans-serif); font-size:1.4rem; letter-spacing:.05em; color:var(--highlight,#fff9ec); margin-bottom:16px; }
+    .formula-item { margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .formula-item:last-child { border-bottom:none; margin-bottom:0; }
+    .formula-eq { font-family:monospace; font-size:.95rem; color:var(--accent,#f0a500); background:var(--surface2); padding:8px 14px; border-radius:5px; display:inline-block; margin:6px 0; }
+    .formula-desc { font-size:.82rem; color:var(--muted,#7a8099); margin-top:4px; }
+    .error-msg { color:#f08080; font-size:.82rem; margin-top:8px; display:none; }
+  </style>
+</head>
+<body>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav__logo"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="8" stroke="#e05f00" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#f0a500" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="#f0a500"/></svg>Cable Script</a>
+  <ul class="cs-nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ethernet-cables.html">Cable Types</a></li>
+    <li><a href="wire-drawing.html">Machines</a></li>
+    <li><a href="die-tip-calculator.html" class="active">Calculators</a></li>
+    <li><a href="conductors.html">Tutorials</a></li>
+    <li><a href="mailto:fclcoax@gmail.com" class="cs-nav__cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="cs-hero">
+  <div class="cs-hero__bg"></div>
+  <div class="cs-hero__breadcrumb"><a href="index.html">Home</a><span>/</span><a href="die-tip-calculator.html">Calculators</a><span>/</span>Foam % by Water</div>
+  <p class="cs-hero__tag">// FOAM INSULATION QC</p>
+  <h1 class="cs-hero__title">FOAM % BY WATER
+CALCULATOR</h1>
+  <p class="cs-hero__sub">Measure foam insulation density and void percentage using the Archimedes water immersion method.</p>
+</div>
+<main class="cs-main">
+  <section class="cs-section reveal">
+    <div class="calc-grid">
+      <div>
+<div class="cs-calc">
+  <div class="cs-calc__title">Foam % by Water</div>
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:20px;">Measures foam percentage by weighing a sample in air and in water (Archimedes method).</p>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Weight in Air (g)</label>
+    <input class="cs-calc__input" id="fw-air" type="number" step="0.001" placeholder="e.g. 5.240">
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Weight in Water (g)</label>
+    <input class="cs-calc__input" id="fw-water" type="number" step="0.001" placeholder="e.g. 2.680">
+  </div>
+  <div class="cs-calc__group">
+    <label class="cs-calc__label">Solid Polymer Density (g/cm³)</label>
+    <select class="cs-calc__select" id="fw-density">
+      <option value="0.923">Solid PE — 0.923</option>
+      <option value="0.930">MDPE — 0.930</option>
+      <option value="0.955">HDPE — 0.955</option>
+      <option value="1.380">PVC — 1.380</option>
+    </select>
+  </div>
+  <button class="cs-calc__btn" onclick="calcFoamWater()">CALCULATE</button>
+  <div class="error-msg" id="fw-err">Weight in air must be greater than weight in water.</div>
+  <div class="cs-calc__result" id="fw-result">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div><div class="cs-calc__result-label">Foam Density</div><div class="cs-calc__result-value" id="fw-fd">—</div><div class="cs-calc__result-unit">g/cm³</div></div>
+      <div><div class="cs-calc__result-label">Foam %</div><div class="cs-calc__result-value" id="fw-fp">—</div><div class="cs-calc__result-unit">%</div></div>
+    </div>
+  </div>
+</div>
+<script>
+function calcFoamWater(){
+  const Wa=parseFloat(document.getElementById("fw-air").value);
+  const Ww=parseFloat(document.getElementById("fw-water").value);
+  const rho_s=parseFloat(document.getElementById("fw-density").value);
+  const err=document.getElementById("fw-err");
+  if([Wa,Ww,rho_s].some(isNaN)||Wa<=Ww||Ww<0){
+    err.style.display="block";
+    document.getElementById("fw-result").classList.remove("visible");
+    return;
+  }
+  err.style.display="none";
+  const rho_foam=Wa/(Wa-Ww); // using water density = 1.0
+  const foam_pct=(1-rho_foam/rho_s)*100;
+  document.getElementById("fw-fd").textContent=rho_foam.toFixed(4);
+  document.getElementById("fw-fp").textContent=foam_pct.toFixed(1);
+  document.getElementById("fw-result").classList.add("visible");
+}
+</script></div>
+      <div>
+<div class="formula-box">
+  <h3>Formulas Used</h3>
+  <div class="formula-item">
+    <div class="formula-eq">ρ_foam = W_air / (W_air − W_water)</div>
+    <div class="formula-desc">Archimedes principle. Water density assumed = 1.000 g/cm³ at room temperature.</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">Foam% = (1 − ρ_foam / ρ_solid) × 100</div>
+    <div class="formula-desc">Percentage of gas (void) content in the foam insulation. Higher foam % = lower dielectric constant.</div>
+  </div>
+  <div class="formula-item">
+    <div class="formula-eq">εᵣ_foam ≈ 1 + (εᵣ_solid − 1) × (1 − Foam%/100)</div>
+    <div class="formula-desc">Approximate effective dielectric constant of the foam. Used for VoP and capacitance calculations.</div>
+  </div>
+</div></div>
+    </div>
+  </section>
+  <hr class="cs-divider">
+  <section class="cs-section reveal">
+    <p class="cs-section__tag">// OTHER CALCULATORS</p>
+    <h2 class="cs-section__title">RELATED CALCULATORS</h2>
+    <div class="cs-cards"><a href="foam-percentage.html" class="cs-card"><div class="cs-card__icon">📊</div><div class="cs-card__title">Foam Percentage</div><div class="cs-card__arrow">Open →</div></a>
+<a href="capacitance.html" class="cs-card"><div class="cs-card__icon">🔋</div><div class="cs-card__title">Capacitance</div><div class="cs-card__arrow">Open →</div></a>
+<a href="conductor-resistance.html" class="cs-card"><div class="cs-card__icon">⚡</div><div class="cs-card__title">Conductor Resistance</div><div class="cs-card__arrow">Open →</div></a></div>
+  </section>
+</main>
+<footer class="cs-footer">
+  <div class="cs-footer__brand"><div class="cs-footer__logo">Cable Script</div><p class="cs-footer__tagline">The definitive technical resource for cable engineers and manufacturing professionals worldwide.</p></div>
+  <div class="cs-footer__col"><h4>Cable Types</h4><a href="ethernet-cables.html">Ethernet Cables</a><a href="coaxial-cables.html">Coaxial Cables</a><a href="fiber-optic-cables.html">Fiber Optic</a><a href="electrical-cables.html">Electrical Cables</a><a href="automotive-cables.html">Automotive Cables</a></div>
+  <div class="cs-footer__col"><h4>Calculators</h4><a href="die-tip-calculator.html">Die Tip</a><a href="sheath-weight.html">Sheath Weight</a><a href="conductor-resistance.html">Conductor Resistance</a><a href="awg-to-mm.html">AWG to MM</a><a href="capacitance.html">Capacitance</a><a href="braiding-calculator.html">Braiding</a><a href="bobbin-capacity.html">Bobbin Capacity</a></div>
+  <div class="cs-footer__col"><h4>Resources</h4><a href="conductors.html">Tutorials</a><a href="wire-drawing.html">Machines</a><a href="mailto:fclcoax@gmail.com">Contact</a></div>
+</footer>
+<div class="cs-footer__bottom"><span>© 2025 Cable Script. All rights reserved.</span><span>Built for cable engineering professionals.</span></div>
+<script>const obs=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add("visible")),{threshold:0.1,rootMargin:"0px 0px -40px 0px"});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));</script>
+</body></html>
