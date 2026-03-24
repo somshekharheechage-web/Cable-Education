@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cable Calculators | Cable Script</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #111318;
+    --surface2: #181b22;
+    --border: #232733;
+    --border2: #1a1d25;
+    --accent: #f0a500;
+    --accent-dim: rgba(240,165,0,0.12);
+    --accent-hover: #d99000;
+    --text: #e0e2ea;
+    --muted: #aaa;
+    --dim: #666;
+    --error: #f08080;
+    --blue: #5b9bd5;
+    --green: #5cb85c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; position: sticky; top: 0; z-index: 100;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .nav-logo { color: var(--accent); font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: var(--muted); font-size: 0.78rem; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; transition: color .15s, background .15s; }
+  .nav-links a:hover { color: var(--accent); background: var(--accent-dim); text-decoration: none; }
+  .nav-links .cta { background: var(--accent); color: #000 !important; font-weight: 700; }
+  .nav-links .cta:hover { background: var(--accent-hover); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #111318 0%, #0d0f14 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 44px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .breadcrumb { color: var(--dim); font-size: 0.78rem; margin-bottom: 12px; }
+  .breadcrumb a { color: #888; }
+  .tag { color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; font-family: 'IBM Plex Mono', monospace; }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; color: #fff; line-height: 1.05; margin-bottom: 14px; letter-spacing: -1px; }
+  .hero-sub { color: var(--muted); font-size: 1rem; max-width: 580px; }
+
+  /* ── TAB NAV ── */
+  .tab-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex; gap: 0;
+    position: sticky; top: 60px; z-index: 90;
+  }
+  .tab-btn {
+    background: none; border: none; border-bottom: 3px solid transparent;
+    color: var(--muted); font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem; font-weight: 600;
+    padding: 16px 22px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    transition: color .2s, border-color .2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-icon { font-size: 1rem; }
+
+  /* ── MAIN ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px 64px; }
+
+  /* ── PANELS ── */
+  .panel { display: none; animation: fadeIn .25s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 52px; }
+  .sec-tag { color: var(--accent); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: 'IBM Plex Mono', monospace; }
+  .sec-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; color: #fff; margin-bottom: 20px; }
+
+  /* ── CALC LAYOUT ── */
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+
+  /* ── CALC CARD ── */
+  .calc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 0 0 12px 12px;
+    padding: 28px;
+  }
+  .calc-title {
+    font-size: 1.2rem; font-weight: 900; color: #fff;
+    margin-bottom: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: -0.5px;
+  }
+  .calc-subtitle { font-size: 0.82rem; color: var(--dim); margin-bottom: 24px; font-family: 'IBM Plex Mono', monospace; }
+
+  /* ── FORM ── */
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px;
+    color: #888; margin-bottom: 7px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .form-hint { font-size: 0.65rem; color: var(--dim); text-transform: none; letter-spacing: 0; }
+  .form-input {
+    width: 100%; background: var(--bg);
+    border: 1px solid #333; border-radius: 6px;
+    color: var(--text); font-size: 1rem;
+    padding: 11px 14px; outline: none;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: border-color .15s;
+  }
+  .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(240,165,0,0.08); }
+  .form-select {
+    width: 100%; background: var(--bg);
+    border: 1px solid #333; border-radius: 6px;
+    color: var(--text); font-size: 0.88rem;
+    padding: 11px 14px; outline: none; cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: border-color .15s;
+  }
+  .form-select:focus { border-color: var(--accent); }
+
+  /* ── BUTTON ── */
+  .calc-btn {
+    width: 100%; background: var(--accent); color: #000;
+    border: none; border-radius: 6px;
+    font-size: 0.9rem; font-weight: 900;
+    padding: 14px; cursor: pointer; margin-top: 8px;
+    letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: background .15s, transform .1s;
+  }
+  .calc-btn:hover { background: var(--accent-hover); }
+  .calc-btn:active { transform: scale(0.99); }
+
+  /* ── RESULT ── */
+  .result-box {
+    display: none; margin-top: 20px;
+    background: var(--bg);
+    border: 1px solid #2a2d36;
+    border-radius: 10px; padding: 20px 22px;
+  }
+  .result-box.show { display: block; animation: fadeIn .2s ease; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+  .result-item { padding: 14px; background: var(--surface2); border-radius: 8px; border: 1px solid var(--border2); }
+  .result-label { font-size: 0.63rem; text-transform: uppercase; letter-spacing: 2px; color: var(--dim); font-family: 'IBM Plex Mono', monospace; margin-bottom: 5px; }
+  .result-value { font-size: 1.9rem; font-weight: 900; color: var(--accent); line-height: 1; font-family: 'IBM Plex Mono', monospace; }
+  .result-unit { font-size: 0.75rem; color: var(--dim); margin-top: 3px; font-family: 'IBM Plex Mono', monospace; }
+  .result-full { padding: 14px; background: var(--surface2); border-radius: 8px; border: 1px solid var(--border2); margin-top: 0; }
+
+  /* ── STATUS BADGE ── */
+  .status-badge {
+    display: inline-block; margin-top: 12px;
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 0.72rem; font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge-good { background: rgba(92,184,92,0.15); color: #5cb85c; border: 1px solid rgba(92,184,92,0.3); }
+  .badge-warn { background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); }
+  .badge-bad  { background: rgba(240,128,128,0.15); color: var(--error); border: 1px solid rgba(240,128,128,0.3); }
+
+  /* ── ERROR ── */
+  .err { color: var(--error); font-size: 0.8rem; margin-top: 10px; display: none; font-family: 'IBM Plex Mono', monospace; }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px;
+  }
+  .formula-box h3 { color: #fff; font-size: 1rem; margin-bottom: 18px; font-family: 'IBM Plex Mono', monospace; letter-spacing: -0.3px; }
+  .formula-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border2); }
+  .formula-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .formula-name { color: var(--accent); font-weight: 700; font-size: 0.88rem; margin-bottom: 5px; font-family: 'IBM Plex Mono', monospace; }
+  .formula-eq {
+    background: var(--bg); color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 9px 14px; border-radius: 6px;
+    font-size: 0.88rem; display: block;
+    margin: 6px 0; word-break: break-all;
+    border: 1px solid rgba(240,165,0,0.2);
+  }
+  .formula-desc { font-size: 0.8rem; color: #888; margin-top: 5px; line-height: 1.6; }
+
+  /* ── INFO CALLOUT ── */
+  .callout {
+    background: var(--surface); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0;
+  }
+  .callout.blue { border-left-color: var(--blue); }
+  .callout.green { border-left-color: var(--green); }
+  .callout-title { color: #fff; font-weight: 700; margin-bottom: 5px; font-size: 0.88rem; }
+  .callout-body { color: var(--muted); font-size: 0.84rem; line-height: 1.7; }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: var(--surface2); color: var(--accent); text-transform: uppercase; font-size: 0.68rem; letter-spacing: 2px; padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; font-family: 'IBM Plex Mono', monospace; }
+  td { padding: 11px 16px; border-bottom: 1px solid var(--border2); color: var(--muted); vertical-align: top; font-size: 0.875rem; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(240,165,0,0.03); }
+  td:first-child { color: var(--text); font-weight: 600; font-family: 'IBM Plex Mono', monospace; }
+
+  /* ── DIVIDER ── */
+  hr.div { border: none; border-top: 1px solid var(--border2); margin: 44px 0; }
+
+  /* ── CARDS ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-decoration: none; color: var(--text); display: flex; flex-direction: column; gap: 8px; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-3px); text-decoration: none; }
+  .card-icon { font-size: 1.4rem; }
+  .card-title { font-weight: 700; color: #fff; font-size: 0.9rem; }
+  .card-arrow { color: var(--accent); font-size: 0.78rem; margin-top: 2px; font-family: 'IBM Plex Mono', monospace; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .footer-logo { color: var(--accent); font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; font-family: 'IBM Plex Mono', monospace; }
+  .footer-tagline { color: var(--dim); font-size: 0.85rem; line-height: 1.6; max-width: 220px; }
+  .footer h4 { color: #888; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-family: 'IBM Plex Mono', monospace; }
+  .footer a { display: block; color: #888; font-size: 0.875rem; margin-bottom: 8px; text-decoration: none; }
+  .footer a:hover { color: var(--accent); }
+  .footer-bottom { background: var(--bg); border-top: 1px solid var(--border2); padding: 16px 40px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; flex-wrap: wrap; gap: 6px; }
+
+  /* ── PROGRESS BAR (for braid coverage) ── */
+  .progress-wrap { margin-top: 14px; }
+  .progress-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: var(--dim); font-family: 'IBM Plex Mono', monospace; margin-bottom: 6px; }
+  .progress-bar { background: var(--surface2); border-radius: 4px; height: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .progress-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width .5s ease; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:800px){
+    .nav { padding: 0 16px; }
+    .hero { padding: 44px 16px 28px; }
+    .tab-bar { padding: 0 16px; overflow-x: auto; }
+    .main { padding: 32px 16px 48px; }
+    .calc-wrap { grid-template-columns: 1fr; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; padding: 24px 16px; }
+    .footer-bottom { padding: 12px 16px; }
+    .tab-btn { padding: 14px 14px; font-size: 0.68rem; }
+  }
+  @media(max-width:480px){
+    .result-grid { grid-template-columns: 1fr; }
+    .tab-btn span.tab-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">⬤ Cable Script</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="ethernet-cables.html">Cable Types</a>
+    <a href="wire-drawing.html">Machines</a>
+    <a href="die-tip-calculator.html">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+    <a href="mailto:cablescript@email.com" class="cta">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="die-tip-calculator.html">Calculators</a> / Engineering Calculators</div>
+  <div class="tag">// ENGINEERING TOOLS</div>
+  <h1>CABLE CALCULATORS</h1>
+  <p class="hero-sub">Precise engineering calculations for cable manufacturing — MultiCore OD, Conductor Resistance, and Braid Coverage.</p>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('mc')" id="tab-mc">
+    <span class="tab-icon">🔌</span><span class="tab-label">MultiCore Cable OD</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('cr')" id="tab-cr">
+    <span class="tab-icon">⚡</span><span class="tab-label">Conductor Resistance</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('br')" id="tab-br">
+    <span class="tab-icon">🌀</span><span class="tab-label">Braiding Calculator</span>
+  </button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ═══════════════════════════════════════════
+       PANEL 1: MULTICORE CABLE OD
+  ═══════════════════════════════════════════ -->
+  <div class="panel active" id="panel-mc">
+
+    <div class="section">
+      <div class="sec-tag">// MULTICORE CABLE</div>
+      <div class="sec-title">MULTICORE CABLE OD CALCULATOR</div>
+
+      <div class="calc-wrap">
+        <!-- CALCULATOR -->
+        <div>
+          <div class="calc">
+            <div class="calc-title">MultiCore Cable OD</div>
+            <div class="calc-subtitle">Assembly OD via K-Factor method</div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Single Core OD (mm)
+                <span class="form-hint">Insulated core diameter</span>
+              </label>
+              <input class="form-input" id="mc-od" type="number" step="0.01" min="0.01" placeholder="e.g. 5.0">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Number of Cores</label>
+              <select class="form-select" id="mc-n">
+                <option value="2.000">2 cores — K = 2.000</option>
+                <option value="2.155">3 cores — K = 2.155</option>
+                <option value="2.414">4 cores — K = 2.414</option>
+                <option value="2.701">5 cores — K = 2.701</option>
+                <option value="3.000">7 cores — K = 3.000</option>
+                <option value="3.613">12 cores — K = 3.613</option>
+                <option value="4.236">19 cores — K = 4.236</option>
+                <option value="5.000">37 cores — K = 5.000</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Filler Addition (mm)
+                <span class="form-hint">Optional — 0 if none</span>
+              </label>
+              <input class="form-input" id="mc-fill" type="number" step="0.01" value="0" min="0" placeholder="0 = no fillers">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Binder Tape Thickness (mm)
+                <span class="form-hint">Optional — 0 if none</span>
+              </label>
+              <input class="form-input" id="mc-bnd" type="number" step="0.01" value="0" min="0" placeholder="0 = no tape">
+            </div>
+
+            <button class="calc-btn" onclick="calcMC()">CALCULATE OD</button>
+            <p class="err" id="mc-err">⚠ Please enter a valid core OD greater than 0.</p>
+
+            <div class="result-box" id="mc-res">
+              <div class="result-grid">
+                <div class="result-item">
+                  <div class="result-label">Assembly OD (core)</div>
+                  <div class="result-value" id="mc-aod">—</div>
+                  <div class="result-unit">mm</div>
+                </div>
+                <div class="result-item">
+                  <div class="result-label">OD with Binder</div>
+                  <div class="result-value" id="mc-bod">—</div>
+                  <div class="result-unit">mm</div>
+                </div>
+              </div>
+              <div class="result-full">
+                <div class="result-label">K Factor Used</div>
+                <div class="result-value" id="mc-kval" style="font-size:1.3rem">—</div>
+                <div class="result-unit">geometric packing factor</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULA BOX -->
+        <div>
+          <div class="formula-box">
+            <h3>📐 K Factor Method</h3>
+            <div class="formula-item">
+              <div class="formula-name">Assembly OD Formula</div>
+              <code class="formula-eq">Assembly OD = Core OD × K + 2 × Filler</code>
+              <div class="formula-desc">Standard K factors for circular core arrangement. Filler addition increases the effective overall diameter on both sides.</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-name">K Factor Reference Table</div>
+              <code class="formula-eq">2c=2.000 · 3c=2.155 · 4c=2.414 · 5c=2.701 · 7c=3.000</code>
+              <div class="formula-desc">Based on geometric packing of equal-diameter circles in a circular arrangement. Derived from tangent circle geometry.</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-name">OD with Binder Tape</div>
+              <code class="formula-eq">Final OD = Assembly OD + 2 × Tape Thickness</code>
+              <div class="formula-desc">Binder tape wraps the assembly and adds to diameter on both sides.</div>
+            </div>
+          </div>
+
+          <div class="callout" style="margin-top:20px;">
+            <div class="callout-title">💡 Engineering Tip</div>
+            <div class="callout-body">The K factor method gives a theoretical minimum OD. In practice, add 2–5% tolerance for lay-up variation, especially with odd-count cores or non-circular cross-sections.</div>
+          </div>
+
+          <div class="tbl-wrap" style="margin-top:20px;">
+            <table>
+              <thead>
+                <tr><th>Cores</th><th>K Factor</th><th>Arrangement</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2</td><td>2.000</td><td>Side by side</td></tr>
+                <tr><td>3</td><td>2.155</td><td>Triangle</td></tr>
+                <tr><td>4</td><td>2.414</td><td>Square</td></tr>
+                <tr><td>5</td><td>2.701</td><td>Pentagon</td></tr>
+                <tr><td>7</td><td>3.000</td><td>1 centre + 6</td></tr>
+                <tr><td>12</td><td>3.613</td><td>Inner layer</td></tr>
+                <tr><td>19</td><td>4.236</td><td>SZ lay</td></tr>
+                <tr><td>37</td><td>5.000</td><td>Multi-layer</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel-mc -->
+
+
+  <!-- ═══════════════════════════════════════════
+       PANEL 2: CONDUCTOR RESISTANCE
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="panel-cr">
+
+    <div class="section">
+      <div class="sec-tag">// CONDUCTOR RESISTANCE</div>
+      <div class="sec-title">CONDUCTOR RESISTANCE CALCULATOR</div>
+
+      <div class="calc-wrap">
+        <!-- CALCULATOR -->
+        <div>
+          <div class="calc">
+            <div class="calc-title">Conductor Resistance</div>
+            <div class="calc-subtitle">IEC 60228 temperature correction</div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Cross-Section (mm²)
+                <span class="form-hint">Conductor area</span>
+              </label>
+              <input class="form-input" id="cr-a" type="number" step="0.01" min="0.01" placeholder="e.g. 2.5">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Material</label>
+              <select class="form-select" id="cr-mat">
+                <option value="0.017241" data-alpha="0.00393">Copper (annealed) — 0.01724 Ω·mm²/m</option>
+                <option value="0.0282" data-alpha="0.00403">Aluminium — 0.0282 Ω·mm²/m</option>
+                <option value="0.0200" data-alpha="0.00381">Copper (hard drawn) — 0.0200 Ω·mm²/m</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Temperature (°C)
+                <span class="form-hint">Operating temperature</span>
+              </label>
+              <input class="form-input" id="cr-t" type="number" value="20" placeholder="20">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Length (m)
+                <span class="form-hint">Conductor length</span>
+              </label>
+              <input class="form-input" id="cr-l" type="number" value="1000" min="0.01" placeholder="1000">
+            </div>
+
+            <button class="calc-btn" onclick="calcCR()">CALCULATE RESISTANCE</button>
+            <p class="err" id="cr-err">⚠ Please enter valid cross-section and length values.</p>
+
+            <div class="result-box" id="cr-res">
+              <div class="result-grid">
+                <div class="result-item">
+                  <div class="result-label">R at 20°C</div>
+                  <div class="result-value" id="cr-r20">—</div>
+                  <div class="result-unit">Ω / km</div>
+                </div>
+                <div class="result-item">
+                  <div class="result-label">R at Temperature</div>
+                  <div class="result-value" id="cr-rt">—</div>
+                  <div class="result-unit">Ω / km</div>
+                </div>
+              </div>
+              <div class="result-full">
+                <div class="result-label">Total Resistance for given Length</div>
+                <div class="result-value" id="cr-tot" style="font-size:1.5rem">—</div>
+                <div class="result-unit">Ω (total)</div>
+              </div>
+              <div id="cr-badge"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULA BOX -->
+        <div>
+          <div class="formula-box">
+            <h3>⚡ IEC 60228 Formulas</h3>
+            <div class="formula-item">
+              <div class="formula-name">DC Resistance at 20°C</div>
+              <code class="formula-eq">R₂₀ = ρ / A × 1000</code>
+              <div class="formula-desc">ρ = resistivity (Ω·mm²/m), A = cross-section area (mm²). Result in Ω/km.</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-name">Temperature Correction</div>
+              <code class="formula-eq">R_T = R₂₀ × [1 + α(T − 20)]</code>
+              <div class="formula-desc">α = temperature coefficient. Annealed copper: 0.00393/°C · Aluminium: 0.00403/°C · Hard drawn Cu: 0.00381/°C</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-name">Total Resistance</div>
+              <code class="formula-eq">R_total = R_T × Length / 1000</code>
+              <div class="formula-desc">Total resistance of the conductor for a given length in Ω.</div>
+            </div>
+          </div>
+
+          <div class="callout blue" style="margin-top:20px;">
+            <div class="callout-title">📋 IEC 60228 Reference Values</div>
+            <div class="callout-body">IEC 60228 specifies maximum DC resistance limits at 20°C for conductors up to 2500 mm². Always verify against the standard tables for compliance.</div>
+          </div>
+
+          <div class="tbl-wrap" style="margin-top:20px;">
+            <table>
+              <thead>
+                <tr><th>Material</th><th>ρ (Ω·mm²/m)</th><th>α (/°C)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Copper (annealed)</td><td>0.017241</td><td>0.00393</td></tr>
+                <tr><td>Aluminium</td><td>0.028200</td><td>0.00403</td></tr>
+                <tr><td>Copper (hard drawn)</td><td>0.020000</td><td>0.00381</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel-cr -->
+
+
+  <!-- ═══════════════════════════════════════════
+       PANEL 3: BRAIDING CALCULATOR
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="panel-br">
+
+    <div class="section">
+      <div class="sec-tag">// BRAIDING</div>
+      <div class="sec-title">BRAIDING CALCULATOR</div>
+
+      <div class="calc-wrap">
+        <!-- CALCULATOR -->
+        <div>
+          <div class="calc">
+            <div class="calc-title">Braiding Calculator</div>
+            <div class="calc-subtitle">Coverage, OD, pitch, and wire count</div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Cable OD Under Braid (mm)
+                <span class="form-hint">Core OD before braiding</span>
+              </label>
+              <input class="form-input" id="br-od" type="number" step="0.01" min="0.01" placeholder="e.g. 8.0">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Carriers per Group
+                <span class="form-hint">Number of carriers (bobbins)</span>
+              </label>
+              <input class="form-input" id="br-n" type="number" min="1" placeholder="e.g. 16">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Wire Diameter per Carrier (mm)
+                <span class="form-hint">Single wire Ø in each carrier</span>
+              </label>
+              <input class="form-input" id="br-d" type="number" step="0.001" min="0.001" placeholder="e.g. 0.15">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Braid Angle (degrees)
+                <span class="form-hint">Typical: 30°–60°, default 45°</span>
+              </label>
+              <input class="form-input" id="br-ang" type="number" step="0.1" value="45" min="5" max="85" placeholder="45">
+            </div>
+
+            <button class="calc-btn" onclick="calcBR()">CALCULATE BRAID</button>
+            <p class="err" id="br-err">⚠ Please fill all fields with valid positive numbers.</p>
+
+            <div class="result-box" id="br-res">
+              <div class="result-grid">
+                <div class="result-item">
+                  <div class="result-label">Braid Coverage</div>
+                  <div class="result-value" id="br-cov">—</div>
+                  <div class="result-unit">%</div>
+                </div>
+                <div class="result-item">
+                  <div class="result-label">Braid OD</div>
+                  <div class="result-value" id="br-bod">—</div>
+                  <div class="result-unit">mm</div>
+                </div>
+                <div class="result-item">
+                  <div class="result-label">Braid Pitch</div>
+                  <div class="result-value" id="br-pit">—</div>
+                  <div class="result-unit">mm</div>
+                </div>
+                <div class="result-item">
+                  <div class="result-label">Total Wires</div>
+                  <div class="result-value" id="br-tot">—</div>
+                  <div class="result-unit">wires</div>
+                </div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label">Coverage Visual</div>
+                <div class="progress-bar"><div class="progress-fill" id="br-bar" style="width:0%"></div></div>
+              </div>
+              <div id="br-badge"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULA BOX -->
+        <div>
+          <div class="formula-box">
+            <h3>🌀 Braid Coverage Formulas</h3>
+            <div class="formula-item">
+              <div class="formula-name">Braid Coverage %</div>
+              <code class="formula-eq">C = 1 − (1 − n·d / (π·D·sinθ))²</code>
+              <div class="formula-desc">n = carriers per group, d = wire Ø (mm), D = cable OD (mm), θ = braid angle. Multiply by 100 for %. Capped at 100%.</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-name">Braid Pitch</div>
+              <code class="formula-eq">Pitch = π × D / tan(θ)</code>
+              <div class="formula-desc">Axial distance (mm) for one complete revolution of a braid strand around the cable.</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-name">Total Wire Count</div>
+              <code class="formula-eq">Total Wires = n × 2</code>
+              <div class="formula-desc">Two groups of n carriers each (S-twist and Z-twist) interweave to form the braid pattern.</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-name">Braid OD</div>
+              <code class="formula-eq">Braid OD ≈ Cable OD + 2 × wire Ø</code>
+              <div class="formula-desc">Approximate outer diameter of cable after braiding is applied.</div>
+            </div>
+          </div>
+
+          <div class="callout green" style="margin-top:20px;">
+            <div class="callout-title">✅ Coverage Guidelines</div>
+            <div class="callout-body">
+              <strong style="color:#5cb85c">≥ 90%</strong> — Excellent EMI shielding · 
+              <strong style="color:#f0c040">70–90%</strong> — Standard shielding · 
+              <strong style="color:#f08080">&lt; 70%</strong> — Limited protection
+            </div>
+          </div>
+
+          <div class="tbl-wrap" style="margin-top:20px;">
+            <table>
+              <thead>
+                <tr><th>Braid Angle</th><th>Coverage</th><th>Characteristics</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>30°</td><td>Lower</td><td>Flexible, open weave</td></tr>
+                <tr><td>45°</td><td>Medium</td><td>Balanced (standard)</td></tr>
+                <tr><td>55°</td><td>Higher</td><td>Tighter, stiffer</td></tr>
+                <tr><td>60°+</td><td>Maximum</td><td>High coverage, rigid</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel-br -->
+
+
+  <!-- ── ALL CALCULATORS ── -->
+  <hr class="div">
+  <div class="section">
+    <div class="sec-tag">// OTHER CALCULATORS</div>
+    <div class="sec-title">ALL CALCULATORS</div>
+    <div class="cards">
+      <a href="die-tip-calculator.html" class="card"><div class="card-icon">⚙️</div><div class="card-title">Die Tip Calculator</div><div class="card-arrow">Open →</div></a>
+      <a href="sheath-weight.html" class="card"><div class="card-icon">⚖️</div><div class="card-title">Sheath Weight</div><div class="card-arrow">Open →</div></a>
+      <a href="conductor-resistance.html" class="card"><div class="card-icon">⚡</div><div class="card-title">Conductor Resistance</div><div class="card-arrow">Open →</div></a>
+      <a href="awg-to-mm.html" class="card"><div class="card-icon">📐</div><div class="card-title">AWG to MM</div><div class="card-arrow">Open →</div></a>
+      <a href="capacitance.html" class="card"><div class="card-icon">🔋</div><div class="card-title">Capacitance</div><div class="card-arrow">Open →</div></a>
+      <a href="braiding-calculator.html" class="card"><div class="card-icon">🌀</div><div class="card-title">Braiding</div><div class="card-arrow">Open →</div></a>
+      <a href="bobbin-capacity.html" class="card"><div class="card-icon">🧵</div><div class="card-title">Bobbin Capacity</div><div class="card-arrow">Open →</div></a>
+      <a href="foam-by-water.html" class="card"><div class="card-icon">💧</div><div class="card-title">Foam % by Water</div><div class="card-arrow">Open →</div></a>
+      <a href="foam-percentage.html" class="card"><div class="card-icon">📊</div><div class="card-title">Foam Percentage</div><div class="card-arrow">Open →</div></a>
+      <a href="multicore-cable.html" class="card"><div class="card-icon">🔌</div><div class="card-title">MultiCore OD</div><div class="card-arrow">Open →</div></a>
+      <a href="efficiency.html" class="card"><div class="card-icon">📈</div><div class="card-title">Efficiency (OEE)</div><div class="card-arrow">Open →</div></a>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <div class="footer-logo">CABLE SCRIPT</div>
+    <p class="footer-tagline">The technical reference for cable engineers and manufacturing professionals.</p>
+  </div>
+  <div>
+    <h4>Cable Types</h4>
+    <a href="ethernet-cables.html">Ethernet Cables</a>
+    <a href="coaxial-cables.html">Coaxial Cables</a>
+    <a href="fiber-optic-cables.html">Fiber Optic</a>
+    <a href="electrical-cables.html">Electrical Cables</a>
+    <a href="automotive-cables.html">Automotive Cables</a>
+  </div>
+  <div>
+    <h4>Machines</h4>
+    <a href="wire-drawing.html">Wire Drawing</a>
+    <a href="buncher.html">Buncher</a>
+    <a href="extruder.html">Extruder</a>
+    <a href="braiding.html">Braiding</a>
+    <a href="laying-up.html">Laying Up</a>
+    <a href="armoring.html">Armoring</a>
+    <a href="jacketing.html">Jacketing</a>
+  </div>
+  <div>
+    <h4>Contact</h4>
+    <span style="color:#fff;font-weight:700;font-size:0.9rem;display:block;margin-bottom:8px;">Somshekhar Heechage</span>
+    <a href="tel:+918668672809">📞 +91 86686 72809</a>
+    <a href="mailto:cablescript@email.com">✉ cablescript@email.com</a>
+    <a href="die-tip-calculator.html" style="margin-top:12px;">Calculators</a>
+    <a href="conductors.html">Tutorials</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 Cable Script. All rights reserved.</span>
+  <span style="text-align:right;">
+    <strong style="color:#e0e2ea;">Somshekhar Heechage</strong> &nbsp;|&nbsp;
+    <a href="tel:+918668672809" style="color:#f0a500;">+91 86686 72809</a>
+  </span>
+</div>
+
+<script>
+// ── TAB SWITCHER ──
+function switchTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ── MULTICORE CABLE OD ──
+function calcMC() {
+  var od   = +document.getElementById('mc-od').value;
+  var K    = +document.getElementById('mc-n').value;
+  var fill = +document.getElementById('mc-fill').value || 0;
+  var bnd  = +document.getElementById('mc-bnd').value  || 0;
+
+  if (!od || od <= 0) {
+    document.getElementById('mc-err').style.display = 'block';
+    document.getElementById('mc-res').classList.remove('show');
+    return;
+  }
+  document.getElementById('mc-err').style.display = 'none';
+
+  var aod = od * K + fill * 2;
+  var bod = aod + bnd * 2;
+
+  document.getElementById('mc-aod').textContent  = aod.toFixed(2);
+  document.getElementById('mc-bod').textContent  = bod.toFixed(2);
+  document.getElementById('mc-kval').textContent = K.toFixed(3);
+  document.getElementById('mc-res').classList.add('show');
+}
+
+// ── CONDUCTOR RESISTANCE ──
+function calcCR() {
+  var A   = +document.getElementById('cr-a').value;
+  var sel = document.getElementById('cr-mat');
+  var rho = +sel.value;
+  var alpha = +sel.options[sel.selectedIndex].dataset.alpha;
+  var T   = +document.getElementById('cr-t').value;
+  var L   = +document.getElementById('cr-l').value;
+
+  if (!A || A <= 0 || !L || L <= 0) {
+    document.getElementById('cr-err').style.display = 'block';
+    document.getElementById('cr-res').classList.remove('show');
+    return;
+  }
+  document.getElementById('cr-err').style.display = 'none';
+
+  var R20  = rho / A * 1000;
+  var RT   = R20 * (1 + alpha * (T - 20));
+  var tot  = RT * L / 1000;
+
+  document.getElementById('cr-r20').textContent = R20.toFixed(4);
+  document.getElementById('cr-rt').textContent  = RT.toFixed(4);
+  document.getElementById('cr-tot').textContent = tot.toFixed(4);
+
+  // Badge
+  var badge = document.getElementById('cr-badge');
+  var diff = ((RT - R20) / R20 * 100).toFixed(1);
+  var sign = diff >= 0 ? '+' : '';
+  if (T === 20) {
+    badge.innerHTML = '<span class="status-badge badge-good">At reference 20°C</span>';
+  } else {
+    var cls = Math.abs(diff) < 20 ? 'badge-good' : (Math.abs(diff) < 50 ? 'badge-warn' : 'badge-bad');
+    badge.innerHTML = '<span class="status-badge ' + cls + '">' + sign + diff + '% vs 20°C</span>';
+  }
+
+  document.getElementById('cr-res').classList.add('show');
+}
+
+// ── BRAIDING CALCULATOR ──
+function calcBR() {
+  var D   = +document.getElementById('br-od').value;
+  var n   = +document.getElementById('br-n').value;
+  var d   = +document.getElementById('br-d').value;
+  var ang = +document.getElementById('br-ang').value;
+
+  if (!D || !n || !d || !ang || D <= 0 || n <= 0 || d <= 0 || ang <= 0 || ang >= 90) {
+    document.getElementById('br-err').style.display = 'block';
+    document.getElementById('br-res').classList.remove('show');
+    return;
+  }
+  document.getElementById('br-err').style.display = 'none';
+
+  var angRad = ang * Math.PI / 180;
+  var term   = n * d / (Math.PI * D * Math.sin(angRad));
+  var cs     = Math.min((1 - Math.pow(1 - term, 2)) * 100, 100);
+  var pitch  = Math.PI * D / Math.tan(angRad);
+  var bod    = D + 2 * d;
+  var tot    = n * 2;
+
+  document.getElementById('br-cov').textContent = cs.toFixed(1);
+  document.getElementById('br-bod').textContent = bod.toFixed(2);
+  document.getElementById('br-pit').textContent = pitch.toFixed(1);
+  document.getElementById('br-tot').textContent = tot;
+
+  // Progress bar
+  document.getElementById('br-bar').style.width = cs.toFixed(1) + '%';
+
+  // Badge
+  var badge = document.getElementById('br-badge');
+  if (cs >= 90) {
+    badge.innerHTML = '<span class="status-badge badge-good">Excellent coverage ≥ 90%</span>';
+  } else if (cs >= 70) {
+    badge.innerHTML = '<span class="status-badge badge-warn">Standard coverage 70–90%</span>';
+  } else {
+    badge.innerHTML = '<span class="status-badge badge-bad">Low coverage &lt; 70%</span>';
+  }
+
+  document.getElementById('br-res').classList.add('show');
+}
+
+// Allow Enter key to trigger calculate
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    var active = document.querySelector('.panel.active').id;
+    if (active === 'panel-mc') calcMC();
+    else if (active === 'panel-cr') calcCR();
+    else if (active === 'panel-br') calcBR();
+  }
+});
+</script>
+</body>
+</html>
